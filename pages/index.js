@@ -1,11 +1,10 @@
 import React from "react"
 import Head from "next/head"
-import { HOME } from "../utils/constants"
-import getView from "../views"
-import { useRoute } from "../utils/routeContext"
+import getView from "../views/getView"
+import { useRouteState } from "../utils/routeContext"
 
 const Index = () => {
-  const [route] = useRoute()
+  const { currentView } = useRouteState()
 
   return (
     <>
@@ -16,7 +15,7 @@ const Index = () => {
 
       <main>
         <h1>Welcome to Snapeat</h1>
-        {getView(route)}
+        {getView(currentView)}
       </main>
     </>
   )

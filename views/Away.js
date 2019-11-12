@@ -1,12 +1,13 @@
 import React from "react"
-import { useRoute } from "../utils/routeContext"
-import { HOME } from "../utils/constants"
+import { useRouteDispatch } from "../utils/routeContext"
+import { GO_BACK } from "../utils/constants"
 
 const Away = () => {
-  const [_route, setRoute] = useRoute()
+  const routeDispatch = useRouteDispatch()
   return (
     <div>
-      Away <button onClick={() => setRoute(HOME)}>Back home</button>
+      <h2>Away</h2>
+      <button onClick={() => routeDispatch({ type: GO_BACK })}>Go back!</button>
     </div>
   )
 }

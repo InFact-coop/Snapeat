@@ -2,9 +2,7 @@ import { HOME, AWAY } from "../utils/constants"
 import Home from "./Home"
 import Away from "./Away"
 
-const routes = {
+export default {
   [HOME]: Home,
   [AWAY]: Away,
 }
-
-export default routeName => routes[routeName]()
