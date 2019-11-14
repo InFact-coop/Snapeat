@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="94px" height="94px" viewBox="0 0 94 94" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>btn_round-ok</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="33" cy="33" r="33"></circle>
+        <filter x="-37.9%" y="-25.8%" width="175.8%" height="175.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="8" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.0901960784   0 0 0 0 0.0392156863   0 0 0 0 0.349019608  0 0 0 0.235167177 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="btn_round-ok" transform="translate(-18.000000, -26.000000)">
+            <g transform="translate(32.000000, 32.000000)">
+                <g id="Oval">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#170A59" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="like" transform="translate(14.000000, 12.000000)" stroke="#FDFDFD" stroke-width="2">
+                    <path d="M7.11111111,20.4444444 L14.2222222,0 C14.2222222,0 18.6666667,0 18.6666667,5.33333333 L18.6666667,15.1111111 L34.6666667,15.1111111 C36.0527656,15.103603 37.3154921,15.9064596 37.8967329,17.1648259 C38.4779737,18.4231922 38.2705817,19.9050983 37.3662222,20.9555556 C38.5570358,21.653716 39.2319215,22.981691 39.0939246,24.3551617 C38.9559277,25.7286324 38.0303468,26.8958036 36.7244444,27.3431111 C37.3647637,28.2886696 37.5098163,29.48498 37.1140273,30.5561666 C36.7182384,31.6273532 35.8301846,32.4419448 34.7288889,32.744 C35.5181419,33.4949864 35.769977,34.6511752 35.3645551,35.6623795 C34.9591333,36.6735837 33.9783364,37.3355738 32.8888889,37.3333333 L18.6666667,37.3333333 C14.6529512,37.4196115 10.681138,36.5030393 7.11111111,34.6666667" id="Path"></path>
+                    <rect id="Rectangle" stroke-linecap="square" x="0" y="16.8888889" width="7.11111111" height="19.5555556" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
