@@ -2,7 +2,27 @@
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-export const typeDefs = /* GraphQL */ `type AggregateUser {
+export const typeDefs = /* GraphQL */ `type AggregateCategory {
+  count: Int!
+}
+
+type AggregateChild {
+  count: Int!
+}
+
+type AggregateMeal {
+  count: Int!
+}
+
+type AggregateProject {
+  count: Int!
+}
+
+type AggregateProportion {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -10,105 +30,60 @@ type BatchPayload {
   count: Long!
 }
 
-scalar Long
-
-type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-interface Node {
-  id: ID!
-}
-
-type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
-  endCursor: String
-}
-
-type Query {
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  node(id: ID!): Node
-}
-
-type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type User {
+type Category {
   id: ID!
   name: String!
+  meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
-type UserConnection {
+type CategoryConnection {
   pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
+  edges: [CategoryEdge]!
+  aggregate: AggregateCategory!
 }
 
-input UserCreateInput {
+input CategoryCreateInput {
+  id: ID
+  name: String!
+  meals: MealCreateManyWithoutCategoriesInput
+}
+
+input CategoryCreateManyWithoutMealsInput {
+  create: [CategoryCreateWithoutMealsInput!]
+  connect: [CategoryWhereUniqueInput!]
+}
+
+input CategoryCreateWithoutMealsInput {
   id: ID
   name: String!
 }
 
-type UserEdge {
-  node: User!
+type CategoryEdge {
+  node: Category!
   cursor: String!
 }
 
-enum UserOrderByInput {
+enum CategoryOrderByInput {
   id_ASC
   id_DESC
   name_ASC
   name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
-type UserPreviousValues {
+type CategoryPreviousValues {
   id: ID!
   name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
-type UserSubscriptionPayload {
-  mutation: MutationType!
-  node: User
-  updatedFields: [String!]
-  previousValues: UserPreviousValues
-}
-
-input UserSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
-  OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
-}
-
-input UserUpdateInput {
-  name: String
-}
-
-input UserUpdateManyMutationInput {
-  name: String
-}
-
-input UserWhereInput {
+input CategoryScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -137,6 +112,1505 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [CategoryScalarWhereInput!]
+  OR: [CategoryScalarWhereInput!]
+  NOT: [CategoryScalarWhereInput!]
+}
+
+type CategorySubscriptionPayload {
+  mutation: MutationType!
+  node: Category
+  updatedFields: [String!]
+  previousValues: CategoryPreviousValues
+}
+
+input CategorySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CategoryWhereInput
+  AND: [CategorySubscriptionWhereInput!]
+  OR: [CategorySubscriptionWhereInput!]
+  NOT: [CategorySubscriptionWhereInput!]
+}
+
+input CategoryUpdateInput {
+  name: String
+  meals: MealUpdateManyWithoutCategoriesInput
+}
+
+input CategoryUpdateManyDataInput {
+  name: String
+}
+
+input CategoryUpdateManyMutationInput {
+  name: String
+}
+
+input CategoryUpdateManyWithoutMealsInput {
+  create: [CategoryCreateWithoutMealsInput!]
+  delete: [CategoryWhereUniqueInput!]
+  connect: [CategoryWhereUniqueInput!]
+  set: [CategoryWhereUniqueInput!]
+  disconnect: [CategoryWhereUniqueInput!]
+  update: [CategoryUpdateWithWhereUniqueWithoutMealsInput!]
+  upsert: [CategoryUpsertWithWhereUniqueWithoutMealsInput!]
+  deleteMany: [CategoryScalarWhereInput!]
+  updateMany: [CategoryUpdateManyWithWhereNestedInput!]
+}
+
+input CategoryUpdateManyWithWhereNestedInput {
+  where: CategoryScalarWhereInput!
+  data: CategoryUpdateManyDataInput!
+}
+
+input CategoryUpdateWithoutMealsDataInput {
+  name: String
+}
+
+input CategoryUpdateWithWhereUniqueWithoutMealsInput {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateWithoutMealsDataInput!
+}
+
+input CategoryUpsertWithWhereUniqueWithoutMealsInput {
+  where: CategoryWhereUniqueInput!
+  update: CategoryUpdateWithoutMealsDataInput!
+  create: CategoryCreateWithoutMealsInput!
+}
+
+input CategoryWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  meals_every: MealWhereInput
+  meals_some: MealWhereInput
+  meals_none: MealWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+}
+
+input CategoryWhereUniqueInput {
+  id: ID
+}
+
+type Child {
+  id: ID!
+  Parent: User!
+  age: Int!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ChildConnection {
+  pageInfo: PageInfo!
+  edges: [ChildEdge]!
+  aggregate: AggregateChild!
+}
+
+input ChildCreateInput {
+  id: ID
+  Parent: UserCreateOneWithoutChildrenInput!
+  age: Int!
+}
+
+input ChildCreateManyWithoutParentInput {
+  create: [ChildCreateWithoutParentInput!]
+  connect: [ChildWhereUniqueInput!]
+}
+
+input ChildCreateWithoutParentInput {
+  id: ID
+  age: Int!
+}
+
+type ChildEdge {
+  node: Child!
+  cursor: String!
+}
+
+enum ChildOrderByInput {
+  id_ASC
+  id_DESC
+  age_ASC
+  age_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ChildPreviousValues {
+  id: ID!
+  age: Int!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input ChildScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  age: Int
+  age_not: Int
+  age_in: [Int!]
+  age_not_in: [Int!]
+  age_lt: Int
+  age_lte: Int
+  age_gt: Int
+  age_gte: Int
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ChildScalarWhereInput!]
+  OR: [ChildScalarWhereInput!]
+  NOT: [ChildScalarWhereInput!]
+}
+
+type ChildSubscriptionPayload {
+  mutation: MutationType!
+  node: Child
+  updatedFields: [String!]
+  previousValues: ChildPreviousValues
+}
+
+input ChildSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ChildWhereInput
+  AND: [ChildSubscriptionWhereInput!]
+  OR: [ChildSubscriptionWhereInput!]
+  NOT: [ChildSubscriptionWhereInput!]
+}
+
+input ChildUpdateInput {
+  Parent: UserUpdateOneRequiredWithoutChildrenInput
+  age: Int
+}
+
+input ChildUpdateManyDataInput {
+  age: Int
+}
+
+input ChildUpdateManyMutationInput {
+  age: Int
+}
+
+input ChildUpdateManyWithoutParentInput {
+  create: [ChildCreateWithoutParentInput!]
+  delete: [ChildWhereUniqueInput!]
+  connect: [ChildWhereUniqueInput!]
+  set: [ChildWhereUniqueInput!]
+  disconnect: [ChildWhereUniqueInput!]
+  update: [ChildUpdateWithWhereUniqueWithoutParentInput!]
+  upsert: [ChildUpsertWithWhereUniqueWithoutParentInput!]
+  deleteMany: [ChildScalarWhereInput!]
+  updateMany: [ChildUpdateManyWithWhereNestedInput!]
+}
+
+input ChildUpdateManyWithWhereNestedInput {
+  where: ChildScalarWhereInput!
+  data: ChildUpdateManyDataInput!
+}
+
+input ChildUpdateWithoutParentDataInput {
+  age: Int
+}
+
+input ChildUpdateWithWhereUniqueWithoutParentInput {
+  where: ChildWhereUniqueInput!
+  data: ChildUpdateWithoutParentDataInput!
+}
+
+input ChildUpsertWithWhereUniqueWithoutParentInput {
+  where: ChildWhereUniqueInput!
+  update: ChildUpdateWithoutParentDataInput!
+  create: ChildCreateWithoutParentInput!
+}
+
+input ChildWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  Parent: UserWhereInput
+  age: Int
+  age_not: Int
+  age_in: [Int!]
+  age_not_in: [Int!]
+  age_lt: Int
+  age_lte: Int
+  age_gt: Int
+  age_gte: Int
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ChildWhereInput!]
+  OR: [ChildWhereInput!]
+  NOT: [ChildWhereInput!]
+}
+
+input ChildWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+scalar Long
+
+type Meal {
+  id: ID!
+  imageURL: String!
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  proportionFruit: Proportion
+  proportionVeg: Proportion
+}
+
+type MealConnection {
+  pageInfo: PageInfo!
+  edges: [MealEdge]!
+  aggregate: AggregateMeal!
+}
+
+input MealCreateInput {
+  id: ID
+  imageURL: String!
+  categories: CategoryCreateManyWithoutMealsInput
+  proportionFruit: ProportionCreateOneWithoutFruitMealsInput
+  proportionVeg: ProportionCreateOneWithoutVegMealsInput
+}
+
+input MealCreateManyWithoutCategoriesInput {
+  create: [MealCreateWithoutCategoriesInput!]
+  connect: [MealWhereUniqueInput!]
+}
+
+input MealCreateManyWithoutProportionFruitInput {
+  create: [MealCreateWithoutProportionFruitInput!]
+  connect: [MealWhereUniqueInput!]
+}
+
+input MealCreateManyWithoutProportionVegInput {
+  create: [MealCreateWithoutProportionVegInput!]
+  connect: [MealWhereUniqueInput!]
+}
+
+input MealCreateWithoutCategoriesInput {
+  id: ID
+  imageURL: String!
+  proportionFruit: ProportionCreateOneWithoutFruitMealsInput
+  proportionVeg: ProportionCreateOneWithoutVegMealsInput
+}
+
+input MealCreateWithoutProportionFruitInput {
+  id: ID
+  imageURL: String!
+  categories: CategoryCreateManyWithoutMealsInput
+  proportionVeg: ProportionCreateOneWithoutVegMealsInput
+}
+
+input MealCreateWithoutProportionVegInput {
+  id: ID
+  imageURL: String!
+  categories: CategoryCreateManyWithoutMealsInput
+  proportionFruit: ProportionCreateOneWithoutFruitMealsInput
+}
+
+type MealEdge {
+  node: Meal!
+  cursor: String!
+}
+
+enum MealOrderByInput {
+  id_ASC
+  id_DESC
+  imageURL_ASC
+  imageURL_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MealPreviousValues {
+  id: ID!
+  imageURL: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input MealScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  imageURL: String
+  imageURL_not: String
+  imageURL_in: [String!]
+  imageURL_not_in: [String!]
+  imageURL_lt: String
+  imageURL_lte: String
+  imageURL_gt: String
+  imageURL_gte: String
+  imageURL_contains: String
+  imageURL_not_contains: String
+  imageURL_starts_with: String
+  imageURL_not_starts_with: String
+  imageURL_ends_with: String
+  imageURL_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [MealScalarWhereInput!]
+  OR: [MealScalarWhereInput!]
+  NOT: [MealScalarWhereInput!]
+}
+
+type MealSubscriptionPayload {
+  mutation: MutationType!
+  node: Meal
+  updatedFields: [String!]
+  previousValues: MealPreviousValues
+}
+
+input MealSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: MealWhereInput
+  AND: [MealSubscriptionWhereInput!]
+  OR: [MealSubscriptionWhereInput!]
+  NOT: [MealSubscriptionWhereInput!]
+}
+
+input MealUpdateInput {
+  imageURL: String
+  categories: CategoryUpdateManyWithoutMealsInput
+  proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
+  proportionVeg: ProportionUpdateOneWithoutVegMealsInput
+}
+
+input MealUpdateManyDataInput {
+  imageURL: String
+}
+
+input MealUpdateManyMutationInput {
+  imageURL: String
+}
+
+input MealUpdateManyWithoutCategoriesInput {
+  create: [MealCreateWithoutCategoriesInput!]
+  delete: [MealWhereUniqueInput!]
+  connect: [MealWhereUniqueInput!]
+  set: [MealWhereUniqueInput!]
+  disconnect: [MealWhereUniqueInput!]
+  update: [MealUpdateWithWhereUniqueWithoutCategoriesInput!]
+  upsert: [MealUpsertWithWhereUniqueWithoutCategoriesInput!]
+  deleteMany: [MealScalarWhereInput!]
+  updateMany: [MealUpdateManyWithWhereNestedInput!]
+}
+
+input MealUpdateManyWithoutProportionFruitInput {
+  create: [MealCreateWithoutProportionFruitInput!]
+  delete: [MealWhereUniqueInput!]
+  connect: [MealWhereUniqueInput!]
+  set: [MealWhereUniqueInput!]
+  disconnect: [MealWhereUniqueInput!]
+  update: [MealUpdateWithWhereUniqueWithoutProportionFruitInput!]
+  upsert: [MealUpsertWithWhereUniqueWithoutProportionFruitInput!]
+  deleteMany: [MealScalarWhereInput!]
+  updateMany: [MealUpdateManyWithWhereNestedInput!]
+}
+
+input MealUpdateManyWithoutProportionVegInput {
+  create: [MealCreateWithoutProportionVegInput!]
+  delete: [MealWhereUniqueInput!]
+  connect: [MealWhereUniqueInput!]
+  set: [MealWhereUniqueInput!]
+  disconnect: [MealWhereUniqueInput!]
+  update: [MealUpdateWithWhereUniqueWithoutProportionVegInput!]
+  upsert: [MealUpsertWithWhereUniqueWithoutProportionVegInput!]
+  deleteMany: [MealScalarWhereInput!]
+  updateMany: [MealUpdateManyWithWhereNestedInput!]
+}
+
+input MealUpdateManyWithWhereNestedInput {
+  where: MealScalarWhereInput!
+  data: MealUpdateManyDataInput!
+}
+
+input MealUpdateWithoutCategoriesDataInput {
+  imageURL: String
+  proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
+  proportionVeg: ProportionUpdateOneWithoutVegMealsInput
+}
+
+input MealUpdateWithoutProportionFruitDataInput {
+  imageURL: String
+  categories: CategoryUpdateManyWithoutMealsInput
+  proportionVeg: ProportionUpdateOneWithoutVegMealsInput
+}
+
+input MealUpdateWithoutProportionVegDataInput {
+  imageURL: String
+  categories: CategoryUpdateManyWithoutMealsInput
+  proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
+}
+
+input MealUpdateWithWhereUniqueWithoutCategoriesInput {
+  where: MealWhereUniqueInput!
+  data: MealUpdateWithoutCategoriesDataInput!
+}
+
+input MealUpdateWithWhereUniqueWithoutProportionFruitInput {
+  where: MealWhereUniqueInput!
+  data: MealUpdateWithoutProportionFruitDataInput!
+}
+
+input MealUpdateWithWhereUniqueWithoutProportionVegInput {
+  where: MealWhereUniqueInput!
+  data: MealUpdateWithoutProportionVegDataInput!
+}
+
+input MealUpsertWithWhereUniqueWithoutCategoriesInput {
+  where: MealWhereUniqueInput!
+  update: MealUpdateWithoutCategoriesDataInput!
+  create: MealCreateWithoutCategoriesInput!
+}
+
+input MealUpsertWithWhereUniqueWithoutProportionFruitInput {
+  where: MealWhereUniqueInput!
+  update: MealUpdateWithoutProportionFruitDataInput!
+  create: MealCreateWithoutProportionFruitInput!
+}
+
+input MealUpsertWithWhereUniqueWithoutProportionVegInput {
+  where: MealWhereUniqueInput!
+  update: MealUpdateWithoutProportionVegDataInput!
+  create: MealCreateWithoutProportionVegInput!
+}
+
+input MealWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  imageURL: String
+  imageURL_not: String
+  imageURL_in: [String!]
+  imageURL_not_in: [String!]
+  imageURL_lt: String
+  imageURL_lte: String
+  imageURL_gt: String
+  imageURL_gte: String
+  imageURL_contains: String
+  imageURL_not_contains: String
+  imageURL_starts_with: String
+  imageURL_not_starts_with: String
+  imageURL_ends_with: String
+  imageURL_not_ends_with: String
+  categories_every: CategoryWhereInput
+  categories_some: CategoryWhereInput
+  categories_none: CategoryWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  proportionFruit: ProportionWhereInput
+  proportionVeg: ProportionWhereInput
+  AND: [MealWhereInput!]
+  OR: [MealWhereInput!]
+  NOT: [MealWhereInput!]
+}
+
+input MealWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createCategory(data: CategoryCreateInput!): Category!
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
+  createChild(data: ChildCreateInput!): Child!
+  updateChild(data: ChildUpdateInput!, where: ChildWhereUniqueInput!): Child
+  updateManyChildren(data: ChildUpdateManyMutationInput!, where: ChildWhereInput): BatchPayload!
+  upsertChild(where: ChildWhereUniqueInput!, create: ChildCreateInput!, update: ChildUpdateInput!): Child!
+  deleteChild(where: ChildWhereUniqueInput!): Child
+  deleteManyChildren(where: ChildWhereInput): BatchPayload!
+  createMeal(data: MealCreateInput!): Meal!
+  updateMeal(data: MealUpdateInput!, where: MealWhereUniqueInput!): Meal
+  updateManyMeals(data: MealUpdateManyMutationInput!, where: MealWhereInput): BatchPayload!
+  upsertMeal(where: MealWhereUniqueInput!, create: MealCreateInput!, update: MealUpdateInput!): Meal!
+  deleteMeal(where: MealWhereUniqueInput!): Meal
+  deleteManyMeals(where: MealWhereInput): BatchPayload!
+  createProject(data: ProjectCreateInput!): Project!
+  updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
+  updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
+  upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
+  deleteProject(where: ProjectWhereUniqueInput!): Project
+  deleteManyProjects(where: ProjectWhereInput): BatchPayload!
+  createProportion(data: ProportionCreateInput!): Proportion!
+  updateProportion(data: ProportionUpdateInput!, where: ProportionWhereUniqueInput!): Proportion
+  updateManyProportions(data: ProportionUpdateManyMutationInput!, where: ProportionWhereInput): BatchPayload!
+  upsertProportion(where: ProportionWhereUniqueInput!, create: ProportionCreateInput!, update: ProportionUpdateInput!): Proportion!
+  deleteProportion(where: ProportionWhereUniqueInput!): Proportion
+  deleteManyProportions(where: ProportionWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Project {
+  id: ID!
+  name: String!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProjectConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectEdge]!
+  aggregate: AggregateProject!
+}
+
+input ProjectCreateInput {
+  id: ID
+  name: String!
+  users: UserCreateManyWithoutProjectsInput
+}
+
+input ProjectCreateManyWithoutUsersInput {
+  create: [ProjectCreateWithoutUsersInput!]
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateWithoutUsersInput {
+  id: ID
+  name: String!
+}
+
+type ProjectEdge {
+  node: Project!
+  cursor: String!
+}
+
+enum ProjectOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ProjectPreviousValues {
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input ProjectScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ProjectScalarWhereInput!]
+  OR: [ProjectScalarWhereInput!]
+  NOT: [ProjectScalarWhereInput!]
+}
+
+type ProjectSubscriptionPayload {
+  mutation: MutationType!
+  node: Project
+  updatedFields: [String!]
+  previousValues: ProjectPreviousValues
+}
+
+input ProjectSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProjectWhereInput
+  AND: [ProjectSubscriptionWhereInput!]
+  OR: [ProjectSubscriptionWhereInput!]
+  NOT: [ProjectSubscriptionWhereInput!]
+}
+
+input ProjectUpdateInput {
+  name: String
+  users: UserUpdateManyWithoutProjectsInput
+}
+
+input ProjectUpdateManyDataInput {
+  name: String
+}
+
+input ProjectUpdateManyMutationInput {
+  name: String
+}
+
+input ProjectUpdateManyWithoutUsersInput {
+  create: [ProjectCreateWithoutUsersInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutUsersInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutUsersInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectUpdateManyWithWhereNestedInput {
+  where: ProjectScalarWhereInput!
+  data: ProjectUpdateManyDataInput!
+}
+
+input ProjectUpdateWithoutUsersDataInput {
+  name: String
+}
+
+input ProjectUpdateWithWhereUniqueWithoutUsersInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutUsersDataInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutUsersInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutUsersDataInput!
+  create: ProjectCreateWithoutUsersInput!
+}
+
+input ProjectWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  users_every: UserWhereInput
+  users_some: UserWhereInput
+  users_none: UserWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  NOT: [ProjectWhereInput!]
+}
+
+input ProjectWhereUniqueInput {
+  id: ID
+}
+
+type Proportion {
+  id: ID!
+  name: String!
+  fraction: Float!
+  fruitMeals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
+  vegMeals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProportionConnection {
+  pageInfo: PageInfo!
+  edges: [ProportionEdge]!
+  aggregate: AggregateProportion!
+}
+
+input ProportionCreateInput {
+  id: ID
+  name: String!
+  fraction: Float!
+  fruitMeals: MealCreateManyWithoutProportionFruitInput
+  vegMeals: MealCreateManyWithoutProportionVegInput
+}
+
+input ProportionCreateOneWithoutFruitMealsInput {
+  create: ProportionCreateWithoutFruitMealsInput
+  connect: ProportionWhereUniqueInput
+}
+
+input ProportionCreateOneWithoutVegMealsInput {
+  create: ProportionCreateWithoutVegMealsInput
+  connect: ProportionWhereUniqueInput
+}
+
+input ProportionCreateWithoutFruitMealsInput {
+  id: ID
+  name: String!
+  fraction: Float!
+  vegMeals: MealCreateManyWithoutProportionVegInput
+}
+
+input ProportionCreateWithoutVegMealsInput {
+  id: ID
+  name: String!
+  fraction: Float!
+  fruitMeals: MealCreateManyWithoutProportionFruitInput
+}
+
+type ProportionEdge {
+  node: Proportion!
+  cursor: String!
+}
+
+enum ProportionOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  fraction_ASC
+  fraction_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ProportionPreviousValues {
+  id: ID!
+  name: String!
+  fraction: Float!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProportionSubscriptionPayload {
+  mutation: MutationType!
+  node: Proportion
+  updatedFields: [String!]
+  previousValues: ProportionPreviousValues
+}
+
+input ProportionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProportionWhereInput
+  AND: [ProportionSubscriptionWhereInput!]
+  OR: [ProportionSubscriptionWhereInput!]
+  NOT: [ProportionSubscriptionWhereInput!]
+}
+
+input ProportionUpdateInput {
+  name: String
+  fraction: Float
+  fruitMeals: MealUpdateManyWithoutProportionFruitInput
+  vegMeals: MealUpdateManyWithoutProportionVegInput
+}
+
+input ProportionUpdateManyMutationInput {
+  name: String
+  fraction: Float
+}
+
+input ProportionUpdateOneWithoutFruitMealsInput {
+  create: ProportionCreateWithoutFruitMealsInput
+  update: ProportionUpdateWithoutFruitMealsDataInput
+  upsert: ProportionUpsertWithoutFruitMealsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ProportionWhereUniqueInput
+}
+
+input ProportionUpdateOneWithoutVegMealsInput {
+  create: ProportionCreateWithoutVegMealsInput
+  update: ProportionUpdateWithoutVegMealsDataInput
+  upsert: ProportionUpsertWithoutVegMealsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ProportionWhereUniqueInput
+}
+
+input ProportionUpdateWithoutFruitMealsDataInput {
+  name: String
+  fraction: Float
+  vegMeals: MealUpdateManyWithoutProportionVegInput
+}
+
+input ProportionUpdateWithoutVegMealsDataInput {
+  name: String
+  fraction: Float
+  fruitMeals: MealUpdateManyWithoutProportionFruitInput
+}
+
+input ProportionUpsertWithoutFruitMealsInput {
+  update: ProportionUpdateWithoutFruitMealsDataInput!
+  create: ProportionCreateWithoutFruitMealsInput!
+}
+
+input ProportionUpsertWithoutVegMealsInput {
+  update: ProportionUpdateWithoutVegMealsDataInput!
+  create: ProportionCreateWithoutVegMealsInput!
+}
+
+input ProportionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  fraction: Float
+  fraction_not: Float
+  fraction_in: [Float!]
+  fraction_not_in: [Float!]
+  fraction_lt: Float
+  fraction_lte: Float
+  fraction_gt: Float
+  fraction_gte: Float
+  fruitMeals_every: MealWhereInput
+  fruitMeals_some: MealWhereInput
+  fruitMeals_none: MealWhereInput
+  vegMeals_every: MealWhereInput
+  vegMeals_some: MealWhereInput
+  vegMeals_none: MealWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ProportionWhereInput!]
+  OR: [ProportionWhereInput!]
+  NOT: [ProportionWhereInput!]
+}
+
+input ProportionWhereUniqueInput {
+  id: ID
+}
+
+type Query {
+  category(where: CategoryWhereUniqueInput!): Category
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
+  categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
+  child(where: ChildWhereUniqueInput!): Child
+  children(where: ChildWhereInput, orderBy: ChildOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Child]!
+  childrenConnection(where: ChildWhereInput, orderBy: ChildOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChildConnection!
+  meal(where: MealWhereUniqueInput!): Meal
+  meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal]!
+  mealsConnection(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MealConnection!
+  project(where: ProjectWhereUniqueInput!): Project
+  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
+  projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
+  proportion(where: ProportionWhereUniqueInput!): Proportion
+  proportions(where: ProportionWhereInput, orderBy: ProportionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Proportion]!
+  proportionsConnection(where: ProportionWhereInput, orderBy: ProportionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProportionConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  node(id: ID!): Node
+}
+
+type Subscription {
+  category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
+  child(where: ChildSubscriptionWhereInput): ChildSubscriptionPayload
+  meal(where: MealSubscriptionWhereInput): MealSubscriptionPayload
+  project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
+  proportion(where: ProportionSubscriptionWhereInput): ProportionSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  consentGDPR: Boolean!
+  postCode: String!
+  email: String!
+  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  children(where: ChildWhereInput, orderBy: ChildOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Child!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  id: ID
+  consentGDPR: Boolean!
+  postCode: String!
+  email: String!
+  projects: ProjectCreateManyWithoutUsersInput
+  children: ChildCreateManyWithoutParentInput
+}
+
+input UserCreateManyWithoutProjectsInput {
+  create: [UserCreateWithoutProjectsInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutChildrenInput {
+  create: UserCreateWithoutChildrenInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutChildrenInput {
+  id: ID
+  consentGDPR: Boolean!
+  postCode: String!
+  email: String!
+  projects: ProjectCreateManyWithoutUsersInput
+}
+
+input UserCreateWithoutProjectsInput {
+  id: ID
+  consentGDPR: Boolean!
+  postCode: String!
+  email: String!
+  children: ChildCreateManyWithoutParentInput
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  consentGDPR_ASC
+  consentGDPR_DESC
+  postCode_ASC
+  postCode_DESC
+  email_ASC
+  email_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  consentGDPR: Boolean!
+  postCode: String!
+  email: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  consentGDPR: Boolean
+  consentGDPR_not: Boolean
+  postCode: String
+  postCode_not: String
+  postCode_in: [String!]
+  postCode_not_in: [String!]
+  postCode_lt: String
+  postCode_lte: String
+  postCode_gt: String
+  postCode_gte: String
+  postCode_contains: String
+  postCode_not_contains: String
+  postCode_starts_with: String
+  postCode_not_starts_with: String
+  postCode_ends_with: String
+  postCode_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateInput {
+  consentGDPR: Boolean
+  postCode: String
+  email: String
+  projects: ProjectUpdateManyWithoutUsersInput
+  children: ChildUpdateManyWithoutParentInput
+}
+
+input UserUpdateManyDataInput {
+  consentGDPR: Boolean
+  postCode: String
+  email: String
+}
+
+input UserUpdateManyMutationInput {
+  consentGDPR: Boolean
+  postCode: String
+  email: String
+}
+
+input UserUpdateManyWithoutProjectsInput {
+  create: [UserCreateWithoutProjectsInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutProjectsInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutProjectsInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
+input UserUpdateOneRequiredWithoutChildrenInput {
+  create: UserCreateWithoutChildrenInput
+  update: UserUpdateWithoutChildrenDataInput
+  upsert: UserUpsertWithoutChildrenInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutChildrenDataInput {
+  consentGDPR: Boolean
+  postCode: String
+  email: String
+  projects: ProjectUpdateManyWithoutUsersInput
+}
+
+input UserUpdateWithoutProjectsDataInput {
+  consentGDPR: Boolean
+  postCode: String
+  email: String
+  children: ChildUpdateManyWithoutParentInput
+}
+
+input UserUpdateWithWhereUniqueWithoutProjectsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutProjectsDataInput!
+}
+
+input UserUpsertWithoutChildrenInput {
+  update: UserUpdateWithoutChildrenDataInput!
+  create: UserCreateWithoutChildrenInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutProjectsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutProjectsDataInput!
+  create: UserCreateWithoutProjectsInput!
+}
+
+input UserWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  consentGDPR: Boolean
+  consentGDPR_not: Boolean
+  postCode: String
+  postCode_not: String
+  postCode_in: [String!]
+  postCode_not_in: [String!]
+  postCode_lt: String
+  postCode_lte: String
+  postCode_gt: String
+  postCode_gte: String
+  postCode_contains: String
+  postCode_not_contains: String
+  postCode_starts_with: String
+  postCode_not_starts_with: String
+  postCode_ends_with: String
+  postCode_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  projects_every: ProjectWhereInput
+  projects_some: ProjectWhereInput
+  projects_none: ProjectWhereInput
+  children_every: ChildWhereInput
+  children_some: ChildWhereInput
+  children_none: ChildWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -144,5 +1618,6 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }
 `
