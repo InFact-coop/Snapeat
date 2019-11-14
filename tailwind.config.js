@@ -31,6 +31,7 @@ module.exports = {
         "11": "2.75rem", // 44px
         "11d5": "2.875rem", // 46px
         "12": "3.75rem", // 60px
+        "16": "4rem", // 64px
         "17": "4.25rem", // 68px
         "18": "4.5rem", // 72px
         "20": "5rem", // 80px
@@ -40,50 +41,41 @@ module.exports = {
         "43": "10.75rem", // 172px
         "65": "16.25rem", // 260px
       },
-      width: {
-        "49/100": "49%",
-      },
-      borderRadius: {
-        "11": "2.75rem", // 44px
-      },
+      width: {},
+      borderRadius: {},
     },
     fontSize: {
       xs: "0.75rem", // 12px
       sm: "0.875rem", // 14px
       base: "1rem", // 16px
-      lg: "1.25rem", // 20px
-      xl: "1.375rem", // 22px
-      "2xl": "1.5rem", // 24px
-      "3xl": "2.25rem", // 36px
-      subheader: "3rem", // 48px
-      header: "4.5rem", // 72px
+      lg: "1.125rem", // 18px
+      xl: "1.25rem", // 20px
+      xxl: "1.5rem", // 24px
+      subheader: "1.75rem", // 28px
+      header: "3rem", // 48px
     },
     lineHeight: {
       xs: "0.875rem", // 14px
-      sm: "1rem", // 16px
+      sm: "1rem", // 18px
       base: "1.25rem", // 20px
-      lg: "1.5rem", // 24px
-      xl: "1.75rem", // 28px
-      "2xl": "2rem", // 32px
-      "3xl": "3rem", // 48px
-      subheader: "4rem", // 64px
-      header: "5rem", // 80px
+      lg: "1.375rem", // 22px
+      xl: "1.5rem", // 24px
+      xxl: "2rem", // 32px
+      subheader: "2rem", // 32px
+      header: "3.75rem", // 60px
     },
     colors: {
-      orange: "#fc8f14",
-      teal: "#14becb",
-      white: "#fefefe",
-      nearwhite: "#D8D8D8",
-      black: "#32334f",
-      lightgray: "#F0F6FB",
-      midgray: "rgba(50,51,79,0.25)",
-      gray: "#979797",
-      green: "#14da9e",
-      red: "#ff0000",
+      navy: "#170a59",
+      yellow: "#f8dd74",
+      white: "#fdfdfd",
+      black: "#4c4c4c",
+      green: "#88fcc6",
+      red: "#ef3f5f",
+      lightgray: "#f8f8f8",
     },
     fontFamily: {
       sans: [
-        "Ubuntu",
+        "Muli",
         "-apple-system",
         "BlinkMacSystemFont",
         '"Segoe UI"',
