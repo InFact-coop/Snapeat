@@ -4,23 +4,23 @@ services:
     image: prismagraphql/prisma:1.34
     restart: always
     ports:
-      - "5566:5566"
+      - "4466:4466"
     environment:
       PRISMA_CONFIG: |
-        port: 5566
+        port: 4466
         managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET:?err}
         databases:
           default:
             connector: postgres
             host: postgres
-            port: 6543
+            port: 5432
             user: prisma
             password: prisma
   postgres:
     image: postgres:10.3
     restart: always
     ports:
-      - "6543:6543"
+      - "5432:5432"
     environment:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
