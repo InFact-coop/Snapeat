@@ -42,7 +42,10 @@ module.exports = {
         "65": "16.25rem", // 260px
       },
       width: {},
-      borderRadius: {},
+      borderRadius: {
+        card: "37px",
+        button: "35.5px",
+      },
     },
     fontSize: {
       xs: "0.75rem", // 12px
@@ -91,6 +94,7 @@ module.exports = {
       ],
     },
     boxShadow: {
+      card: "0 0 1px 1px rgba(0,0,0,0.02), 0 4px 6px 1px rgba(0,0,0,0.06)",
       button:
         "0 0 2px 1px rgba(0, 0, 0, 0.03), 0 6px 10px 2px rgba(20, 190, 203, 0.3)",
     },
