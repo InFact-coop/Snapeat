@@ -1,7 +1,13 @@
 import React from "react"
 import Head from "next/head"
+import styled from "styled-components"
+
 import getView from "../views/getView"
 import { useRouteState } from "../utils/routeContext"
+
+const Container = styled.section.attrs({
+  className: "bg-lightgray",
+})``
 
 const Index = () => {
   const { currentView } = useRouteState()
@@ -13,10 +19,10 @@ const Index = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <Container>
         <h1>Welcome to Snapeat</h1>
         {getView(currentView)}
-      </main>
+      </Container>
     </>
   )
 }
