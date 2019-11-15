@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="30px" viewBox="0 0 45 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>menu</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="menu" transform="translate(-11.000000, -18.000000)" fill="#170A59" fill-rule="nonzero">
+            <g transform="translate(11.000000, 18.000000)" id="Path">
+                <path d="M43.5,16.5 L1.5,16.5 C0.6705,16.5 0,15.8295 0,15 C0,14.1705 0.6705,13.5 1.5,13.5 L43.5,13.5 C44.3295,13.5 45,14.1705 45,15 C45,15.8295 44.3295,16.5 43.5,16.5 Z"></path>
+                <path d="M43.5,3 L22.5,3 C21.6705,3 21,2.3295 21,1.5 C21,0.6705 21.6705,0 22.5,0 L43.5,0 C44.3295,0 45,0.6705 45,1.5 C45,2.3295 44.3295,3 43.5,3 Z"></path>
+                <path d="M22.5,30 L1.5,30 C0.6705,30 0,29.3295 0,28.5 C0,27.6705 0.6705,27 1.5,27 L22.5,27 C23.3295,27 24,27.6705 24,28.5 C24,29.3295 23.3295,30 22.5,30 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>
