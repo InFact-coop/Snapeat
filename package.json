@@ -8,8 +8,10 @@
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server.js",
     "==lint&format==": "-----------------------------------------------------------------------------------",
-    "format": "prettier --write \"{**/*.css,**/*.js,**/*.html,**/*.json,**/*.md,**/*.yaml,**/*.yml}\"",
     "lint": "eslint ./",
+    "format": "npm run prettier -- --write",
+    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
+    "validate": "npm run lint && npm run prettier -- --list-different",
     "==docker&prisma==": "---------------------------------------------------------------------------------",
     "up": "docker-compose up -d",
     "down": "docker-compose down --remove-orphans",
@@ -28,6 +30,11 @@
     "staging:token": "env-cmd -f ./.config/staging.env npm run token",
     "staging:up": "env-cmd -f ./.config/staging.env npm run up",
     "staging:down": "env-cmd -f ./.config/staging.env npm run down"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run validate"
+    }
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
