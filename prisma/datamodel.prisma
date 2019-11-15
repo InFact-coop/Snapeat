@@ -1,4 +1,66 @@
 type User {
   id: ID! @id
+  consentGDPR: Boolean!
+  postCode: String!
+  email: String! @unique
+  meals: [Meal] @relation(onDelete: CASCADE)
+  projects: [Project!] @relation(onDelete: SET_NULL)
+  children: [Child!] @relation(onDelete: CASCADE) 
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type Child {
+  id: ID! @id
+  Parent: User! @relation(onDelete: SET_NULL)
+  age: Int!
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type Meal {
+  id: ID! @id
+  user: User!
+  imageURL: String!
+  categories: [Category!] @relation(onDelete: SET_NULL)
+  tags: [Tag] @relation(onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  proportionFruit: Proportion @relation(name: "Fruit")
+  proportionVeg: Proportion @relation(name: "Veg")
+}
+
+type Tag {
+  id: ID! @id
+  tag_name: String!
+  meals: [Meal] @relation(onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type Category {
+  id: ID! @id
   name: String!
+  meals: [Meal!] @relation(onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+
+type Project {
+  id: ID! @id
+  name: String!
+  users: [User!] @relation(onDelete: CASCADE)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type Proportion {
+  id: ID! @id
+  name: String!
+  fraction: Float!
+  fruitMeals: [Meal] @relation(name: "Fruit")
+  vegMeals: [Meal] @relation(name: "Veg")
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
