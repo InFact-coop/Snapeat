@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 
 import illustration_1 from "../static/illustrations/illustration_1.png"
@@ -13,6 +13,28 @@ import arrow_right from "../static/icons/arrow_right.svg"
 
 import { useRouteDispatch } from "../utils/routeContext"
 import { CHANGE_VIEW, SIGN_UP } from "../utils/constants"
+
+const Welcome = () => {
+  const routeDispatch = useRouteDispatch()
+
+  const [stageIndex, setStageIndex] = useState(0)
+  const stage = Stages[Object.keys(Stages)[stageIndex]]
+
+  return (
+    <div className="pt-10 pb-4d5 px-4 h-screen">
+      <Card stage={stage} />
+      <div className="flex justify-between pt-3 sm:pt-4">
+        <Dots stage={stage} />
+        <Button
+          stage={stage}
+          stageIndex={stageIndex}
+          setStageIndex={setStageIndex}
+          routeDispatch={routeDispatch}
+        />
+      </div>
+    </div>
+  )
+}
 
 const Stages = {
   Start: {
@@ -39,28 +61,6 @@ const Stages = {
     buttonText: "Let's go!",
     progress: progress_3,
   },
-}
-
-const Welcome = () => {
-  const routeDispatch = useRouteDispatch()
-
-  const [stageIndex, setStageIndex] = useState(0)
-  const stage = Stages[Object.keys(Stages)[stageIndex]]
-
-  return (
-    <div className="pt-10 pb-4d5 px-4 h-screen">
-      <Card stage={stage} />
-      <div className="flex justify-between pt-3 sm:pt-4">
-        <Dots stage={stage} />
-        <Button
-          stage={stage}
-          stageIndex={stageIndex}
-          setStageIndex={setStageIndex}
-          routeDispatch={routeDispatch}
-        />
-      </div>
-    </div>
-  )
 }
 
 const Card = ({ stage }) => (
