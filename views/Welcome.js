@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import illustration1 from '../static/illustrations/illustration_1.png'
-import illustration2 from '../static/illustrations/illustration_2.png'
-import illustration3 from '../static/illustrations/illustration_3.png'
+import illustration1 from '../public/illustrations/illustration_1.png'
+import illustration2 from '../public/illustrations/illustration_2.png'
+import illustration3 from '../public/illustrations/illustration_3.png'
 
-import progress1 from '../static/icons/progress_1.svg'
-import progress2 from '../static/icons/progress_2.svg'
-import progress3 from '../static/icons/progress_3.svg'
+import progress1 from '../public/icons/progress_1.svg'
+import progress2 from '../public/icons/progress_2.svg'
+import progress3 from '../public/icons/progress_3.svg'
 
-import arrowRight from '../static/icons/arrow_right.svg'
+import arrowRight from '../public/icons/arrow_right.svg'
 
 import { useRouteDispatch } from '../utils/routeContext'
 import { CHANGE_VIEW, SIGN_UP } from '../utils/constants'
