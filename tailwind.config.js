@@ -1,5 +1,5 @@
 const screens = {
-  sm: "640px",
+  sm: "360px",
   md: "768px",
   lg: "1024px",
   xl: "1280px",
@@ -42,6 +42,14 @@ module.exports = {
         "65": "16.25rem", // 260px
       },
       width: {},
+      height: {
+        "80": "80vh",
+      },
+      maxHeight: {
+        "1/2": "50%",
+        "3/4": "75%",
+        full: "100%",
+      },
       borderRadius: {
         card: "37px",
         button: "35.5px",
@@ -94,9 +102,11 @@ module.exports = {
       ],
     },
     boxShadow: {
-      card: "0 0 1px 1px rgba(0,0,0,0.02), 0 4px 6px 1px rgba(0,0,0,0.06)",
-      button:
-        "0 0 2px 1px rgba(0, 0, 0, 0.03), 0 6px 10px 2px rgba(20, 190, 203, 0.3)",
+      "1": "0 0 3px 0 rgba(0,0,0,0.05), 0 1px 1px 0 rgba(0,0,0,0.05)",
+      "2": "0 0 1px 1px rgba(0,0,0,0.02), 0 4px 6px 1px rgba(0,0,0,0.06)",
+      "3": "0 0 2px 1px rgba(0,0,0,0.03), 0 6px 10px 2px rgba(0,0,0,0.08)",
+      "4": "0 0 8px 2px rgba(0,0,0,0.03), 0 16px 24px 0 rgba(0,0,0,0.10)",
+      button: "0 8px 12px 2px rgba(23,10,89,0.24)",
     },
   },
 }
