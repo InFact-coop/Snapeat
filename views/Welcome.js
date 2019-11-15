@@ -3,6 +3,10 @@ import styled from "styled-components"
 
 //import { useRouteDispatch } from "../utils/routeContext"
 //import { CHANGE_VIEW } from "../utils/constants"
+import progress_1 from "../static/icons/progress_1.svg"
+import progress_2 from "../static/icons/progress_2.svg"
+import progress_3 from "../static/icons/progress_3.svg"
+
 import arrow_right from "../static/icons/arrow_right.svg"
 const Stages = {
   Start: {
@@ -57,7 +61,7 @@ const Card = ({ stage }) => (
     <p className="font-xl lh-xl">{stage.copy}</p>
   </div>
 )
-const Dots = () => <div />
+const Dots = ({ stage }) => <img src={stage.progress} />
 const Button = ({ stage, setStageIndex, stageIndex, routeDispatch }) => (
   <ButtonWithArrow
     onClick={
