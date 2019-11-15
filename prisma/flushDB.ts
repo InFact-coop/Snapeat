@@ -1,4 +1,4 @@
-import { prisma } from "./generated/ts"
+import { prisma } from './generated/ts'
 
 const flushDB = async () => {}
 

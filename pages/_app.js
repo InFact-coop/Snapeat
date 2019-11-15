@@ -1,15 +1,15 @@
-import React from "react"
-import App from "next/app"
+import React from 'react'
+import App from 'next/app'
 
-import { toast } from "react-toastify"
-import { RouteProvider } from "../utils/routeContext"
-import { ThemeProvider } from "styled-components"
+import { toast } from 'react-toastify'
+import { ThemeProvider } from 'styled-components'
 
-import resolveConfig from "tailwindcss/resolveConfig"
-import tailwindConfig from "../tailwind.config.js"
+import resolveConfig from 'tailwindcss/resolveConfig'
+import { RouteProvider } from '../utils/routeContext'
+import tailwindConfig from '../tailwind.config'
 
-import "react-toastify/dist/ReactToastify.min.css"
-import "../styles/index.css"
+import 'react-toastify/dist/ReactToastify.min.css'
+import '../styles/index.css'
 
 const { theme } = resolveConfig(tailwindConfig)
 toast.configure()

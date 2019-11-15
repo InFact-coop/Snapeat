@@ -1,7 +1,7 @@
-import React from "react"
-import { useRouteDispatch } from "../utils/routeContext"
-import { GO_BACK } from "../utils/constants"
-import illustration from "../static/illustrations/illustration_2.png"
+import React from 'react'
+import { useRouteDispatch } from '../utils/routeContext'
+import { GO_BACK } from '../utils/constants'
+import illustration from '../static/illustrations/illustration_2.png'
 
 const Away = () => {
   const routeDispatch = useRouteDispatch()

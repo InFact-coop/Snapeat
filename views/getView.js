@@ -1,2 +1,2 @@
-import views from "./index"
+import views from './index'
 export default routeName => views[routeName]()
