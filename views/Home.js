@@ -1,7 +1,7 @@
 import React from "react"
 import { useRouteDispatch } from "../utils/routeContext"
 import { CHANGE_VIEW, AWAY } from "../utils/constants"
-import illustration from "../static/illustrations/illustration_1.png"
+import illustration from "../public/illustrations/illustration_1.png"
 
 const Home = () => {
   const routeDispatch = useRouteDispatch()

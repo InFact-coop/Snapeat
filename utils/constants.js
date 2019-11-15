@@ -1,6 +1,6 @@
 // Views
 export const HOME = "HOME"
-export const AWAY = "AWAY"
+export const ONBOARDING = "ONBOARDING"
 
 // Actions
 export const CHANGE_VIEW = "CHANGE_VIEW"

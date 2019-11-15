@@ -1,8 +1,8 @@
-import { HOME, AWAY } from "../utils/constants"
+import { HOME, ONBOARDING } from "../utils/constants"
 import Home from "./Home"
-import Away from "./Away"
+import Onboarding from "./Onboarding"
 
 export default {
   [HOME]: Home,
-  [AWAY]: Away,
+  [ONBOARDING]: Onboarding,
 }
