@@ -1,7 +1,5 @@
 const path = require('path')
 
-const x = {}
-
 module.exports = {
   rootDir: path.join(__dirname, '..'),
   displayName: 'lint',
