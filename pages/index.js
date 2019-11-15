@@ -6,7 +6,7 @@ import getView from "../views/getView"
 import { useRouteState } from "../utils/routeContext"
 
 const Container = styled.section.attrs({
-  className: "bg-lightgray",
+  className: "bg-lightgray w-screen h-screen",
 })``
 
 const Index = () => {
@@ -24,10 +24,7 @@ const Index = () => {
         <link href="/iphone-icon.png" rel="apple-touch-icon" sizes="180x180" />
       </Head>
 
-      <Container>
-        <h1>Welcome to Snapeat</h1>
-        {getView(currentView)}
-      </Container>
+      <Container>{getView(currentView)}</Container>
     </>
   )
 }
