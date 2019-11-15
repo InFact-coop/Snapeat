@@ -1,6 +1,6 @@
-import React from "react"
-import { useRouteDispatch } from "../utils/routeContext"
-import { GO_BACK } from "../utils/constants"
+import React from 'react'
+import { useRouteDispatch } from '../utils/routeContext'
+import { GO_BACK } from '../utils/constants'
 
 const SignUp = () => {
   const routeDispatch = useRouteDispatch()

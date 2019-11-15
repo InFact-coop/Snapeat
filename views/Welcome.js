@@ -1,18 +1,18 @@
-import React, { useState } from "react"
-import styled from "styled-components"
+import { useState } from 'react'
+import styled from 'styled-components'
 
-import illustration_1 from "../static/illustrations/illustration_1.png"
-import illustration_2 from "../static/illustrations/illustration_2.png"
-import illustration_3 from "../static/illustrations/illustration_3.png"
+import illustration1 from '../public/illustrations/illustration_1.png'
+import illustration2 from '../public/illustrations/illustration_2.png'
+import illustration3 from '../public/illustrations/illustration_3.png'
 
-import progress_1 from "../static/icons/progress_1.svg"
-import progress_2 from "../static/icons/progress_2.svg"
-import progress_3 from "../static/icons/progress_3.svg"
+import progress1 from '../public/icons/progress_1.svg'
+import progress2 from '../public/icons/progress_2.svg'
+import progress3 from '../public/icons/progress_3.svg'
 
-import arrow_right from "../static/icons/arrow_right.svg"
+import arrowRight from '../public/icons/arrow_right.svg'
 
-import { useRouteDispatch } from "../utils/routeContext"
-import { CHANGE_VIEW, SIGN_UP } from "../utils/constants"
+import { useRouteDispatch } from '../utils/routeContext'
+import { CHANGE_VIEW, SIGN_UP } from '../utils/constants'
 
 const Welcome = () => {
   const routeDispatch = useRouteDispatch()
@@ -38,28 +38,28 @@ const Welcome = () => {
 
 const Stages = {
   Start: {
-    illustration: illustration_1,
-    title: "Hi!",
+    illustration: illustration1,
+    title: 'Hi!',
     copy:
-      "Thanks for agreeing to take part in Snapeat. A project to see how children in Lambeth and Southwark eat.",
-    buttonText: "Start",
-    progress: progress_1,
+      'Thanks for agreeing to take part in Snapeat. A project to see how children in Lambeth and Southwark eat.',
+    buttonText: 'Start',
+    progress: progress1,
   },
   Next: {
-    illustration: illustration_2,
-    title: "How does this work?",
+    illustration: illustration2,
+    title: 'How does this work?',
     copy:
-      "To take part, use this simple app to share what your child is eating for dinner each night for the next 3 months.",
-    buttonText: "Next",
-    progress: progress_2,
+      'To take part, use this simple app to share what your child is eating for dinner each night for the next 3 months.',
+    buttonText: 'Next',
+    progress: progress2,
   },
   LetsGo: {
-    illustration: illustration_3,
-    title: "Get everyone involved!",
+    illustration: illustration3,
+    title: 'Get everyone involved!',
     copy:
-      "Taking part is quick, easy and, hopefully, fun for you and your children too!",
+      'Taking part is quick, easy and, hopefully, fun for you and your children too!',
     buttonText: "Let's go!",
-    progress: progress_3,
+    progress: progress3,
   },
 }
 
@@ -78,14 +78,14 @@ const Card = ({ stage }) => (
 )
 
 const CardContainer = styled.div.attrs({
-  className: "text-navy bg-white rounded-card shadow-2 py-4 px-6 h-80",
+  className: 'text-navy bg-white rounded-card shadow-2 py-4 px-6 h-80',
 })`
   display: grid;
   grid-template-rows: 60% 40%;
 `
 
 const CardImage = styled.img.attrs({
-  className: "m-auto",
+  className: 'm-auto',
 })`
   max-height: 100%;
   max-height: -moz-available; /* WebKit-based browsers will ignore this. */
@@ -93,13 +93,13 @@ const CardImage = styled.img.attrs({
   max-height: fill-available;
 `
 
-const Dots = ({ stage }) => <img src={stage.progress} />
+const Dots = ({ stage }) => <img src={stage.progress} alt="form progress" />
 const Button = ({ stage, setStageIndex, stageIndex, routeDispatch }) => (
   <ButtonWithArrow
     onClick={
-      stageIndex !== 2
-        ? () => setStageIndex(stageIndex + 1)
-        : () => routeDispatch({ type: CHANGE_VIEW, view: SIGN_UP })
+      stageIndex === 2
+        ? () => routeDispatch({ type: CHANGE_VIEW, view: SIGN_UP })
+        : () => setStageIndex(stageIndex + 1)
     }
   >
     {stage.buttonText}
@@ -108,9 +108,9 @@ const Button = ({ stage, setStageIndex, stageIndex, routeDispatch }) => (
 
 const ButtonWithArrow = styled.button.attrs({
   className:
-    "text-white text-left rounded-button w-1/2 shadow-button px-5 sm:px-9 py-3 sm:py-4 bg-right",
+    'text-white text-left rounded-button w-1/2 shadow-button px-5 sm:px-9 py-3 sm:py-4 bg-right',
 })`
-  background: ${cssTheme("colors.navy")} url(${arrow_right}) no-repeat 85%;
+  background: ${cssTheme('colors.navy')} url(${arrowRight}) no-repeat 85%;
 `
 
 export default Welcome

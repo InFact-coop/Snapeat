@@ -1,12 +1,12 @@
-import React from "react"
-import { useRouteDispatch } from "../utils/routeContext"
-import { CHANGE_VIEW, WELCOME } from "../utils/constants"
+import React from 'react'
+import { useRouteDispatch } from '../utils/routeContext'
+import { CHANGE_VIEW, WELCOME } from '../utils/constants'
 
 const Home = () => {
   const routeDispatch = useRouteDispatch()
   return (
     <div>
-      <h2>Home</h2>{" "}
+      <h2>Home</h2>{' '}
       <button
         onClick={() => routeDispatch({ type: CHANGE_VIEW, view: WELCOME })}
       >

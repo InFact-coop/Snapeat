@@ -1,6 +1,6 @@
-import React from "react"
-import { HOME, CHANGE_VIEW, GO_BACK } from "./constants"
-import * as R from "ramda"
+import React from 'react'
+import * as R from 'ramda'
+import { HOME, CHANGE_VIEW, GO_BACK } from './constants'
 
 const initialState = {
   currentView: HOME,
@@ -24,6 +24,9 @@ const routeReducer = (state, { view, type }) => {
         currentView: lastView,
         history: [...state.history, lastView],
       }
+
+    default:
+      throw Error('Route reducer action not recognised')
   }
 }
 
