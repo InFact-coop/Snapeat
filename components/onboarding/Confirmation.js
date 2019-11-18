@@ -1,4 +1,4 @@
 const Confirmation = () => <main>Confirmation</main>
-Confirmation.componentName = "Confirmation"
+Confirmation.componentName = 'Confirmation'
 
 export default Confirmation

@@ -1,4 +1,4 @@
 const PostCode = () => <main>PostCode</main>
-PostCode.componentName = "PostCode"
+PostCode.componentName = 'PostCode'
 
 export default PostCode

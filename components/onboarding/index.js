@@ -1,5 +1,5 @@
-export const PostCode = "PostCode"
-export const Children = "Children"
-export const Ages = "Ages"
-export const Projects = "Projects"
-export const Confirmation = "Confirmation"
+export const PostCode = 'PostCode'
+export const Children = 'Children'
+export const Ages = 'Ages'
+export const Projects = 'Projects'
+export const Confirmation = 'Confirmation'
