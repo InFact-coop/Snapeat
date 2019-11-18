@@ -18,10 +18,12 @@ const initialValues = {
   children: [],
   projects: [],
 }
-const onSubmit = ({ incrementPage }) => async values => {
+const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
     console.log('Onboarding form submitted', values)
+
+    if (!formCompleted) incrementPage()
 
     await axios.get()
 
