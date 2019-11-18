@@ -8,8 +8,10 @@
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server.js",
     "==lint&format==": "-----------------------------------------------------------------------------------",
-    "format": "prettier --write \"{**/*.css,**/*.js,**/*.html,**/*.json,**/*.md,**/*.yaml,**/*.yml}\"",
-    "lint": "eslint ./",
+    "lint": "jest --config test/jest.lint.js",
+    "format": "npm run prettier -- --write",
+    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
+    "validate": "npm run lint && npm run prettier -- --list-different",
     "==docker&prisma==": "---------------------------------------------------------------------------------",
     "up": "docker-compose up -d",
     "down": "docker-compose down --remove-orphans",
@@ -28,6 +30,18 @@
     "staging:token": "env-cmd -f ./.config/staging.env npm run token",
     "staging:up": "env-cmd -f ./.config/staging.env npm run up",
     "staging:down": "env-cmd -f ./.config/staging.env npm run down"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)": [
+      "prettier --write",
+      "jest --config test/jest.lint.js --passWithNoTests",
+      "git add"
+    ]
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -62,18 +76,16 @@
     "@types/node": "^12.12.7",
     "@types/ramda": "^0.26.34",
     "@types/react": "^16.9.11",
-    "babel-eslint": "^10.0.3",
+    "autoprefixer": "^9.7.1",
     "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "env-cmd": "^10.0.1",
     "eslint": "^6.6.0",
-    "eslint-config-esnext": "^4.0.0",
-    "eslint-config-node": "^4.0.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^2.2.0",
+    "eslint-config-kentcdodds": "^14.6.1",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
+    "jest-runner-eslint": "^0.7.5",
+    "lint-staged": "^9.4.3",
     "nodemon": "^1.19.4",
     "postcss-import": "^12.0.1",
     "prettier": "^1.19.1",

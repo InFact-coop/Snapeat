@@ -23,6 +23,10 @@ type AggregateProportion {
   count: Int!
 }
 
+type AggregateTag {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -469,8 +473,10 @@ scalar Long
 
 type Meal {
   id: ID!
+  user: User!
   imageURL: String!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
   updatedAt: DateTime!
   createdAt: DateTime!
   proportionFruit: Proportion
@@ -485,8 +491,10 @@ type MealConnection {
 
 input MealCreateInput {
   id: ID
+  user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
+  tags: TagCreateManyWithoutMealsInput
   proportionFruit: ProportionCreateOneWithoutFruitMealsInput
   proportionVeg: ProportionCreateOneWithoutVegMealsInput
 }
@@ -506,25 +514,59 @@ input MealCreateManyWithoutProportionVegInput {
   connect: [MealWhereUniqueInput!]
 }
 
+input MealCreateManyWithoutTagsInput {
+  create: [MealCreateWithoutTagsInput!]
+  connect: [MealWhereUniqueInput!]
+}
+
+input MealCreateManyWithoutUserInput {
+  create: [MealCreateWithoutUserInput!]
+  connect: [MealWhereUniqueInput!]
+}
+
 input MealCreateWithoutCategoriesInput {
   id: ID
+  user: UserCreateOneWithoutMealsInput!
   imageURL: String!
+  tags: TagCreateManyWithoutMealsInput
   proportionFruit: ProportionCreateOneWithoutFruitMealsInput
   proportionVeg: ProportionCreateOneWithoutVegMealsInput
 }
 
 input MealCreateWithoutProportionFruitInput {
   id: ID
+  user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
+  tags: TagCreateManyWithoutMealsInput
   proportionVeg: ProportionCreateOneWithoutVegMealsInput
 }
 
 input MealCreateWithoutProportionVegInput {
   id: ID
+  user: UserCreateOneWithoutMealsInput!
+  imageURL: String!
+  categories: CategoryCreateManyWithoutMealsInput
+  tags: TagCreateManyWithoutMealsInput
+  proportionFruit: ProportionCreateOneWithoutFruitMealsInput
+}
+
+input MealCreateWithoutTagsInput {
+  id: ID
+  user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
   proportionFruit: ProportionCreateOneWithoutFruitMealsInput
+  proportionVeg: ProportionCreateOneWithoutVegMealsInput
+}
+
+input MealCreateWithoutUserInput {
+  id: ID
+  imageURL: String!
+  categories: CategoryCreateManyWithoutMealsInput
+  tags: TagCreateManyWithoutMealsInput
+  proportionFruit: ProportionCreateOneWithoutFruitMealsInput
+  proportionVeg: ProportionCreateOneWithoutVegMealsInput
 }
 
 type MealEdge {
@@ -619,8 +661,10 @@ input MealSubscriptionWhereInput {
 }
 
 input MealUpdateInput {
+  user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
+  tags: TagUpdateManyWithoutMealsInput
   proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
   proportionVeg: ProportionUpdateOneWithoutVegMealsInput
 }
@@ -669,27 +713,73 @@ input MealUpdateManyWithoutProportionVegInput {
   updateMany: [MealUpdateManyWithWhereNestedInput!]
 }
 
+input MealUpdateManyWithoutTagsInput {
+  create: [MealCreateWithoutTagsInput!]
+  delete: [MealWhereUniqueInput!]
+  connect: [MealWhereUniqueInput!]
+  set: [MealWhereUniqueInput!]
+  disconnect: [MealWhereUniqueInput!]
+  update: [MealUpdateWithWhereUniqueWithoutTagsInput!]
+  upsert: [MealUpsertWithWhereUniqueWithoutTagsInput!]
+  deleteMany: [MealScalarWhereInput!]
+  updateMany: [MealUpdateManyWithWhereNestedInput!]
+}
+
+input MealUpdateManyWithoutUserInput {
+  create: [MealCreateWithoutUserInput!]
+  delete: [MealWhereUniqueInput!]
+  connect: [MealWhereUniqueInput!]
+  set: [MealWhereUniqueInput!]
+  disconnect: [MealWhereUniqueInput!]
+  update: [MealUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [MealUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [MealScalarWhereInput!]
+  updateMany: [MealUpdateManyWithWhereNestedInput!]
+}
+
 input MealUpdateManyWithWhereNestedInput {
   where: MealScalarWhereInput!
   data: MealUpdateManyDataInput!
 }
 
 input MealUpdateWithoutCategoriesDataInput {
+  user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
+  tags: TagUpdateManyWithoutMealsInput
   proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
   proportionVeg: ProportionUpdateOneWithoutVegMealsInput
 }
 
 input MealUpdateWithoutProportionFruitDataInput {
+  user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
+  tags: TagUpdateManyWithoutMealsInput
   proportionVeg: ProportionUpdateOneWithoutVegMealsInput
 }
 
 input MealUpdateWithoutProportionVegDataInput {
+  user: UserUpdateOneRequiredWithoutMealsInput
+  imageURL: String
+  categories: CategoryUpdateManyWithoutMealsInput
+  tags: TagUpdateManyWithoutMealsInput
+  proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
+}
+
+input MealUpdateWithoutTagsDataInput {
+  user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
   proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
+  proportionVeg: ProportionUpdateOneWithoutVegMealsInput
+}
+
+input MealUpdateWithoutUserDataInput {
+  imageURL: String
+  categories: CategoryUpdateManyWithoutMealsInput
+  tags: TagUpdateManyWithoutMealsInput
+  proportionFruit: ProportionUpdateOneWithoutFruitMealsInput
+  proportionVeg: ProportionUpdateOneWithoutVegMealsInput
 }
 
 input MealUpdateWithWhereUniqueWithoutCategoriesInput {
@@ -705,6 +795,16 @@ input MealUpdateWithWhereUniqueWithoutProportionFruitInput {
 input MealUpdateWithWhereUniqueWithoutProportionVegInput {
   where: MealWhereUniqueInput!
   data: MealUpdateWithoutProportionVegDataInput!
+}
+
+input MealUpdateWithWhereUniqueWithoutTagsInput {
+  where: MealWhereUniqueInput!
+  data: MealUpdateWithoutTagsDataInput!
+}
+
+input MealUpdateWithWhereUniqueWithoutUserInput {
+  where: MealWhereUniqueInput!
+  data: MealUpdateWithoutUserDataInput!
 }
 
 input MealUpsertWithWhereUniqueWithoutCategoriesInput {
@@ -725,6 +825,18 @@ input MealUpsertWithWhereUniqueWithoutProportionVegInput {
   create: MealCreateWithoutProportionVegInput!
 }
 
+input MealUpsertWithWhereUniqueWithoutTagsInput {
+  where: MealWhereUniqueInput!
+  update: MealUpdateWithoutTagsDataInput!
+  create: MealCreateWithoutTagsInput!
+}
+
+input MealUpsertWithWhereUniqueWithoutUserInput {
+  where: MealWhereUniqueInput!
+  update: MealUpdateWithoutUserDataInput!
+  create: MealCreateWithoutUserInput!
+}
+
 input MealWhereInput {
   id: ID
   id_not: ID
@@ -740,6 +852,7 @@ input MealWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  user: UserWhereInput
   imageURL: String
   imageURL_not: String
   imageURL_in: [String!]
@@ -757,6 +870,9 @@ input MealWhereInput {
   categories_every: CategoryWhereInput
   categories_some: CategoryWhereInput
   categories_none: CategoryWhereInput
+  tags_every: TagWhereInput
+  tags_some: TagWhereInput
+  tags_none: TagWhereInput
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -815,6 +931,12 @@ type Mutation {
   upsertProportion(where: ProportionWhereUniqueInput!, create: ProportionCreateInput!, update: ProportionUpdateInput!): Proportion!
   deleteProportion(where: ProportionWhereUniqueInput!): Proportion
   deleteManyProportions(where: ProportionWhereInput): BatchPayload!
+  createTag(data: TagCreateInput!): Tag!
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteManyTags(where: TagWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -1291,6 +1413,9 @@ type Query {
   proportion(where: ProportionWhereUniqueInput!): Proportion
   proportions(where: ProportionWhereInput, orderBy: ProportionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Proportion]!
   proportionsConnection(where: ProportionWhereInput, orderBy: ProportionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProportionConnection!
+  tag(where: TagWhereUniqueInput!): Tag
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1303,7 +1428,231 @@ type Subscription {
   meal(where: MealSubscriptionWhereInput): MealSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
   proportion(where: ProportionSubscriptionWhereInput): ProportionSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type Tag {
+  id: ID!
+  tag_name: String!
+  meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type TagConnection {
+  pageInfo: PageInfo!
+  edges: [TagEdge]!
+  aggregate: AggregateTag!
+}
+
+input TagCreateInput {
+  id: ID
+  tag_name: String!
+  meals: MealCreateManyWithoutTagsInput
+}
+
+input TagCreateManyWithoutMealsInput {
+  create: [TagCreateWithoutMealsInput!]
+  connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateWithoutMealsInput {
+  id: ID
+  tag_name: String!
+}
+
+type TagEdge {
+  node: Tag!
+  cursor: String!
+}
+
+enum TagOrderByInput {
+  id_ASC
+  id_DESC
+  tag_name_ASC
+  tag_name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type TagPreviousValues {
+  id: ID!
+  tag_name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input TagScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  tag_name: String
+  tag_name_not: String
+  tag_name_in: [String!]
+  tag_name_not_in: [String!]
+  tag_name_lt: String
+  tag_name_lte: String
+  tag_name_gt: String
+  tag_name_gte: String
+  tag_name_contains: String
+  tag_name_not_contains: String
+  tag_name_starts_with: String
+  tag_name_not_starts_with: String
+  tag_name_ends_with: String
+  tag_name_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  NOT: [TagScalarWhereInput!]
+}
+
+type TagSubscriptionPayload {
+  mutation: MutationType!
+  node: Tag
+  updatedFields: [String!]
+  previousValues: TagPreviousValues
+}
+
+input TagSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TagWhereInput
+  AND: [TagSubscriptionWhereInput!]
+  OR: [TagSubscriptionWhereInput!]
+  NOT: [TagSubscriptionWhereInput!]
+}
+
+input TagUpdateInput {
+  tag_name: String
+  meals: MealUpdateManyWithoutTagsInput
+}
+
+input TagUpdateManyDataInput {
+  tag_name: String
+}
+
+input TagUpdateManyMutationInput {
+  tag_name: String
+}
+
+input TagUpdateManyWithoutMealsInput {
+  create: [TagCreateWithoutMealsInput!]
+  delete: [TagWhereUniqueInput!]
+  connect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  disconnect: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutMealsInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutMealsInput!]
+  deleteMany: [TagScalarWhereInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+}
+
+input TagUpdateManyWithWhereNestedInput {
+  where: TagScalarWhereInput!
+  data: TagUpdateManyDataInput!
+}
+
+input TagUpdateWithoutMealsDataInput {
+  tag_name: String
+}
+
+input TagUpdateWithWhereUniqueWithoutMealsInput {
+  where: TagWhereUniqueInput!
+  data: TagUpdateWithoutMealsDataInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutMealsInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutMealsDataInput!
+  create: TagCreateWithoutMealsInput!
+}
+
+input TagWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  tag_name: String
+  tag_name_not: String
+  tag_name_in: [String!]
+  tag_name_not_in: [String!]
+  tag_name_lt: String
+  tag_name_lte: String
+  tag_name_gt: String
+  tag_name_gte: String
+  tag_name_contains: String
+  tag_name_not_contains: String
+  tag_name_starts_with: String
+  tag_name_not_starts_with: String
+  tag_name_ends_with: String
+  tag_name_not_ends_with: String
+  meals_every: MealWhereInput
+  meals_some: MealWhereInput
+  meals_none: MealWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
+}
+
+input TagWhereUniqueInput {
+  id: ID
 }
 
 type User {
@@ -1311,6 +1660,7 @@ type User {
   consentGDPR: Boolean!
   postCode: String!
   email: String!
+  meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
   children(where: ChildWhereInput, orderBy: ChildOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Child!]
   updatedAt: DateTime!
@@ -1328,6 +1678,7 @@ input UserCreateInput {
   consentGDPR: Boolean!
   postCode: String!
   email: String!
+  meals: MealCreateManyWithoutUserInput
   projects: ProjectCreateManyWithoutUsersInput
   children: ChildCreateManyWithoutParentInput
 }
@@ -1342,12 +1693,27 @@ input UserCreateOneWithoutChildrenInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutMealsInput {
+  create: UserCreateWithoutMealsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateWithoutChildrenInput {
   id: ID
   consentGDPR: Boolean!
   postCode: String!
   email: String!
+  meals: MealCreateManyWithoutUserInput
   projects: ProjectCreateManyWithoutUsersInput
+}
+
+input UserCreateWithoutMealsInput {
+  id: ID
+  consentGDPR: Boolean!
+  postCode: String!
+  email: String!
+  projects: ProjectCreateManyWithoutUsersInput
+  children: ChildCreateManyWithoutParentInput
 }
 
 input UserCreateWithoutProjectsInput {
@@ -1355,6 +1721,7 @@ input UserCreateWithoutProjectsInput {
   consentGDPR: Boolean!
   postCode: String!
   email: String!
+  meals: MealCreateManyWithoutUserInput
   children: ChildCreateManyWithoutParentInput
 }
 
@@ -1475,6 +1842,7 @@ input UserUpdateInput {
   consentGDPR: Boolean
   postCode: String
   email: String
+  meals: MealUpdateManyWithoutUserInput
   projects: ProjectUpdateManyWithoutUsersInput
   children: ChildUpdateManyWithoutParentInput
 }
@@ -1515,17 +1883,34 @@ input UserUpdateOneRequiredWithoutChildrenInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutMealsInput {
+  create: UserCreateWithoutMealsInput
+  update: UserUpdateWithoutMealsDataInput
+  upsert: UserUpsertWithoutMealsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateWithoutChildrenDataInput {
   consentGDPR: Boolean
   postCode: String
   email: String
+  meals: MealUpdateManyWithoutUserInput
   projects: ProjectUpdateManyWithoutUsersInput
+}
+
+input UserUpdateWithoutMealsDataInput {
+  consentGDPR: Boolean
+  postCode: String
+  email: String
+  projects: ProjectUpdateManyWithoutUsersInput
+  children: ChildUpdateManyWithoutParentInput
 }
 
 input UserUpdateWithoutProjectsDataInput {
   consentGDPR: Boolean
   postCode: String
   email: String
+  meals: MealUpdateManyWithoutUserInput
   children: ChildUpdateManyWithoutParentInput
 }
 
@@ -1537,6 +1922,11 @@ input UserUpdateWithWhereUniqueWithoutProjectsInput {
 input UserUpsertWithoutChildrenInput {
   update: UserUpdateWithoutChildrenDataInput!
   create: UserCreateWithoutChildrenInput!
+}
+
+input UserUpsertWithoutMealsInput {
+  update: UserUpdateWithoutMealsDataInput!
+  create: UserCreateWithoutMealsInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutProjectsInput {
@@ -1590,6 +1980,9 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  meals_every: MealWhereInput
+  meals_some: MealWhereInput
+  meals_none: MealWhereInput
   projects_every: ProjectWhereInput
   projects_some: ProjectWhereInput
   projects_none: ProjectWhereInput

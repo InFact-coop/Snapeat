@@ -1,18 +1,16 @@
-import React from "react"
-import { useRouteDispatch } from "../utils/routeContext"
-import { CHANGE_VIEW, ONBOARDING } from "../utils/constants"
-import illustration from "../public/illustrations/illustration_1.png"
+import React from 'react'
+import { useRouteDispatch } from '../utils/routeContext'
+import { CHANGE_VIEW, WELCOME } from '../utils/constants'
 
 const Home = () => {
   const routeDispatch = useRouteDispatch()
   return (
     <div>
-      <h2>Home</h2>
-      <img src={illustration} alt="" />
+      <h2>Home</h2>{' '}
       <button
-        onClick={() => routeDispatch({ type: CHANGE_VIEW, view: ONBOARDING })}
+        onClick={() => routeDispatch({ type: CHANGE_VIEW, view: WELCOME })}
       >
-        Go away
+        Go to welcome
       </button>
     </div>
   )
