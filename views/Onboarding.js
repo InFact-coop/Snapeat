@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Formik, Form } from 'formik'
+import axios from 'axios'
 import * as R from 'ramda'
 
 import * as Steps from '../components/onboarding'
@@ -10,19 +11,21 @@ import Ages from '../components/onboarding/Ages'
 import Projects from '../components/onboarding/Projects'
 import Confirmation from '../components/onboarding/Confirmation'
 
+import logo1 from '../public/logos/logo1.svg'
+
 const initialValues = {
   postCode: '',
   children: [],
   projects: [],
 }
-const onSubmit = ({ incrementPage, formCompleted }) => () => {
+const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
-    console.log('Onboarding form submitted')
+    console.log('Onboarding form submitted', values)
 
     if (!formCompleted) incrementPage()
 
-    // axios.get
+    await axios.get()
 
     incrementPage()
   } catch (e) {
@@ -85,6 +88,7 @@ const MultiStep = ({ children }) => {
         return (
           <Container>
             <StyledForm>
+              <Logo />
               <RenderStep
                 {...{
                   validateForm,
@@ -113,13 +117,19 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
     window.scrollTo(0, 0)
     setTouched({})
     validateForm()
-  }, [page])
+  }, [page, setTouched, validateForm])
 
   return React.cloneElement(activePage, props)
 }
 
 const StyledForm = styled(Form).attrs({
+  className: 'bg-lightgray h-screen px-4 py-5d5 flex flex-col items-center',
+})``
+
+const Logo = styled.img.attrs({
+  src: logo1,
   className: '',
+  alt: 'Snapeat',
 })``
 
 const Onboarding = () => {
