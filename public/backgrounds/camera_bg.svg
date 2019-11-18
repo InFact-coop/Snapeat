@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="384px" height="116px" viewBox="0 0 384 116" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
-    <title>camera_bg</title>
-    <desc>Created with Sketch.</desc>
+
+<svg width="360px" height="110px" viewBox="0 0 360 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <path d="M239.103135,162.001631 C240.644092,184.349463 259.260794,202 282,202 C304.742826,202 323.361835,184.343843 324.8976,161.990957 C324.965493,161.002777 327,159 328,159 C352,159 388,159 436,159 C450.359403,159 462,170.640597 462,185 L462,251 L102,251 L102,185 C102,170.640597 113.640597,159 128,159 C176,159 212,159 236,159 C237,159 239.034755,161.009959 239.103135,162.001631 Z" id="path-1"></path>
+        <path d="M137.103135,36.001631 C138.644092,58.3494634 157.260794,76 180,76 C202.742826,76 221.361835,58.3438431 222.8976,35.9909574 C222.965493,35.0027775 225,33 226,33 C250,33 286,33 334,33 C348.359403,33 360,44.6405965 360,59 L360,125 L0,125 L0,59 C0,44.6405965 11.6405965,33 26,33 C74,33 110,33 134,33 C135,33 137.034755,35.0099594 137.103135,36.001631 Z" id="path-1"></path>
         <filter x="-5.8%" y="-29.3%" width="111.7%" height="145.7%" filterUnits="objectBoundingBox" id="filter-2">
             <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
             <feOffset dx="0" dy="-6" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
@@ -20,11 +17,13 @@
             </feMerge>
         </filter>
     </defs>
-    <g id="s" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="camera_bg" transform="translate(-90.000000, -141.000000)" fill-rule="nonzero">
-            <g>
-                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                <use fill="#FFFFFF" xlink:href="#path-1"></use>
+    <g id="app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="take-a-picture---home" transform="translate(0.000000, -530.000000)" fill-rule="nonzero">
+            <g id="section" transform="translate(0.000000, 515.000000)">
+                <g id="Path">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                </g>
             </g>
         </g>
     </g>
