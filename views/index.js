@@ -1,12 +1,12 @@
-import { HOME, AWAY, WELCOME, SIGN_UP } from '../utils/constants'
+import { HOME, ONBOARDING, WELCOME, SIGN_UP } from '../utils/constants'
 import Home from './Home'
-import Away from './Away'
+import Onboarding from './Onboarding'
 import Welcome from './Welcome'
 import SignUp from './SignUp'
 
 export default {
   [HOME]: Home,
-  [AWAY]: Away,
+  [ONBOARDING]: Onboarding,
   [WELCOME]: Welcome,
   [SIGN_UP]: SignUp,
 }
