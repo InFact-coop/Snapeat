@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 import { useRouteDispatch } from '../utils/routeContext'
-import { CHANGE_VIEW, MENU, CATEGORY_SELECT } from '../utils/constants'
+import { CHANGE_VIEW, MENU, CATEGORY_SELECT, ERROR } from '../utils/constants'
 import fileNameFormatter from '../utils/fileNameFormatter'
 
 import buttonBG from '../public/backgrounds/camera_bg.svg'
@@ -23,10 +23,9 @@ const Home = () => {
       return
     } else if (
       photo.file &&
-      (photo.file.type !== ('image/jpeg' || 'image/png') ||
-        photo.file.size > 3000000)
+      photo.file.type !== ('image/jpeg' || 'image/png')
     ) {
-      return
+      routeDispatch({ type: CHANGE_VIEW, view: ERROR })
     }
 
     const sendImage = async () => {
