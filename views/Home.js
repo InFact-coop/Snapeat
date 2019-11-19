@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 import { useRouteDispatch } from '../utils/routeContext'
-import { CHANGE_VIEW, MENU } from '../utils/constants'
+import { CHANGE_VIEW, MENU, CATEGORY_SELECT } from '../utils/constants'
 import fileNameFormatter from '../utils/fileNameFormatter'
 
 import buttonBG from '../public/backgrounds/camera_bg.svg'
@@ -39,6 +39,7 @@ const Home = () => {
         )
 
         console.log('photo uploaded', res) //eslint-disable-line
+        routeDispatch({ type: CHANGE_VIEW, view: CATEGORY_SELECT })
       } catch (err) {
         console.log(err) //eslint-disable-line
       }

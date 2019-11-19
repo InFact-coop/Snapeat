@@ -9,8 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return console.error('Image upload error:', err) //eslint-disable-line no-console
       }
 
-      const { photo } = files
-      console.log('in req, heres the PARSED PHOTO', photo)
+      console.log('files', files) //eslint-disable-line no-console
       return res.status(200).json({ response: 'ok' })
     })
   } catch (e) {
