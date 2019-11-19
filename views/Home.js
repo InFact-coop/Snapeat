@@ -3,7 +3,13 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 import { useRouteDispatch } from '../utils/routeContext'
-import { CHANGE_VIEW, MENU, CATEGORY_SELECT, ERROR } from '../utils/constants'
+import {
+  CHANGE_VIEW,
+  MENU,
+  LOADING,
+  CATEGORY_SELECT,
+  ERROR,
+} from '../utils/constants'
 import fileNameFormatter from '../utils/fileNameFormatter'
 
 import buttonBG from '../public/backgrounds/camera_bg.svg'
@@ -29,15 +35,16 @@ const Home = () => {
     }
 
     const sendImage = async () => {
+      routeDispatch({ type: CHANGE_VIEW, view: LOADING })
+
       const data = new FormData()
       data.set('photo', photo.file, photo.fileName)
       try {
-        const res = await axios.post(
-          `${process.env.HOST}/api/upload-photo`,
-          data,
-        )
+        const {
+          data: { url },
+        } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
 
-        console.log('photo uploaded', res) //eslint-disable-line
+        console.log('photo uploaded', url) //eslint-disable-line
         routeDispatch({ type: CHANGE_VIEW, view: CATEGORY_SELECT })
       } catch (err) {
         console.log(err) //eslint-disable-line
