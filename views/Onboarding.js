@@ -15,9 +15,11 @@ import Confirmation from '../components/onboarding/Confirmation'
 
 import logo1 from '../public/logos/logo1.svg'
 import arrowNext from '../public/icons/arrow_next.svg'
+import arrowBack from '../public/icons/back_blue.svg'
 
 const initialValues = {
   postCode: '',
+  numberOfChildren: 0,
   children: [],
   projects: [],
 }
@@ -40,8 +42,8 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
 }
 
 const Dot = styled.div.attrs(({ completed }) => ({
-  className: `mr-2d5 h-2d5 w-2d5 rounded-full ${
-    completed ? 'bg-navy' : 'bg-lightgray'
+  className: `mr-2d5 h-2d5 w-2d5 rounded-full bg-navy ${
+    completed ? 'opacity-100' : 'opacity-40'
   }`,
 }))`
   &:last-child {
@@ -54,6 +56,7 @@ const DotsContainer = styled.div.attrs({
 })``
 
 const Progress = ({ pageIndex, amountOfPages }) => {
+  const pageNumber = pageIndex + 1
   const createDot = completed => (_, index) => (
     <Dot
       completed={completed}
@@ -61,9 +64,9 @@ const Progress = ({ pageIndex, amountOfPages }) => {
     />
   )
 
-  const completed = R_.mapIndexed(createDot(true))([...Array(pageIndex)])
+  const completed = R_.mapIndexed(createDot(true))([...Array(pageNumber)])
   const toComplete = R_.mapIndexed(createDot())([
-    ...Array(amountOfPages - pageIndex),
+    ...Array(amountOfPages - pageNumber),
   ])
 
   return (
@@ -82,21 +85,47 @@ const Next = styled.button.attrs({
   background: center no-repeat url(${arrowNext}) ${cssTheme('colors.navy')};
 `
 
-const StyledControls = styled.nav.attrs({
-  className:
-    'bg-white w-full fixed bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
+const StyledBack = styled.button.attrs({
+  className: 'flex items-center justify-between',
 })``
 
-const Controls = ({ incrementPage, page, pageIndex, amountOfPages }) => {
+const Back = ({ onClick }) => (
+  <StyledBack onClick={onClick}>
+    <img src={arrowBack} alt="Back arrow" className="mr-2d5" />
+    <span>Back</span>
+  </StyledBack>
+)
+
+const StyledBottomNav = styled.nav.attrs({
+  className:
+    'bg-white w-full fixed z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
+})``
+
+const BottomNav = ({ incrementPage, pageIndex, amountOfPages }) => {
+  const penultimatePage = amountOfPages - 2
+
   return (
-    <StyledControls>
+    <StyledBottomNav>
       <Progress {...{ pageIndex, amountOfPages }} />
-      {page === Steps.Projects ? (
+      {pageIndex === penultimatePage ? (
         <Next type="submit" />
       ) : (
         <Next onClick={incrementPage} />
       )}
-    </StyledControls>
+    </StyledBottomNav>
+  )
+}
+
+const StyledTopNav = styled.nav.attrs(({ firstPage }) => ({
+  className: `w-full ${firstPage ? 'mb-16' : 'mb-11'}`,
+}))``
+
+const TopNav = ({ pageIndex, decrementPage }) => {
+  const firstPage = pageIndex === 0
+  return (
+    <StyledTopNav {...{ firstPage }}>
+      {!firstPage && <Back onClick={decrementPage} />}
+    </StyledTopNav>
   )
 }
 
@@ -112,10 +141,9 @@ const MultiStep = ({ children }) => {
     setPage(pages[pageIndex + 1])
   }
 
-  // const decrementPage = () => {
-  //   const pageIndex = R.findIndex(R.equals(page))(pages)
-  //   setPage(pages[pageIndex - 1])
-  // }
+  const decrementPage = () => {
+    setPage(pages[pageIndex - 1])
+  }
 
   const { validationSchema } = activePage && activePage.type
   const Container = styled.main``
@@ -136,6 +164,7 @@ const MultiStep = ({ children }) => {
           <Container>
             <StyledForm>
               <Logo />
+              <TopNav {...{ pageIndex, decrementPage }} />
               <RenderStep
                 {...{
                   validateForm,
@@ -152,7 +181,7 @@ const MultiStep = ({ children }) => {
                 }}
               />
             </StyledForm>
-            <Controls
+            <BottomNav
               {...{
                 incrementPage,
                 page,

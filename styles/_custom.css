@@ -3,6 +3,7 @@ body {
   height: fit-content;
   -webkit-font-smoothing: antialiased;
   font-size: theme('fontSize.base');
+  color: theme('colors.navy');
   line-height: theme('lineHeight.base');
 }
 
