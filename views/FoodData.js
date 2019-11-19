@@ -6,6 +6,8 @@ import * as R from 'ramda'
 
 import * as Steps from '../components/foodData'
 import Types from '../components/foodData/Types'
+import Ratios from '../components/foodData/Ratios'
+import Tags from '../components/foodData/Tags'
 
 import logo1 from '../public/logos/logo1.svg'
 
@@ -18,7 +20,7 @@ const initialValues = {
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
-    console.log('Onboarding form submitted', values)
+    console.log('Food data form submitted', values)
 
     if (!formCompleted) incrementPage()
 
@@ -29,7 +31,7 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
     // TODO: trigger submit error (maybe with toast error)
 
     //eslint-disable-next-line no-console
-    console.error('Error submitting onboarding form', e)
+    console.error('Error submitting food data form', e)
   }
 }
 const Next = styled.button.attrs({})``
@@ -38,10 +40,14 @@ const StyledControls = styled.nav.attrs({
   className: '',
 })``
 
-const Controls = ({ incrementPage }) => {
+const Controls = ({ incrementPage, page }) => {
   return (
     <StyledControls>
-      <Next onClick={incrementPage}>Next</Next>
+      {page === Steps.Tags ? (
+        <Next type="submit">Submit</Next>
+      ) : (
+        <Next onClick={incrementPage}>Next</Next>
+      )}
     </StyledControls>
   )
 }
@@ -127,9 +133,14 @@ const Logo = styled.img.attrs({
 
 const FoodData = () => {
   return (
-    <MultiStep>
-      <Types />
-    </MultiStep>
+    <>
+      <h1>Test</h1>
+      <MultiStep>
+        <Types />
+        <Ratios />
+        <Tags />
+      </MultiStep>
+    </>
   )
 }
 
