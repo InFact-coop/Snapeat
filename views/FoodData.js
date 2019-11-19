@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Formik, Form } from 'formik'
 import axios from 'axios'
 import * as R from 'ramda'
+import { useRouteDispatch } from '../utils/routeContext'
+import { GO_BACK } from '../utils/constants'
 
 import * as Steps from '../components/foodData'
 import Types from '../components/foodData/Types'
@@ -35,14 +37,24 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   }
 }
 const Next = styled.button.attrs({})``
+const Back = styled.button.attrs({})``
 
 const StyledControls = styled.nav.attrs({
   className: '',
 })``
 
-const Controls = ({ incrementPage, page }) => {
+const Controls = ({ incrementPage, page, decrementPage }) => {
+  const routeDispatch = useRouteDispatch()
   return (
     <StyledControls>
+      {page === Steps.Types ? (
+        <Back onClick={() => routeDispatch({ type: GO_BACK })}>
+          Back to photo
+        </Back>
+      ) : (
+        <Back onClick={decrementPage}>Back</Back>
+      )}
+
       {page === Steps.Tags ? (
         <Next type="submit">Submit</Next>
       ) : (
@@ -64,10 +76,10 @@ const MultiStep = ({ children }) => {
     setPage(pages[pageIndex + 1])
   }
 
-  // const decrementPage = () => {
-  //   const pageIndex = R.findIndex(R.equals(page))(pages)
-  //   setPage(pages[pageIndex - 1])
-  // }
+  const decrementPage = () => {
+    const pageIndex = R.findIndex(R.equals(page))(pages)
+    setPage(pages[pageIndex - 1])
+  }
 
   const { validationSchema } = activePage && activePage.type
   const Container = styled.main``
@@ -98,13 +110,14 @@ const MultiStep = ({ children }) => {
                     setPage,
                     values,
                     incrementPage,
+                    decrementPage,
                     setFieldValue,
                     errors,
                   },
                 }}
               />
             </StyledForm>
-            <Controls {...{ incrementPage, page }} />
+            <Controls {...{ incrementPage, page, decrementPage }} />
           </Container>
         )
       }}
@@ -133,14 +146,11 @@ const Logo = styled.img.attrs({
 
 const FoodData = () => {
   return (
-    <>
-      <h1>Test</h1>
-      <MultiStep>
-        <Types />
-        <Ratios />
-        <Tags />
-      </MultiStep>
-    </>
+    <MultiStep>
+      <Types />
+      <Ratios />
+      <Tags />
+    </MultiStep>
   )
 }
 
