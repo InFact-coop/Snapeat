@@ -29,7 +29,7 @@ const Home = () => {
       return
     } else if (
       photo.file &&
-      photo.file.type !== ('image/jpeg' || 'image/png')
+      !(photo.file.type === 'image/jpeg' || 'image/png')
     ) {
       routeDispatch({ type: CHANGE_VIEW, view: ERROR })
     }
