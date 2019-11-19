@@ -29,7 +29,7 @@ const PostCode = () => (
       tooltipContents,
     }}
   >
-    <TextInput placeholder="Your postcode..." />
+    <TextInput placeholder="Your postcode..." name="postCode" />
   </FormStep>
 )
 PostCode.componentName = 'PostCode'

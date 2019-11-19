@@ -19,6 +19,7 @@ import arrowBack from '../public/icons/back_blue.svg'
 
 const initialValues = {
   postCode: '',
+  numberOfChildren: 0,
   children: [],
   projects: [],
 }
@@ -97,7 +98,7 @@ const Back = ({ onClick }) => (
 
 const StyledBottomNav = styled.nav.attrs({
   className:
-    'bg-white w-full fixed bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
+    'bg-white w-full fixed z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
 })``
 
 const BottomNav = ({ incrementPage, pageIndex, amountOfPages }) => {

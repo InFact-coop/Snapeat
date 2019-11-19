@@ -73,42 +73,34 @@
 /* Create font classes */
 @responsive {
   .font-xs {
-    color: theme('colors.navy');
     font-size: theme('fontSize.xs');
     line-height: theme('lineHeight.xs');
   }
   .font-sm {
-    color: theme('colors.navy');
     font-size: theme('fontSize.sm');
     line-height: theme('lineHeight.sm');
   }
   .font-base {
-    color: theme('colors.navy');
     font-size: theme('fontSize.base');
     line-height: theme('lineHeight.base');
   }
   .font-lg {
-    color: theme('colors.navy');
     font-size: theme('fontSize.lg');
     line-height: theme('lineHeight.lg');
   }
   .font-xl {
-    color: theme('colors.navy');
     font-size: theme('fontSize.xl');
     line-height: theme('lineHeight.xl');
   }
   .font-xxl {
-    color: theme('colors.navy');
     font-size: theme('fontSize.xxl');
     line-height: theme('lineHeight.xxl');
   }
   .font-subheader {
-    color: theme('colors.navy');
     font-size: theme('fontSize.subheader');
     line-height: theme('lineHeight.subheader');
   }
   .font-header {
-    color: theme('colors.navy');
     font-size: theme('fontSize.header');
     line-height: theme('lineHeight.header');
   }
