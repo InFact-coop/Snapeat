@@ -43,11 +43,16 @@ module.exports = {
         '65': '16.25rem', // 260px
       },
       width: {
+        '2d5': '0.625rem', // 10px
         '16d5': '4.125rem', // 66px
       },
       height: {
+        '2d5': '0.625rem', // 10px
         '16d5': '4.125rem', // 66px
         '80': '80vh',
+      },
+      minHeight: {
+        '1/4': '25%',
       },
       maxHeight: {
         '1/2': '50%',

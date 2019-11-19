@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Formik, Form } from 'formik'
 import axios from 'axios'
+
 import * as R from 'ramda'
+import R_ from '../utils/R_'
 
 import * as Steps from '../components/onboarding'
 import PostCode from '../components/onboarding/PostCode'
@@ -36,11 +38,41 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
     console.error('Error submitting onboarding form', e)
   }
 }
-const Progress = ({ pageIndex, numberOfPages }) => {
+
+const Dot = styled.div.attrs(({ completed }) => ({
+  className: `mr-2d5 h-2d5 w-2d5 rounded-full ${
+    completed ? 'bg-navy' : 'bg-lightgray'
+  }`,
+}))`
+  &:last-child {
+    margin-right: 0;
+  }
+`
+
+const DotsContainer = styled.div.attrs({
+  className: 'flex mb-6',
+})``
+
+const Progress = ({ pageIndex, amountOfPages }) => {
+  const createDot = completed => (_, index) => (
+    <Dot
+      completed={completed}
+      key={`dot-${completed ? 'completed' : 'toComplete'}-${index}`}
+    />
+  )
+
+  const completed = R_.mapIndexed(createDot(true))([...Array(pageIndex)])
+  const toComplete = R_.mapIndexed(createDot())([
+    ...Array(amountOfPages - pageIndex),
+  ])
+
   return (
-    <div>
-      {pageIndex + 1} / {numberOfPages}
-    </div>
+    <DotsContainer>
+      <>
+        {completed}
+        {toComplete}
+      </>
+    </DotsContainer>
   )
 }
 
@@ -52,13 +84,13 @@ const Next = styled.button.attrs({
 
 const StyledControls = styled.nav.attrs({
   className:
-    'bg-white w-full fixed bottom-0 rounded-tooltip shadow-tooltip pt-6',
+    'bg-white w-full fixed bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
 })``
 
-const Controls = ({ incrementPage, page, pageIndex, numberOfPages }) => {
+const Controls = ({ incrementPage, page, pageIndex, amountOfPages }) => {
   return (
     <StyledControls>
-      <Progress {...{ pageIndex, numberOfPages }} />
+      <Progress {...{ pageIndex, amountOfPages }} />
       {page === Steps.Projects ? (
         <Next type="submit" />
       ) : (
@@ -125,7 +157,7 @@ const MultiStep = ({ children }) => {
                 incrementPage,
                 page,
                 pageIndex,
-                numberOfPages: steps.length,
+                amountOfPages: pages.length,
               }}
             />
           </Container>
