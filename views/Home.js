@@ -45,7 +45,7 @@ const Home = () => {
     }
 
     sendImage()
-  }, [photo])
+  }, [photo, routeDispatch])
 
   const onImageSelect = e => {
     e.preventDefault()

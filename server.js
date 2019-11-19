@@ -10,6 +10,8 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express()
 
+  server.use(require('cors')())
+
   server.get('/service-worker.js', (req, res) => {
     const filePath = join(__dirname, '.next', '/service-worker.js')
     app.serveStatic(req, res, filePath)
