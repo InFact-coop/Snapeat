@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 import { useRouteDispatch } from '../utils/routeContext'
 import { CHANGE_VIEW, MENU } from '../utils/constants'
@@ -15,15 +16,45 @@ import cameraButton from '../public/icons/btn_round.svg'
 
 const Home = () => {
   const routeDispatch = useRouteDispatch()
-  const [photo, setPhoto] = useState({})
+  const [photo, setPhoto] = useState()
+
+  useEffect(() => {
+    if (!photo) {
+      return
+    } else if (
+      photo.file &&
+      (photo.file.type !== ('image/jpeg' || 'image/png') ||
+        photo.file.size > 3000000)
+    ) {
+      return
+    }
+
+    const sendImage = async () => {
+      const data = new FormData()
+      data.set('photo', photo.file, photo.fileName)
+      try {
+        const res = await axios.post(
+          `${process.env.HOST}/api/upload-photo`,
+          data,
+        )
+
+        console.log('photo uploaded', res) //eslint-disable-line
+      } catch (err) {
+        console.log(err) //eslint-disable-line
+      }
+    }
+
+    sendImage()
+  }, [photo])
+
   const onImageSelect = e => {
     e.preventDefault()
     const file = e.target.files[0]
     if (file) {
       setPhoto({
-        photo: file,
-        photoName: fileNameFormatter(file.name),
-        photoURL: URL.createObjectURL(file),
+        file,
+        fileName: fileNameFormatter(file.name),
+        fileURL: URL.createObjectURL(file),
       })
     }
   }
@@ -47,7 +78,7 @@ const Home = () => {
         <Label htmlFor="image">
           <p>Snap a photo of their meal</p>
           <img
-            className="w-20 sm:w-auto"
+            className="w-20 sm:w-auto self-end mb-11"
             alt="camera-button"
             src={cameraButton}
           />
@@ -76,8 +107,9 @@ const Dashboard = styled.div.attrs({
 `
 
 const Label = styled.label`
+  height: 100%;
   display: grid;
-  grid-template-rows: 1fr 144px;
+  grid-template-rows: 20px 1fr;
   grid-gap: 10px;
   justify-items: center;
 `
