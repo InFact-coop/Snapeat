@@ -42,8 +42,11 @@ module.exports = {
         '43': '10.75rem', // 172px
         '65': '16.25rem', // 260px
       },
-      width: {},
+      width: {
+        '16d5': '4.125rem', // 66px
+      },
       height: {
+        '16d5': '4.125rem', // 66px
         '80': '80vh',
       },
       maxHeight: {
@@ -102,6 +105,10 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
+    },
+    borderRadius: {
+      tooltip: '1rem 1rem 0% 0% / 2.5rem 2.5rem 0% 0%',
+      full: '100%',
     },
     boxShadow: {
       '1': '0 0 3px 0 rgba(0,0,0,0.05), 0 1px 1px 0 rgba(0,0,0,0.05)',

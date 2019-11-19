@@ -27,10 +27,8 @@ const TooltipLink = styled.button.attrs({
 
 const Tooltip = styled.aside.attrs({
   className:
-    'text-center fixed z-1 bg-white left-0 bottom-0 pt-6 pb-20 px-4 shadow-tooltip',
-})`
-  border-radius: 1rem 1rem 0% 0% / 2.5rem 2.5rem 0% 0%;
-`
+    'text-center fixed z-1 bg-white left-0 bottom-0 pt-6 pb-20 px-4 shadow-tooltip rounded-tooltip',
+})``
 
 const Close = styled.button.attrs({
   className: 'border-0 bg-transparent w-5 h-5 block ml-auto mb-15',

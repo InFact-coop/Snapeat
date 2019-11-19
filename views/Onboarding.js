@@ -12,6 +12,7 @@ import Projects from '../components/onboarding/Projects'
 import Confirmation from '../components/onboarding/Confirmation'
 
 import logo1 from '../public/logos/logo1.svg'
+import arrowNext from '../public/icons/arrow_next.svg'
 
 const initialValues = {
   postCode: '',
@@ -35,19 +36,33 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
     console.error('Error submitting onboarding form', e)
   }
 }
-const Next = styled.button.attrs({})``
+const Progress = ({ pageIndex, numberOfPages }) => {
+  return (
+    <div>
+      {pageIndex + 1} / {numberOfPages}
+    </div>
+  )
+}
+
+const Next = styled.button.attrs({
+  className: 'w-16d5 h-16d5 shadow-button bg-navy rounded-full',
+})`
+  background: center no-repeat url(${arrowNext}) ${cssTheme('colors.navy')};
+`
 
 const StyledControls = styled.nav.attrs({
-  className: '',
+  className:
+    'bg-white w-full fixed bottom-0 rounded-tooltip shadow-tooltip pt-6',
 })``
 
-const Controls = ({ incrementPage, page }) => {
+const Controls = ({ incrementPage, page, pageIndex, numberOfPages }) => {
   return (
     <StyledControls>
+      <Progress {...{ pageIndex, numberOfPages }} />
       {page === Steps.Projects ? (
-        <Next type="submit">Submit</Next>
+        <Next type="submit" />
       ) : (
-        <Next onClick={incrementPage}>Next</Next>
+        <Next onClick={incrementPage} />
       )}
     </StyledControls>
   )
@@ -59,9 +74,9 @@ const MultiStep = ({ children }) => {
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
+  const pageIndex = R.findIndex(R.equals(page))(pages)
 
   const incrementPage = () => {
-    const pageIndex = R.findIndex(R.equals(page))(pages)
     setPage(pages[pageIndex + 1])
   }
 
@@ -105,7 +120,14 @@ const MultiStep = ({ children }) => {
                 }}
               />
             </StyledForm>
-            <Controls {...{ incrementPage, page }} />
+            <Controls
+              {...{
+                incrementPage,
+                page,
+                pageIndex,
+                numberOfPages: steps.length,
+              }}
+            />
           </Container>
         )
       }}
