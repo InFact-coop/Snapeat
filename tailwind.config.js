@@ -84,6 +84,9 @@ module.exports = {
       subheader: '2rem', // 32px
       header: '3.75rem', // 60px
     },
+    opacity: {
+      40: '.4',
+    },
     colors: {
       navy: '#170a59',
       blue: `#428dfc`,
