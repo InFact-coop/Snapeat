@@ -30,7 +30,8 @@ module.exports = {
         '10d5': '2.625rem', // 42px
         '11': '2.75rem', // 44px
         '11d5': '2.875rem', // 46px
-        '12': '3.75rem', // 60px
+        '12': '3rem', // 48px
+        '15': '3.75rem', // 60px
         '16': '4rem', // 64px
         '17': '4.25rem', // 68px
         '18': '4.5rem', // 72px
@@ -41,9 +42,17 @@ module.exports = {
         '43': '10.75rem', // 172px
         '65': '16.25rem', // 260px
       },
-      width: {},
+      width: {
+        '2d5': '0.625rem', // 10px
+        '16d5': '4.125rem', // 66px
+      },
       height: {
+        '2d5': '0.625rem', // 10px
+        '16d5': '4.125rem', // 66px
         '80': '80vh',
+      },
+      minHeight: {
+        '1/4': '25%',
       },
       maxHeight: {
         '1/2': '50%',
@@ -102,12 +111,17 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
     },
+    borderRadius: {
+      tooltip: '1rem 1rem 0% 0% / 2.5rem 2.5rem 0% 0%',
+      full: '100%',
+    },
     boxShadow: {
       '1': '0 0 3px 0 rgba(0,0,0,0.05), 0 1px 1px 0 rgba(0,0,0,0.05)',
       '2': '0 0 1px 1px rgba(0,0,0,0.02), 0 4px 6px 1px rgba(0,0,0,0.06)',
       '3': '0 0 2px 1px rgba(0,0,0,0.03), 0 6px 10px 2px rgba(0,0,0,0.08)',
       '4': '0 0 8px 2px rgba(0,0,0,0.03), 0 16px 24px 0 rgba(0,0,0,0.10)',
       button: '0 8px 12px 2px rgba(23,10,89,0.24)',
+      tooltip: '0 0 2px 1px rgba(0,0,0,0.03), 0 -6px 10px 2px rgba(0,0,0,0.04)',
     },
   },
 }
