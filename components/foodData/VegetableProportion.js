@@ -9,6 +9,7 @@ import mostlyIcon from '../../public/icons/quantities/regular/mostly.svg'
 import mostlyIconSelected from '../../public/icons/quantities/selected/mostly-selected.svg'
 import quarterIcon from '../../public/icons/quantities/regular/quarter.svg'
 import quarterIconSelected from '../../public/icons/quantities/selected/quarter-selected.svg'
+import vegIcon from '../../public/icons/categories/regular/vegan.svg'
 
 import * as Steps from '.'
 
@@ -50,17 +51,32 @@ const ProportionButton = ({ name, icon, iconSelected, label, id }) => {
   )
 }
 
+const VegetableTile = styled.div`
+  width: 190px;
+  height: 6rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+
+  .checkmark {
+    background-image: url(${vegIcon});
+    height: 4rem;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+`
+
 const VegetableProportion = () => {
   return (
     <CardBackground>
       <Title>You tagged Vegetables</Title>
+      <VegetableTile className="flex flex-col justify-center space-between mx-auto mb-5">
+        <div className="checkmark" />
+        <p className="w-full text-center">Vegetables</p>
+      </VegetableTile>
 
-      {/* <ProportionButton
-        name="proportionVeg"
-        icon={allIconSelected}
-        iconSelected={allIconSelected}
-        label="fruit"
-      /> */}
+      <Title className="w-11/12 mx-auto">
+        Roughly, how much of the plate is vegetables?
+      </Title>
 
       <IconContainer>
         <ProportionButton
