@@ -36,10 +36,9 @@ import fizzyDrinkIcon from '../../public/icons/categories/regular/fizzy-drink.sv
 import fizzyDrinkIconSelected from '../../public/icons/categories/selected/fizzy-drink-white.svg'
 
 const CardBackground = styled.section.attrs({
-  className: 'z-10 absolute w-screen bg-white',
+  className: 'z-10 absolute w-screen bg-white h-full',
 })`
   top: 40%;
-  height: 20rem;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
 `
@@ -48,9 +47,16 @@ const Title = styled.h1.attrs({
   className: 'font-xxl text-center mb-5 mt-5',
 })``
 
+const IconContainer = styled.section.attrs({
+  className: 'flex flex-row w-full flex-wrap justify-center',
+})``
+
 const CheckboxContainer = styled.label.attrs({
   className: 'block relative cursor-pointer select-none',
 })`
+  width: 9rem;
+  margin: 0.3rem;
+
   /* Hide the browser's default checkbox */
   input {
     position: absolute;
@@ -61,7 +67,7 @@ const CheckboxContainer = styled.label.attrs({
   }
 
   div {
-    width: 10rem;
+    width: 9rem;
     height: 6rem;
     border: 1px solid black;
     border-radius: 1rem;
@@ -118,101 +124,103 @@ const Categories = () => {
     <CardBackground>
       <Title>What&apos;s on their plate?</Title>
 
-      <CategoryButton
-        name="fruit"
-        icon={fruitIcon}
-        iconSelected={fruitIconSelected}
-      />
+      <IconContainer>
+        <CategoryButton
+          name="fruit"
+          icon={fruitIcon}
+          iconSelected={fruitIconSelected}
+        />
 
-      <CategoryButton
-        name="vegetables"
-        icon={vegIcon}
-        iconSelected={vegIconSelected}
-      />
+        <CategoryButton
+          name="vegetables"
+          icon={vegIcon}
+          iconSelected={vegIconSelected}
+        />
 
-      <CategoryButton
-        name="meat"
-        icon={meatIcon}
-        iconSelected={meatIconSelected}
-      />
+        <CategoryButton
+          name="meat"
+          icon={meatIcon}
+          iconSelected={meatIconSelected}
+        />
 
-      <CategoryButton
-        name="fish/seafood"
-        icon={fishIcon}
-        iconSelected={fishIconSelected}
-      />
+        <CategoryButton
+          name="fish/seafood"
+          icon={fishIcon}
+          iconSelected={fishIconSelected}
+        />
 
-      <CategoryButton
-        name="dairy"
-        icon={dairyIcon}
-        iconSelected={dairyIconSelected}
-      />
+        <CategoryButton
+          name="dairy"
+          icon={dairyIcon}
+          iconSelected={dairyIconSelected}
+        />
 
-      <CategoryButton
-        name="egg"
-        icon={eggIcon}
-        iconSelected={eggIconSelected}
-      />
+        <CategoryButton
+          name="egg"
+          icon={eggIcon}
+          iconSelected={eggIconSelected}
+        />
 
-      <CategoryButton
-        name="pasta"
-        icon={pastaIcon}
-        iconSelected={pastaIconSelected}
-      />
+        <CategoryButton
+          name="pasta"
+          icon={pastaIcon}
+          iconSelected={pastaIconSelected}
+        />
 
-      <CategoryButton
-        name="rice"
-        icon={riceIcon}
-        iconSelected={riceIconSelected}
-      />
+        <CategoryButton
+          name="rice"
+          icon={riceIcon}
+          iconSelected={riceIconSelected}
+        />
 
-      <CategoryButton
-        name="potato"
-        icon={potatoIcon}
-        iconSelected={potatoIconSelected}
-      />
+        <CategoryButton
+          name="potato"
+          icon={potatoIcon}
+          iconSelected={potatoIconSelected}
+        />
 
-      <CategoryButton
-        name="bread"
-        icon={breadIcon}
-        iconSelected={breadIconSelected}
-      />
+        <CategoryButton
+          name="bread"
+          icon={breadIcon}
+          iconSelected={breadIconSelected}
+        />
 
-      <CategoryButton
-        name="nuts"
-        icon={nutsIcon}
-        iconSelected={nutsIconSelected}
-      />
+        <CategoryButton
+          name="nuts"
+          icon={nutsIcon}
+          iconSelected={nutsIconSelected}
+        />
 
-      <CategoryButton
-        name="dessert"
-        icon={dessertIcon}
-        iconSelected={dessertIconSelected}
-      />
+        <CategoryButton
+          name="dessert"
+          icon={dessertIcon}
+          iconSelected={dessertIconSelected}
+        />
 
-      <CategoryButton
-        name="oil"
-        icon={oilIcon}
-        iconSelected={oilIconSelected}
-      />
+        <CategoryButton
+          name="oil"
+          icon={oilIcon}
+          iconSelected={oilIconSelected}
+        />
 
-      <CategoryButton
-        name="butter"
-        icon={butterIcon}
-        iconSelected={butterIconSelected}
-      />
+        <CategoryButton
+          name="butter"
+          icon={butterIcon}
+          iconSelected={butterIconSelected}
+        />
 
-      <CategoryButton
-        name="water"
-        icon={waterIcon}
-        iconSelected={waterIconSelected}
-      />
+        <CategoryButton
+          name="water"
+          icon={waterIcon}
+          iconSelected={waterIconSelected}
+        />
 
-      <CategoryButton
-        name="fizzy-drink"
-        icon={fizzyDrinkIcon}
-        iconSelected={fizzyDrinkIconSelected}
-      />
+        <CategoryButton
+          name="fizzy-drink"
+          icon={fizzyDrinkIcon}
+          iconSelected={fizzyDrinkIconSelected}
+        />
+      </IconContainer>
     </CardBackground>
   )
 }
