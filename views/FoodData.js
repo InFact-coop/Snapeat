@@ -3,8 +3,11 @@ import styled from 'styled-components'
 import { Formik, Form } from 'formik'
 import axios from 'axios'
 import * as R from 'ramda'
-import { useRouteDispatch } from '../utils/routeContext'
+
 import { GO_BACK } from '../utils/constants'
+
+import { useRouteDispatch } from '../state/routeContext'
+import { useFoodDataState } from '../state/foodDataContext'
 
 import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
@@ -20,6 +23,7 @@ const initialValues = {
   proportionVeg: '',
   tags: [],
 }
+
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
@@ -74,6 +78,8 @@ const ControlsNext = ({ incrementPage, page }) => {
 }
 
 const MultiStep = ({ children }) => {
+  const { foodPhoto } = useFoodDataState()
+
   const [page, setPage] = useState(Steps.Categories)
 
   const steps = React.Children.toArray(children)
@@ -109,7 +115,7 @@ const MultiStep = ({ children }) => {
           <Container>
             <ControlsBack {...{ decrementPage, page }} />
             <StyledForm>
-              <Food />
+              <Food src={foodPhoto.fileURL} />
               <RenderStep
                 {...{
                   validateForm,
@@ -148,12 +154,11 @@ const StyledForm = styled(Form).attrs({
   className: 'bg-lightgray h-screen px-4 py-5d5 flex flex-col items-center',
 })``
 
-const Food = styled.img.attrs({
-  src:
-    'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdefault.mygourmetcreatio.netdna-cdn.com%2Fwp-content%2Fuploads%2F2014%2F12%2FThai-Basil-Beef-2.jpg&f=1&nofb=1',
+const Food = styled.img.attrs(({ src }) => ({
+  src,
   className: 'absolute top-0 min-w-full',
   alt: 'Photo of users dinner',
-})``
+}))``
 
 const StyledControlsBack = styled.nav.attrs({
   className: 'absolute top-0 min-w-full z-10',
