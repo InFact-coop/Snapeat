@@ -1,10 +1,10 @@
 import React from 'react'
 import * as R from 'ramda'
-import { HOME, CHANGE_VIEW, GO_BACK, FOOD_DATA } from '../utils/constants'
+import { HOME, CHANGE_VIEW, GO_BACK } from '../utils/constants'
 
 const initialState = {
   currentView: HOME,
-  history: [HOME, FOOD_DATA],
+  history: [HOME],
 }
 
 const RouteStateContext = React.createContext()
