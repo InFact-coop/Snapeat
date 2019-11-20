@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
+// import axios from 'axios'
 
-import { useRouteDispatch } from '../utils/routeContext'
+import { useRouteDispatch } from '../state/routeContext'
+import { useFoodDataDispatch } from '../state/foodDataContext'
 import {
   CHANGE_VIEW,
   MENU,
-  LOADING,
-  CATEGORY_SELECT,
+  // LOADING,
+  FOOD_DATA,
   ERROR,
+  SET_FOOD_PHOTO,
 } from '../utils/constants'
 import fileNameFormatter from '../utils/fileNameFormatter'
 
@@ -22,37 +24,44 @@ import cameraButton from '../public/icons/btn_round.svg'
 
 const Home = () => {
   const routeDispatch = useRouteDispatch()
+  const foodDataDispatch = useFoodDataDispatch()
   const [photo, setPhoto] = useState()
 
   useEffect(() => {
     if (!photo) {
-      return
-    } else if (
+      return undefined
+    }
+
+    if (
       photo.file &&
-      !(photo.file.type === 'image/jpeg' || 'image/png')
+      !(photo.file.type === 'image/jpeg' || photo.file.type === 'image/png')
     ) {
-      routeDispatch({ type: CHANGE_VIEW, view: ERROR })
+      return routeDispatch({ type: CHANGE_VIEW, view: ERROR })
     }
 
-    const sendImage = async () => {
-      routeDispatch({ type: CHANGE_VIEW, view: LOADING })
+    foodDataDispatch({ type: SET_FOOD_PHOTO, payload: photo })
 
-      const data = new FormData()
-      data.set('photo', photo.file, photo.fileName)
-      try {
-        const {
-          data: { url },
-        } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
+    return routeDispatch({ type: CHANGE_VIEW, view: FOOD_DATA })
 
-        console.log('photo uploaded', url) //eslint-disable-line
-        routeDispatch({ type: CHANGE_VIEW, view: CATEGORY_SELECT })
-      } catch (err) {
-        console.log(err) //eslint-disable-line
-      }
-    }
-
-    sendImage()
-  }, [photo, routeDispatch])
+    // const sendImage = async () => {
+    //   routeDispatch({ type: CHANGE_VIEW, view: LOADING })
+    //
+    //   const data = new FormData()
+    //   data.set('photo', photo.file, photo.fileName)
+    //   try {
+    //     const {
+    //       data: { url },
+    //     } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
+    //
+    //     console.log('photo uploaded', url) //eslint-disable-line
+    //     routeDispatch({ type: CHANGE_VIEW, view: FOOD_DATA })
+    //   } catch (err) {
+    //     console.log(err) //eslint-disable-line
+    //   }
+    // }
+    //
+    // return sendImage()
+  }, [foodDataDispatch, photo, routeDispatch])
 
   const onImageSelect = e => {
     e.preventDefault()

@@ -10,6 +10,9 @@ export const LOADING = 'LOADING'
 export const SUCCESS = 'SUCCESS'
 export const FOOD_DATA = 'FOOD_DATA'
 
-// Actions
+// Router Actions
 export const CHANGE_VIEW = 'CHANGE_VIEW'
 export const GO_BACK = 'GO_BACK'
+
+// Food Data Actions
+export const SET_FOOD_PHOTO = 'SET_FOOD_PHOTO'

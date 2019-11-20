@@ -1,9 +1,9 @@
 import React from 'react'
 import * as R from 'ramda'
-import { HOME, CHANGE_VIEW, GO_BACK, FOOD_DATA } from './constants'
+import { HOME, CHANGE_VIEW, GO_BACK, FOOD_DATA } from '../utils/constants'
 
 const initialState = {
-  currentView: FOOD_DATA,
+  currentView: HOME,
   history: [HOME, FOOD_DATA],
 }
 

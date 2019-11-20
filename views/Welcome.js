@@ -11,7 +11,7 @@ import progress3 from '../public/icons/progress_3.svg'
 
 import arrowRight from '../public/icons/arrow_right.svg'
 
-import { useRouteDispatch } from '../utils/routeContext'
+import { useRouteDispatch } from '../state/routeContext'
 import { CHANGE_VIEW, SIGN_UP } from '../utils/constants'
 
 const Welcome = () => {
