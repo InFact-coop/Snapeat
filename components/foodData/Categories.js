@@ -36,9 +36,8 @@ import fizzyDrinkIcon from '../../public/icons/categories/regular/fizzy-drink.sv
 import fizzyDrinkIconSelected from '../../public/icons/categories/selected/fizzy-drink-white.svg'
 
 const CardBackground = styled.section.attrs({
-  className: 'z-10 absolute w-screen bg-white h-full',
+  className: 'z-10 w-screen bg-white h-full',
 })`
-  top: 40%;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
 `

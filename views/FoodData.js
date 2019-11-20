@@ -115,7 +115,9 @@ const MultiStep = ({ children }) => {
           <Container>
             <ControlsBack {...{ decrementPage, page }} />
             <StyledForm>
-              <Food src={foodPhoto.fileURL} />
+              <ImageContainer className="relative">
+                <Food src={foodPhoto.fileURL} />
+              </ImageContainer>
               <RenderStep
                 {...{
                   validateForm,
@@ -151,18 +153,26 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
 }
 
 const StyledForm = styled(Form).attrs({
-  className: 'bg-lightgray h-screen px-4 py-5d5 flex flex-col items-center',
+  className: 'bg-lightgray px-4 flex flex-col items-center',
 })``
+
+const height = 300
+
+const ImageContainer = styled.div`
+  height: ${height}px;
+  width: 100vw;
+`
 
 const Food = styled.img.attrs(({ src }) => ({
   src,
-  className: 'absolute top-0 min-w-full',
+  className: 'min-w-full absolute',
   alt: 'Photo of users dinner',
 }))``
 
 const StyledControlsBack = styled.nav.attrs({
   className: 'absolute top-0 min-w-full z-10',
 })``
+
 const Back = styled.button.attrs({
   className: 'm-4',
 })``
@@ -170,6 +180,7 @@ const Back = styled.button.attrs({
 const StyledControlsNext = styled.nav.attrs({
   className: 'flex justify-center',
 })``
+
 const Next = styled.button.attrs({
   className: '',
 })``
