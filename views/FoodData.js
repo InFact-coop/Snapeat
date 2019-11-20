@@ -38,11 +38,13 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   }
 }
 
-const ControlsBack = ({ decrementPage, page }) => {
+const ControlsBack = ({ decrementPage, pageIndex }) => {
   const routeDispatch = useRouteDispatch()
+  const firstPage = pageIndex === 0
+
   return (
     <StyledControlsBack>
-      {page === Steps.Categories ? (
+      {firstPage ? (
         <Back onClick={() => routeDispatch({ type: GO_BACK })}>
           <img src={backIcon} alt="Back" />
         </Back>
@@ -55,10 +57,11 @@ const ControlsBack = ({ decrementPage, page }) => {
   )
 }
 
-const ControlsNext = ({ incrementPage, page }) => {
+const ControlsNext = ({ incrementPage, pageIndex, amountOfPages }) => {
+  const penultimatePage = amountOfPages - 2
   return (
     <StyledControlsNext>
-      {page === Steps.Tags ? (
+      {pageIndex === penultimatePage ? (
         <Next type="submit">
           <img src={nextIcon} alt="Next" />
         </Next>
