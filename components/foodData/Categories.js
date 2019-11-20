@@ -1,6 +1,25 @@
 import styled from 'styled-components'
 import { Field } from 'formik'
 
+import {
+  FRUIT,
+  VEGETABLES,
+  MEAT,
+  FISH,
+  DAIRY,
+  EGG,
+  PASTA,
+  RICE,
+  POTATO,
+  BREAD,
+  NUTS,
+  DESSERT,
+  OIL,
+  BUTTER,
+  WATER,
+  FIZZY_DRINK,
+} from '../../utils/constants'
+
 // import clicked and unclicked variants of all icons
 import fruitIcon from '../../public/icons/categories/regular/fruit_icn.svg'
 import fruitIconSelected from '../../public/icons/categories/selected/fruit_icn-white.svg'
@@ -130,97 +149,97 @@ const Categories = () => {
 
       <IconContainer>
         <CategoryButton
-          name="fruit"
+          name={FRUIT}
           icon={fruitIcon}
           iconSelected={fruitIconSelected}
         />
 
         <CategoryButton
-          name="vegetables"
+          name={VEGETABLES}
           icon={vegIcon}
           iconSelected={vegIconSelected}
         />
 
         <CategoryButton
-          name="meat"
+          name={MEAT}
           icon={meatIcon}
           iconSelected={meatIconSelected}
         />
 
         <CategoryButton
-          name="fish/seafood"
+          name={FISH}
           icon={fishIcon}
           iconSelected={fishIconSelected}
         />
 
         <CategoryButton
-          name="dairy"
+          name={DAIRY}
           icon={dairyIcon}
           iconSelected={dairyIconSelected}
         />
 
         <CategoryButton
-          name="egg"
+          name={EGG}
           icon={eggIcon}
           iconSelected={eggIconSelected}
         />
 
         <CategoryButton
-          name="pasta"
+          name={PASTA}
           icon={pastaIcon}
           iconSelected={pastaIconSelected}
         />
 
         <CategoryButton
-          name="rice"
+          name={RICE}
           icon={riceIcon}
           iconSelected={riceIconSelected}
         />
 
         <CategoryButton
-          name="potato"
+          name={POTATO}
           icon={potatoIcon}
           iconSelected={potatoIconSelected}
         />
 
         <CategoryButton
-          name="bread"
+          name={BREAD}
           icon={breadIcon}
           iconSelected={breadIconSelected}
         />
 
         <CategoryButton
-          name="nuts"
+          name={NUTS}
           icon={nutsIcon}
           iconSelected={nutsIconSelected}
         />
 
         <CategoryButton
-          name="dessert"
+          name={DESSERT}
           icon={dessertIcon}
           iconSelected={dessertIconSelected}
         />
 
         <CategoryButton
-          name="oil"
+          name={OIL}
           icon={oilIcon}
           iconSelected={oilIconSelected}
         />
 
         <CategoryButton
-          name="butter"
+          name={BUTTER}
           icon={butterIcon}
           iconSelected={butterIconSelected}
         />
 
         <CategoryButton
-          name="water"
+          name={WATER}
           icon={waterIcon}
           iconSelected={waterIconSelected}
         />
 
         <CategoryButton
-          name="fizzy-drink"
+          name={FIZZY_DRINK}
           icon={fizzyDrinkIcon}
           iconSelected={fizzyDrinkIconSelected}
         />
