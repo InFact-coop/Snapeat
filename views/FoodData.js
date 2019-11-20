@@ -7,17 +7,17 @@ import { useRouteDispatch } from '../utils/routeContext'
 import { GO_BACK } from '../utils/constants'
 
 import * as Steps from '../components/foodData'
-import Types from '../components/foodData/Types'
-import Ratios from '../components/foodData/Ratios'
+import Categories from '../components/foodData/Categories'
+import Proportions from '../components/foodData/Proportions'
 import Tags from '../components/foodData/Tags'
 
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
 
 const initialValues = {
-  types: [],
-  fruitRatio: '',
-  vegRatio: '',
+  categories: [],
+  proportionFruit: '',
+  proportionVeg: '',
   tags: [],
 }
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
@@ -42,7 +42,7 @@ const ControlsBack = ({ decrementPage, page }) => {
   const routeDispatch = useRouteDispatch()
   return (
     <StyledControlsBack>
-      {page === Steps.Types ? (
+      {page === Steps.Categories ? (
         <Back onClick={() => routeDispatch({ type: GO_BACK })}>
           <img src={backIcon} alt="Back" />
         </Back>
@@ -74,7 +74,7 @@ const ControlsNext = ({ incrementPage, page }) => {
 }
 
 const MultiStep = ({ children }) => {
-  const [page, setPage] = useState(Steps.Types)
+  const [page, setPage] = useState(Steps.Categories)
 
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
@@ -172,8 +172,8 @@ const Next = styled.button.attrs({
 const FoodData = () => {
   return (
     <MultiStep>
-      <Types />
-      <Ratios />
+      <Categories />
+      <Proportions />
       <Tags />
     </MultiStep>
   )
