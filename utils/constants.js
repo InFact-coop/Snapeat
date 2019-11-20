@@ -4,6 +4,10 @@ export const MENU = 'MENU'
 export const ONBOARDING = 'ONBOARDING'
 export const WELCOME = 'WELCOME'
 export const SIGN_UP = 'SIGN_UP'
+export const CATEGORY_SELECT = 'CATEGORY_SELECT'
+export const ERROR = 'ERROR'
+export const LOADING = 'LOADING'
+export const SUCCESS = 'SUCCESS'
 export const FOOD_DATA = 'FOOD_DATA'
 
 // Actions

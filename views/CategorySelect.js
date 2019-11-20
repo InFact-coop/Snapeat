@@ -1,17 +1,17 @@
 import React from 'react'
 import { useRouteDispatch } from '../utils/routeContext'
-import { HOME, CHANGE_VIEW } from '../utils/constants'
+import { MENU, CHANGE_VIEW } from '../utils/constants'
 
-const SignUp = () => {
+const CategorySelect = () => {
   const routeDispatch = useRouteDispatch()
   return (
     <div>
       <h2 className="mb-4">Sign up</h2>
-      <button onClick={() => routeDispatch({ type: CHANGE_VIEW, view: HOME })}>
-        Go home
+      <button onClick={() => routeDispatch({ type: CHANGE_VIEW, view: MENU })}>
+        Menu
       </button>
     </div>
   )
 }
 
-export default SignUp
+export default CategorySelect
