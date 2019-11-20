@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
-import axios from 'axios'
+// import axios from 'axios'
 
-import { prisma } from '../../prisma/generated/ts'
+// import { prisma } from '../../prisma/generated/ts'
 
 const cloudinary = require('cloudinary').v2
 
@@ -15,16 +15,16 @@ cloudinary.config({
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const form = new formidable.IncomingForm()
-    form.parse(req, async (err, fields, files) => {
+    form.parse(req, async (err, _fields, files) => {
       if (err) {
-        throw new Error(err)
+        console.error('form parsing error', err)
       }
 
       const { photo } = files
 
-      cloudinary.uploader.upload(`${photo.path}`, (error, result) => {
+      cloudinary.uploader.upload(`${photo.path}`, (error: any, result: any) => {
         if (error) {
-          throw new Error(error)
+          console.error('cloudinary error error', error)
         }
 
         const { url } = result
