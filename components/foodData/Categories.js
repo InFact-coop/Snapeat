@@ -54,11 +54,13 @@ import waterIconSelected from '../../public/icons/categories/selected/water-whit
 import fizzyDrinkIcon from '../../public/icons/categories/regular/fizzy-drink.svg'
 import fizzyDrinkIconSelected from '../../public/icons/categories/selected/fizzy-drink-white.svg'
 
+import * as Steps from '.'
+
 const CardBackground = styled.section.attrs({
-  className: 'z-10 w-screen bg-white h-full',
+  className: 'z-10 w-screen bg-white',
 })`
-  border-top-left-radius: 20%;
-  border-top-right-radius: 20%;
+  border-top-left-radius: 4em;
+  border-top-right-radius: 4em;
 `
 
 const Title = styled.h1.attrs({
@@ -103,7 +105,7 @@ const CheckboxContainer = styled.label.attrs({
   /* Create a custom checkbox */
   .checkmark {
     width: 100%;
-    height: 3rem;
+    height: 4rem;
     background-image: url(${props => props.icon});
     background-repeat: no-repeat;
     background-position: center;
@@ -247,6 +249,7 @@ const Categories = () => {
     </CardBackground>
   )
 }
-Categories.componentName = 'Categories'
+
+Categories.componentName = Steps.Categories
 
 export default Categories
