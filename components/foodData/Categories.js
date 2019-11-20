@@ -20,11 +20,6 @@ const Title = styled.h1.attrs({
 const CheckboxContainer = styled.label.attrs({
   className: 'block relative cursor-pointer select-none',
 })`
-  width: 40%;
-  height: 30%;
-  border: 1px solid black;
-  border-radius: 1rem;
-
   /* Hide the browser's default checkbox */
   input {
     position: absolute;
@@ -32,6 +27,17 @@ const CheckboxContainer = styled.label.attrs({
     cursor: pointer;
     height: 0;
     width: 0;
+  }
+
+  div {
+    width: 10rem;
+    height: 6rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    text-align: center;
   }
 
   /* Create a custom checkbox */
@@ -44,20 +50,29 @@ const CheckboxContainer = styled.label.attrs({
     display: block;
   }
   /* When the checkbox is checked, add a blue background */
-  input:checked ~ .checkmark {
-    background-color: darkblue;
-
+  input:checked ~ .background > .checkmark {
     background-image: url(${fruitIconSelected});
+  }
+
+  input:checked ~ .background {
+    background-color: ${cssTheme('colors.navy')};
+    color: white;
+  }
+
+  input:checked .parent {
+    background-color: blue;
   }
 `
 
 const CategoryButton = ({ name }) => {
   const text = name.charAt(0).toUpperCase() + name.slice(1)
   return (
-    <CheckboxContainer htmlFor={name}>
+    <CheckboxContainer htmlFor={name} className="parent">
       <Field type="checkbox" name="categories" value={name} id={name} />
-      <span className="checkmark" />
-      {text}
+      <div className="background">
+        <span className="checkmark" />
+        <span>{text}</span>
+      </div>
     </CheckboxContainer>
   )
 }
