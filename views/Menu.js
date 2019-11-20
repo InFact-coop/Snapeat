@@ -7,6 +7,7 @@ import {
   HOME,
   SIGN_UP,
   ONBOARDING,
+  SUCCESS,
 } from '../utils/constants'
 
 const Menu = () => {
@@ -42,6 +43,13 @@ const Menu = () => {
         }
       >
         Onboarding
+      </div>
+      <div
+        className="mb-2"
+        onClick={() => routeDispatch({ type: CHANGE_VIEW, view: SUCCESS })}
+        onKeyPress={() => routeDispatch({ type: CHANGE_VIEW, view: SUCCESS })}
+      >
+        Success
       </div>
       <div
         className="mb-2"
