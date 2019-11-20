@@ -47,15 +47,20 @@ const Title = styled.h1.attrs({
 })``
 
 const IconContainer = styled.section.attrs({
-  className: 'flex flex-row w-full flex-wrap justify-center',
-})``
+  className: '',
+})`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  justify-items: center;
+  max-width: 90%;
+  margin: 0 auto;
+`
 
 const CheckboxContainer = styled.label.attrs({
   className: 'block relative cursor-pointer select-none',
 })`
-  width: 9rem;
-  margin: 0.3rem;
-
+  width: 100%;
   /* Hide the browser's default checkbox */
   input {
     position: absolute;
@@ -66,7 +71,7 @@ const CheckboxContainer = styled.label.attrs({
   }
 
   div {
-    width: 9rem;
+    width: 100%;
     height: 6rem;
     border: 1px solid black;
     border-radius: 1rem;
