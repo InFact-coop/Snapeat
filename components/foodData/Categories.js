@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import { Field } from 'formik'
 
+import fruitIcon from '../../public/icons/categories/regular/fruit_icn.svg'
+import fruitIconSelected from '../../public/icons/categories/selected/fruit_icn-white.svg'
+
 const CardBackground = styled.section.attrs({
   className: 'z-10 absolute w-screen bg-white',
 })`
@@ -14,14 +17,58 @@ const Title = styled.h1.attrs({
   className: 'font-xxl text-center mb-5 mt-5',
 })``
 
+const CheckboxContainer = styled.label.attrs({
+  className: 'block relative cursor-pointer select-none',
+})`
+  width: 40%;
+  height: 30%;
+  border: 1px solid black;
+  border-radius: 1rem;
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    width: 100%;
+    height: 3rem;
+    background-image: url(${fruitIcon});
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+  }
+  /* When the checkbox is checked, add a blue background */
+  input:checked ~ .checkmark {
+    background-color: darkblue;
+
+    background-image: url(${fruitIconSelected});
+  }
+`
+
+const CategoryButton = ({ name }) => {
+  const text = name.charAt(0).toUpperCase() + name.slice(1)
+  return (
+    <CheckboxContainer htmlFor={name}>
+      <Field type="checkbox" name="categories" value={name} id={name} />
+      <span className="checkmark" />
+      {text}
+    </CheckboxContainer>
+  )
+}
+
 const Categories = () => {
   return (
     <CardBackground>
       <Title>What&apos;s on their plate?</Title>
-      <label htmlFor="fruit">
-        <Field type="checkbox" name="categories" value="fruit" id="fruit" />
-        Fruit
-      </label>
+
+      <CategoryButton name="fruit" />
+
       <label htmlFor="vegetables">
         <Field
           type="checkbox"
