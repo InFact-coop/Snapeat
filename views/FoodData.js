@@ -49,6 +49,7 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
 
   const backOnClick = () => {
     const vegetablesSelected = values.categories.includes('vegetables')
+    const fruitSelected = values.categories.includes('fruit')
 
     switch (page) {
       case Steps.Categories:
@@ -58,6 +59,16 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
           vegetablesSelected
             ? setPage(Steps.VegetableProportion)
             : setPage(Steps.Categories)
+      case Steps.Tags:
+        return () => {
+          if (fruitSelected) {
+            return setPage(Steps.FruitProportion)
+          }
+          if (vegetablesSelected) {
+            return setPage(Steps.VegetableProportion)
+          }
+          return setPage(Steps.Categories)
+        }
       default:
         return decrementPage
     }
