@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "==next==": "------------------------------------------------------------------------------------------",
-    "dev:nodemon": "env-cmd -f ./.config/dev.env nodemon --inspect -w ./server.js -w ./next.config.js -w .config/ -e js,json,env server.js",
+    "dev:nodemon": " nodemon --exec \"env-cmd -f ./.config/dev.env node --inspect server.js\"  -w ./server.js -w ./next.config.js -w ./.config/dev.env",
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server.js",
     "==lint&format==": "-----------------------------------------------------------------------------------",
@@ -79,7 +79,6 @@
     "@types/react": "^16.9.11",
     "autoprefixer": "^9.7.1",
     "concurrently": "^5.0.0",
-    "cors": "^2.8.5",
     "env-cmd": "^10.0.1",
     "eslint": "^6.6.0",
     "eslint-config-kentcdodds": "^14.6.1",
@@ -90,6 +89,7 @@
     "nodemon": "^1.19.4",
     "postcss-import": "^12.0.1",
     "prettier": "^1.19.1",
+    "tachyons": "^4.11.1",
     "typescript": "^3.7.2"
   }
 }

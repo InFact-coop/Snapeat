@@ -3,13 +3,18 @@ import styled from 'styled-components'
 import { Formik, Form } from 'formik'
 import axios from 'axios'
 import * as R from 'ramda'
-import { useRouteDispatch } from '../utils/routeContext'
+
 import { GO_BACK } from '../utils/constants'
 
-// import * as Steps from '../components/foodData'
+import { useRouteDispatch } from '../state/routeContext'
+import { useFoodDataState } from '../state/foodDataContext'
+
+import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
-import Proportions from '../components/foodData/Proportions'
+import VegetableProportion from '../components/foodData/VegetableProportion'
+import FruitProportion from '../components/foodData/FruitProportion'
 import Tags from '../components/foodData/Tags'
+import Results from '../components/foodData/Results'
 
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
@@ -20,6 +25,7 @@ const initialValues = {
   proportionVeg: '',
   tags: [],
 }
+
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
@@ -38,35 +44,69 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   }
 }
 
-const ControlsBack = ({ decrementPage, pageIndex }) => {
+const ControlsBack = ({ decrementPage, page, setPage, values }) => {
   const routeDispatch = useRouteDispatch()
-  const firstPage = pageIndex === 0
+
+  const backOnClick = () => {
+    const vegetablesSelected = values.categories.includes('vegetables')
+
+    switch (page) {
+      case Steps.Categories:
+        return () => routeDispatch({ type: GO_BACK })
+      case Steps.FruitProportion:
+        return () =>
+          vegetablesSelected
+            ? setPage(Steps.VegetableProportion)
+            : setPage(Steps.Categories)
+      default:
+        return decrementPage
+    }
+  }
 
   return (
     <StyledControlsBack>
-      {firstPage ? (
-        <Back onClick={() => routeDispatch({ type: GO_BACK })}>
-          <img src={backIcon} alt="Back" />
-        </Back>
-      ) : (
-        <Back onClick={decrementPage}>
-          <img src={backIcon} alt="Back" />
-        </Back>
-      )}
+      <Back onClick={backOnClick()}>
+        <img src={backIcon} alt="Back" />
+      </Back>
     </StyledControlsBack>
   )
 }
 
-const ControlsNext = ({ incrementPage, pageIndex, amountOfPages }) => {
-  const penultimatePage = amountOfPages - 2
+// TODO: make sure back button goes to right place (if fruit and veg have been clicked or not)
+// TODO: add validation
+
+const ControlsNext = ({ incrementPage, page, setPage, values }) => {
+  const nextOnClick = () => {
+    const fruitSelected = values.categories.includes('fruit')
+    const vegetablesSelected = values.categories.includes('vegetables')
+
+    switch (page) {
+      case Steps.Categories:
+        return () => {
+          if (vegetablesSelected) {
+            return setPage(Steps.VegetableProportion)
+          }
+          if (fruitSelected) {
+            return setPage(Steps.FruitProportion)
+          }
+          return setPage(Steps.Tags)
+        }
+      case Steps.VegetableProportion:
+        return () =>
+          fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
+      default:
+        return incrementPage
+    }
+  }
+
   return (
     <StyledControlsNext>
-      {pageIndex === penultimatePage ? (
-        <Next type="submit">
+      {page === Steps.Results ? (
+        <Next type="submit" onClick={nextOnClick()}>
           <img src={nextIcon} alt="Next" />
         </Next>
       ) : (
-        <Next onClick={incrementPage}>
+        <Next onClick={nextOnClick()}>
           <img src={nextIcon} alt="Next" />
         </Next>
       )}
@@ -75,6 +115,8 @@ const ControlsNext = ({ incrementPage, pageIndex, amountOfPages }) => {
 }
 
 const MultiStep = ({ children }) => {
+  const { foodPhoto } = useFoodDataState()
+
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
   const firstPage = R.head(pages)
@@ -110,9 +152,11 @@ const MultiStep = ({ children }) => {
       {({ validateForm, values, setTouched, setFieldValue, errors }) => {
         return (
           <Container>
-            <ControlsBack {...{ decrementPage, page }} />
+            <ControlsBack {...{ decrementPage, page, setPage, values }} />
             <StyledForm>
-              <Food />
+              <ImageContainer className="relative">
+                <Food src={foodPhoto.fileURL} />
+              </ImageContainer>
               <RenderStep
                 {...{
                   validateForm,
@@ -130,7 +174,14 @@ const MultiStep = ({ children }) => {
                 }}
               />
             </StyledForm>
-            <ControlsNext {...{ incrementPage, page }} />
+            <ControlsNext
+              {...{
+                incrementPage,
+                page,
+                values,
+                setPage,
+              }}
+            />
           </Container>
         )
       }}
@@ -148,26 +199,32 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
 }
 
 const StyledForm = styled(Form).attrs({
-  className: 'bg-lightgray h-screen px-4 py-5d5 flex flex-col items-center',
+  className: 'bg-lightgray px-4 flex flex-col items-center',
 })``
 
-const Food = styled.img.attrs({
-  src:
-    'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdefault.mygourmetcreatio.netdna-cdn.com%2Fwp-content%2Fuploads%2F2014%2F12%2FThai-Basil-Beef-2.jpg&f=1&nofb=1',
-  className: 'absolute top-0 min-w-full',
+const ImageContainer = styled.div`
+  height: 300px;
+  width: 100vw;
+`
+
+const Food = styled.img.attrs(({ src }) => ({
+  src,
+  className: 'min-w-full absolute',
   alt: 'Photo of users dinner',
-})``
+}))``
 
 const StyledControlsBack = styled.nav.attrs({
   className: 'absolute top-0 min-w-full z-10',
 })``
+
 const Back = styled.button.attrs({
   className: 'm-4',
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center',
+  className: 'flex justify-center mt-4',
 })``
+
 const Next = styled.button.attrs({
   className: '',
 })``
@@ -176,8 +233,10 @@ const FoodData = () => {
   return (
     <MultiStep>
       <Categories />
-      <Proportions />
+      <VegetableProportion />
+      <FruitProportion />
       <Tags />
+      <Results />
     </MultiStep>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouteDispatch } from '../utils/routeContext'
+import { useRouteDispatch } from '../state/routeContext'
 import { MENU, CHANGE_VIEW } from '../utils/constants'
 
 const Loading = () => {
