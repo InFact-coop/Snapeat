@@ -107,7 +107,7 @@ const ControlsNext = ({ incrementPage, page, setPage, values }) => {
         </Next>
       ) : (
         <Next onClick={nextOnClick()}>
-            <img src={nextIcon} alt="Next" />
+          <img src={nextIcon} alt="Next" />
         </Next>
       )}
     </StyledControlsNext>
@@ -117,10 +117,12 @@ const ControlsNext = ({ incrementPage, page, setPage, values }) => {
 const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
 
-  const [page, setPage] = useState(Steps.Results)
-
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
+  const firstPage = R.head(pages)
+
+  const [page, setPage] = useState(firstPage)
+
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
 
   const incrementPage = () => {
