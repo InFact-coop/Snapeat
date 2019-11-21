@@ -9,6 +9,7 @@ const TileContainer = styled.section.attrs({
   grid-gap: 1rem;
   justify-items: center;
   max-width: 90%;
+  width: 90%;
   margin: 0 auto;
 `
 
@@ -128,7 +129,7 @@ const Title = styled.h1.attrs({
 })``
 
 const FruitVegTile = styled.div`
-  width: 190px;
+  width: ${({ width = '190px' }) => width};
   height: 6rem;
   border: 1px solid black;
   border-radius: 1rem;

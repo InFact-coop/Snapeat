@@ -49,6 +49,7 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
 
   const backOnClick = () => {
     const vegetablesSelected = values.categories.includes('vegetables')
+    const fruitSelected = values.categories.includes('fruit')
 
     switch (page) {
       case Steps.Categories:
@@ -58,6 +59,16 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
           vegetablesSelected
             ? setPage(Steps.VegetableProportion)
             : setPage(Steps.Categories)
+      case Steps.Tags:
+        return () => {
+          if (fruitSelected) {
+            return setPage(Steps.FruitProportion)
+          }
+          if (vegetablesSelected) {
+            return setPage(Steps.VegetableProportion)
+          }
+          return setPage(Steps.Categories)
+        }
       default:
         return decrementPage
     }
@@ -136,7 +147,6 @@ const MultiStep = ({ children }) => {
   }
 
   const { validationSchema } = activePage && activePage.type
-  const Container = styled.main``
 
   return (
     <Formik
@@ -193,7 +203,7 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
     window.scrollTo(0, 0)
     setTouched({})
     validateForm()
-  }, [page, setTouched, validateForm])
+  }, [page])
 
   return React.cloneElement(activePage, props)
 }
@@ -222,12 +232,18 @@ const Back = styled.button.attrs({
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center mt-4',
-})``
+  className: 'flex justify-center pt-4 mt-4',
+})`
+  background-color: ${cssTheme('colors.lightgray')};
+`
 
 const Next = styled.button.attrs({
   className: '',
 })``
+
+const Container = styled.main`
+  background-color: ${cssTheme('colors.white')};
+`
 
 const FoodData = () => {
   return (
