@@ -14,6 +14,7 @@ import Categories from '../components/foodData/Categories'
 import VegetableProportion from '../components/foodData/VegetableProportion'
 import FruitProportion from '../components/foodData/FruitProportion'
 import Tags from '../components/foodData/Tags'
+import Results from '../components/foodData/Results'
 
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
@@ -100,9 +101,15 @@ const ControlsNext = ({ incrementPage, page, setPage, values }) => {
 
   return (
     <StyledControlsNext>
-      <Next onClick={nextOnClick()}>
-        <img src={nextIcon} alt="Next" />
-      </Next>
+      {page === Steps.Results ? (
+        <Next type="submit" onClick={nextOnClick()}>
+          <img src={nextIcon} alt="Next" />
+        </Next>
+      ) : (
+        <Next onClick={nextOnClick()}>
+            <img src={nextIcon} alt="Next" />
+        </Next>
+      )}
     </StyledControlsNext>
   )
 }
@@ -110,7 +117,7 @@ const ControlsNext = ({ incrementPage, page, setPage, values }) => {
 const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
 
-  const [page, setPage] = useState(Steps.Categories)
+  const [page, setPage] = useState(Steps.Results)
 
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
@@ -227,6 +234,7 @@ const FoodData = () => {
       <VegetableProportion />
       <FruitProportion />
       <Tags />
+      <Results />
     </MultiStep>
   )
 }
