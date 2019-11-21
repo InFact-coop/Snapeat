@@ -13,6 +13,7 @@ import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
 import Proportions from '../components/foodData/Proportions'
 import Tags from '../components/foodData/Tags'
+import Results from '../components/foodData/Results'
 
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
@@ -62,7 +63,7 @@ const ControlsBack = ({ decrementPage, page }) => {
 const ControlsNext = ({ incrementPage, page }) => {
   return (
     <StyledControlsNext>
-      {page === Steps.Tags ? (
+      {page === Steps.Results ? (
         <Next type="submit">
           <img src={nextIcon} alt="Next" />
         </Next>
@@ -80,7 +81,7 @@ const ControlsNext = ({ incrementPage, page }) => {
 const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
 
-  const [page, setPage] = useState(Steps.Categories)
+  const [page, setPage] = useState(Steps.Results)
 
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
@@ -191,6 +192,7 @@ const FoodData = () => {
       <Categories />
       <Proportions />
       <Tags />
+      <Results />
     </MultiStep>
   )
 }
