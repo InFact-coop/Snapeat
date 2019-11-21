@@ -1,6 +1,3 @@
-import styled from 'styled-components'
-import { Field } from 'formik'
-
 import {
   FRUIT,
   VEGETABLES,
@@ -54,199 +51,132 @@ import waterIconSelected from '../../public/icons/categories/selected/water-whit
 import fizzyDrinkIcon from '../../public/icons/categories/regular/fizzy-drink.svg'
 import fizzyDrinkIconSelected from '../../public/icons/categories/selected/fizzy-drink-white.svg'
 
-const CardBackground = styled.section.attrs({
-  className: 'z-10 w-screen bg-white h-full',
-})`
-  border-top-left-radius: 20%;
-  border-top-right-radius: 20%;
-`
+import { Title, CardBackground, CheckboxTile, TileContainer } from './shared'
 
-const Title = styled.h1.attrs({
-  className: 'font-xxl text-center mb-5 mt-5',
-})``
-
-const IconContainer = styled.section.attrs({
-  className: '',
-})`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
-  justify-items: center;
-  max-width: 90%;
-  margin: 0 auto;
-`
-
-const CheckboxContainer = styled.label.attrs({
-  className: 'block relative cursor-pointer select-none',
-})`
-  width: 100%;
-  /* Hide the browser's default checkbox */
-  input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-
-  div {
-    width: 100%;
-    height: 6rem;
-    border: 1px solid black;
-    border-radius: 1rem;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    text-align: center;
-  }
-
-  /* Create a custom checkbox */
-  .checkmark {
-    width: 100%;
-    height: 3rem;
-    background-image: url(${props => props.icon});
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-  }
-  /* When the checkbox is checked, add a blue background */
-  input:checked ~ .background > .checkmark {
-    background-image: url(${props => props.iconSelected});
-  }
-
-  input:checked ~ .background {
-    background-color: ${cssTheme('colors.navy')};
-    color: white;
-  }
-
-  input:checked .parent {
-    background-color: blue;
-  }
-`
-
-const CategoryButton = ({ name, icon, iconSelected }) => {
-  const text = name.charAt(0).toUpperCase() + name.slice(1)
-  return (
-    <CheckboxContainer
-      htmlFor={name}
-      className="parent"
-      icon={icon}
-      iconSelected={iconSelected}
-    >
-      <Field type="checkbox" name="categories" value={name} id={name} />
-      <div className="background">
-        <span className="checkmark" />
-        <span>{text}</span>
-      </div>
-    </CheckboxContainer>
-  )
-}
+import * as Steps from '.'
 
 const Categories = () => {
   return (
     <CardBackground>
       <Title>What&apos;s on their plate?</Title>
 
-      <IconContainer>
-        <CategoryButton
-          name={FRUIT}
+      <TileContainer>
+        <CheckboxTile
+          label={FRUIT}
+          name="categories"
           icon={fruitIcon}
           iconSelected={fruitIconSelected}
         />
 
-        <CategoryButton
-          name={VEGETABLES}
+        <CheckboxTile
+          label={VEGETABLES}
+          name="categories"
           icon={vegIcon}
           iconSelected={vegIconSelected}
         />
 
-        <CategoryButton
-          name={MEAT}
+        <CheckboxTile
+          label={MEAT}
+          name="categories"
           icon={meatIcon}
           iconSelected={meatIconSelected}
         />
 
-        <CategoryButton
-          name={FISH}
+        <CheckboxTile
+          label={FISH}
+          name="categories"
           icon={fishIcon}
           iconSelected={fishIconSelected}
         />
 
-        <CategoryButton
-          name={DAIRY}
+        <CheckboxTile
+          label={DAIRY}
+          name="categories"
           icon={dairyIcon}
           iconSelected={dairyIconSelected}
         />
 
-        <CategoryButton
-          name={EGG}
+        <CheckboxTile
+          label={EGG}
+          name="categories"
           icon={eggIcon}
           iconSelected={eggIconSelected}
         />
 
-        <CategoryButton
-          name={PASTA}
+        <CheckboxTile
+          label={PASTA}
+          name="categories"
           icon={pastaIcon}
           iconSelected={pastaIconSelected}
         />
 
-        <CategoryButton
-          name={RICE}
+        <CheckboxTile
+          label={RICE}
+          name="categories"
           icon={riceIcon}
           iconSelected={riceIconSelected}
         />
 
-        <CategoryButton
-          name={POTATO}
+        <CheckboxTile
+          label={POTATO}
+          name="categories"
           icon={potatoIcon}
           iconSelected={potatoIconSelected}
         />
 
-        <CategoryButton
-          name={BREAD}
+        <CheckboxTile
+          label={BREAD}
+          name="categories"
           icon={breadIcon}
           iconSelected={breadIconSelected}
         />
 
-        <CategoryButton
-          name={NUTS}
+        <CheckboxTile
+          label={NUTS}
+          name="categories"
           icon={nutsIcon}
           iconSelected={nutsIconSelected}
         />
 
-        <CategoryButton
-          name={DESSERT}
+        <CheckboxTile
+          label={DESSERT}
+          name="categories"
           icon={dessertIcon}
           iconSelected={dessertIconSelected}
         />
 
-        <CategoryButton
-          name={OIL}
+        <CheckboxTile
+          label={OIL}
+          name="categories"
           icon={oilIcon}
           iconSelected={oilIconSelected}
         />
 
-        <CategoryButton
-          name={BUTTER}
+        <CheckboxTile
+          label={BUTTER}
+          name="categories"
           icon={butterIcon}
           iconSelected={butterIconSelected}
         />
 
-        <CategoryButton
-          name={WATER}
+        <CheckboxTile
+          label={WATER}
+          name="categories"
           icon={waterIcon}
           iconSelected={waterIconSelected}
         />
 
-        <CategoryButton
-          name={FIZZY_DRINK}
+        <CheckboxTile
+          label={FIZZY_DRINK}
+          name="categories"
           icon={fizzyDrinkIcon}
           iconSelected={fizzyDrinkIconSelected}
         />
-      </IconContainer>
+      </TileContainer>
     </CardBackground>
   )
 }
-Categories.componentName = 'Categories'
+
+Categories.componentName = Steps.Categories
 
 export default Categories

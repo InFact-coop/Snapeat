@@ -1,8 +1,8 @@
 {
   "lang": "en",
-  "name": "next-offline",
-  "short_name": "next-offline",
-  "description": "Nextjs using serveice worker via next-offline",
+  "name": "Snapeat",
+  "short_name": "Snapeat",
+  "description": "An app which allows users to record their child's evening meals.",
   "icons": [
     {
       "src": "/android-icon-192x192.png",
@@ -15,8 +15,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#f8dd74",
+  "background_color": "#f8f8f8",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait"

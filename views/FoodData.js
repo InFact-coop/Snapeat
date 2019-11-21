@@ -11,7 +11,8 @@ import { useFoodDataState } from '../state/foodDataContext'
 
 import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
-import Proportions from '../components/foodData/Proportions'
+import VegetableProportion from '../components/foodData/VegetableProportion'
+import FruitProportion from '../components/foodData/FruitProportion'
 import Tags from '../components/foodData/Tags'
 
 import backIcon from '../public/icons/back_white.svg'
@@ -42,37 +43,66 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   }
 }
 
-const ControlsBack = ({ decrementPage, page }) => {
+const ControlsBack = ({ decrementPage, page, setPage, values }) => {
   const routeDispatch = useRouteDispatch()
+
+  const backOnClick = () => {
+    const vegetablesSelected = values.categories.includes('vegetables')
+
+    switch (page) {
+      case Steps.Categories:
+        return () => routeDispatch({ type: GO_BACK })
+      case Steps.FruitProportion:
+        return () =>
+          vegetablesSelected
+            ? setPage(Steps.VegetableProportion)
+            : setPage(Steps.Categories)
+      default:
+        return decrementPage
+    }
+  }
+
   return (
     <StyledControlsBack>
-      {page === Steps.Categories ? (
-        <Back onClick={() => routeDispatch({ type: GO_BACK })}>
-          <img src={backIcon} alt="Back" />
-        </Back>
-      ) : (
-        <Back onClick={decrementPage}>
-          <img src={backIcon} alt="Back" />
-        </Back>
-      )}
+      <Back onClick={backOnClick()}>
+        <img src={backIcon} alt="Back" />
+      </Back>
     </StyledControlsBack>
   )
 }
 
-const ControlsNext = ({ incrementPage, page }) => {
+// TODO: make sure back button goes to right place (if fruit and veg have been clicked or not)
+// TODO: add validation
+
+const ControlsNext = ({ incrementPage, page, setPage, values }) => {
+  const nextOnClick = () => {
+    const fruitSelected = values.categories.includes('fruit')
+    const vegetablesSelected = values.categories.includes('vegetables')
+
+    switch (page) {
+      case Steps.Categories:
+        return () => {
+          if (vegetablesSelected) {
+            return setPage(Steps.VegetableProportion)
+          }
+          if (fruitSelected) {
+            return setPage(Steps.FruitProportion)
+          }
+          return setPage(Steps.Tags)
+        }
+      case Steps.VegetableProportion:
+        return () =>
+          fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
+      default:
+        return incrementPage
+    }
+  }
+
   return (
     <StyledControlsNext>
-      {page === Steps.Tags ? (
-        <Next type="submit">
-          <img src={nextIcon} alt="Next" />
-        </Next>
-      ) : (
-        <Next onClick={incrementPage}>
-          <Next type="submit">
-            <img src={nextIcon} alt="Next" />
-          </Next>
-        </Next>
-      )}
+      <Next onClick={nextOnClick()}>
+        <img src={nextIcon} alt="Next" />
+      </Next>
     </StyledControlsNext>
   )
 }
@@ -113,7 +143,7 @@ const MultiStep = ({ children }) => {
       {({ validateForm, values, setTouched, setFieldValue, errors }) => {
         return (
           <Container>
-            <ControlsBack {...{ decrementPage, page }} />
+            <ControlsBack {...{ decrementPage, page, setPage, values }} />
             <StyledForm>
               <ImageContainer className="relative">
                 <Food src={foodPhoto.fileURL} />
@@ -135,7 +165,14 @@ const MultiStep = ({ children }) => {
                 }}
               />
             </StyledForm>
-            <ControlsNext {...{ incrementPage, page }} />
+            <ControlsNext
+              {...{
+                incrementPage,
+                page,
+                values,
+                setPage,
+              }}
+            />
           </Container>
         )
       }}
@@ -156,10 +193,8 @@ const StyledForm = styled(Form).attrs({
   className: 'bg-lightgray px-4 flex flex-col items-center',
 })``
 
-const height = 300
-
 const ImageContainer = styled.div`
-  height: ${height}px;
+  height: 300px;
   width: 100vw;
 `
 
@@ -178,7 +213,7 @@ const Back = styled.button.attrs({
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center',
+  className: 'flex justify-center mt-4',
 })``
 
 const Next = styled.button.attrs({
@@ -189,7 +224,8 @@ const FoodData = () => {
   return (
     <MultiStep>
       <Categories />
-      <Proportions />
+      <VegetableProportion />
+      <FruitProportion />
       <Tags />
     </MultiStep>
   )

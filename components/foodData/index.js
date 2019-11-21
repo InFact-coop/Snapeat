@@ -1,3 +1,4 @@
 export const Categories = 'Categories'
-export const Proportions = 'Proportions'
+export const VegetableProportion = 'VegetableProportion'
+export const FruitProportion = 'FruitProportion'
 export const Tags = 'Tags'
