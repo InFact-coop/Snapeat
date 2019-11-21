@@ -5,6 +5,8 @@ import R_ from '../../utils/R_'
 
 import FoodDataStep from './FoodDataStep'
 
+import * as Steps from '.'
+
 const CheckboxContainer = styled.label.attrs({
   className: 'relative cursor-pointer select-none',
 })`
@@ -71,6 +73,6 @@ const Tags = () => (
   </FoodDataStep>
 )
 
-Tags.componentName = 'Tags'
+Tags.componentName = Steps.Tags
 
 export default Tags
