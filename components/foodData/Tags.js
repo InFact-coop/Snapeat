@@ -66,7 +66,7 @@ const tags = R.pipe(
 )(tagNames)
 
 const Tags = () => (
-  <FoodDataStep h1="How would you describe their meal?">
+  <FoodDataStep position="relative" h1="How would you describe their meal?">
     <TagsContainer>{tags}</TagsContainer>
   </FoodDataStep>
 )

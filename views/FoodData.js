@@ -222,7 +222,7 @@ const Back = styled.button.attrs({
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center mt-4',
+  className: 'flex justify-center pt-4 bg-white',
 })``
 
 const Next = styled.button.attrs({
