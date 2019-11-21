@@ -6,7 +6,7 @@ import * as R from 'ramda'
 import { useRouteDispatch } from '../utils/routeContext'
 import { GO_BACK } from '../utils/constants'
 
-import * as Steps from '../components/foodData'
+// import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
 import Proportions from '../components/foodData/Proportions'
 import Tags from '../components/foodData/Tags'
@@ -67,9 +67,7 @@ const ControlsNext = ({ incrementPage, pageIndex, amountOfPages }) => {
         </Next>
       ) : (
         <Next onClick={incrementPage}>
-          <Next type="submit">
-            <img src={nextIcon} alt="Next" />
-          </Next>
+          <img src={nextIcon} alt="Next" />
         </Next>
       )}
     </StyledControlsNext>
@@ -77,10 +75,12 @@ const ControlsNext = ({ incrementPage, pageIndex, amountOfPages }) => {
 }
 
 const MultiStep = ({ children }) => {
-  const [page, setPage] = useState(Steps.Categories)
-
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
+  const firstPage = R.head(pages)
+
+  const [page, setPage] = useState(firstPage)
+
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
 
   const incrementPage = () => {

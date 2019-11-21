@@ -1,5 +1,5 @@
-import FormStep from '../FormStep'
 import { TextInput } from '../Input'
+import OnboardingStep from './OnboardingStep'
 
 const tooltipContents = (
   <>
@@ -19,7 +19,7 @@ const tooltipContents = (
 )
 
 const PostCode = () => (
-  <FormStep
+  <OnboardingStep
     {...{
       h1: 'Welcome to Snapeat!',
       h2: 'Before we start, we need a few more details',
@@ -30,7 +30,7 @@ const PostCode = () => (
     }}
   >
     <TextInput placeholder="Your postcode..." name="postCode" />
-  </FormStep>
+  </OnboardingStep>
 )
 PostCode.componentName = 'PostCode'
 

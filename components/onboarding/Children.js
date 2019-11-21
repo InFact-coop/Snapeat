@@ -1,6 +1,6 @@
-import FormStep from '../FormStep'
 import { TextInput } from '../Input'
 import keepFieldCleanOnChange from '../../utils/keepFieldCleanOnChange'
+import OnboardingStep from './OnboardingStep'
 
 const tooltipContents = (
   <>
@@ -16,7 +16,7 @@ const tooltipContents = (
 )
 
 const Children = ({ setFieldValue, values }) => (
-  <FormStep
+  <OnboardingStep
     {...{
       h1: 'Great stuff!',
       h2: 'Next question:',
@@ -36,7 +36,7 @@ const Children = ({ setFieldValue, values }) => (
       )}
       value={values.numberOfChildren}
     />
-  </FormStep>
+  </OnboardingStep>
 )
 
 Children.componentName = 'Children'

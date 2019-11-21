@@ -1,23 +1,10 @@
-import styled from 'styled-components'
 import { Field } from 'formik'
 
-const CardBackground = styled.section.attrs({
-  className: 'z-10 absolute w-screen bg-white',
-})`
-  top: 40%;
-  height: 20rem;
-  border-top-left-radius: 20%;
-  border-top-right-radius: 20%;
-`
-
-const Title = styled.h1.attrs({
-  className: 'font-xxl text-center mb-5 mt-5',
-})``
-
+import { Card, H1 } from './FoodDataStep'
 const Categories = () => {
   return (
-    <CardBackground>
-      <Title>What&apos;s on their plate?</Title>
+    <Card>
+      <H1>What&apos;s on their plate?</H1>
       <label htmlFor="fruit">
         <Field type="checkbox" name="categories" value="fruit" id="fruit" />
         Fruit
@@ -97,7 +84,7 @@ const Categories = () => {
         />
         Fizzy Drink
       </label>
-    </CardBackground>
+    </Card>
   )
 }
 Categories.componentName = 'Categories'
