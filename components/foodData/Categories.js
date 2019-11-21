@@ -1,6 +1,25 @@
 import styled from 'styled-components'
 import { Field } from 'formik'
 
+import {
+  FRUIT,
+  VEGETABLES,
+  MEAT,
+  FISH,
+  DAIRY,
+  EGG,
+  PASTA,
+  RICE,
+  POTATO,
+  BREAD,
+  NUTS,
+  DESSERT,
+  OIL,
+  BUTTER,
+  WATER,
+  FIZZY_DRINK,
+} from '../../utils/constants'
+
 // import clicked and unclicked variants of all icons
 import fruitIcon from '../../public/icons/categories/regular/fruit_icn.svg'
 import fruitIconSelected from '../../public/icons/categories/selected/fruit_icn-white.svg'
@@ -36,9 +55,8 @@ import fizzyDrinkIcon from '../../public/icons/categories/regular/fizzy-drink.sv
 import fizzyDrinkIconSelected from '../../public/icons/categories/selected/fizzy-drink-white.svg'
 
 const CardBackground = styled.section.attrs({
-  className: 'z-10 absolute w-screen bg-white h-full',
+  className: 'z-10 w-screen bg-white h-full',
 })`
-  top: 40%;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
 `
@@ -48,15 +66,20 @@ const Title = styled.h1.attrs({
 })``
 
 const IconContainer = styled.section.attrs({
-  className: 'flex flex-row w-full flex-wrap justify-center',
-})``
+  className: '',
+})`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  justify-items: center;
+  max-width: 90%;
+  margin: 0 auto;
+`
 
 const CheckboxContainer = styled.label.attrs({
   className: 'block relative cursor-pointer select-none',
 })`
-  width: 9rem;
-  margin: 0.3rem;
-
+  width: 100%;
   /* Hide the browser's default checkbox */
   input {
     position: absolute;
@@ -67,7 +90,7 @@ const CheckboxContainer = styled.label.attrs({
   }
 
   div {
-    width: 9rem;
+    width: 100%;
     height: 6rem;
     border: 1px solid black;
     border-radius: 1rem;
@@ -126,97 +149,97 @@ const Categories = () => {
 
       <IconContainer>
         <CategoryButton
-          name="fruit"
+          name={FRUIT}
           icon={fruitIcon}
           iconSelected={fruitIconSelected}
         />
 
         <CategoryButton
-          name="vegetables"
+          name={VEGETABLES}
           icon={vegIcon}
           iconSelected={vegIconSelected}
         />
 
         <CategoryButton
-          name="meat"
+          name={MEAT}
           icon={meatIcon}
           iconSelected={meatIconSelected}
         />
 
         <CategoryButton
-          name="fish/seafood"
+          name={FISH}
           icon={fishIcon}
           iconSelected={fishIconSelected}
         />
 
         <CategoryButton
-          name="dairy"
+          name={DAIRY}
           icon={dairyIcon}
           iconSelected={dairyIconSelected}
         />
 
         <CategoryButton
-          name="egg"
+          name={EGG}
           icon={eggIcon}
           iconSelected={eggIconSelected}
         />
 
         <CategoryButton
-          name="pasta"
+          name={PASTA}
           icon={pastaIcon}
           iconSelected={pastaIconSelected}
         />
 
         <CategoryButton
-          name="rice"
+          name={RICE}
           icon={riceIcon}
           iconSelected={riceIconSelected}
         />
 
         <CategoryButton
-          name="potato"
+          name={POTATO}
           icon={potatoIcon}
           iconSelected={potatoIconSelected}
         />
 
         <CategoryButton
-          name="bread"
+          name={BREAD}
           icon={breadIcon}
           iconSelected={breadIconSelected}
         />
 
         <CategoryButton
-          name="nuts"
+          name={NUTS}
           icon={nutsIcon}
           iconSelected={nutsIconSelected}
         />
 
         <CategoryButton
-          name="dessert"
+          name={DESSERT}
           icon={dessertIcon}
           iconSelected={dessertIconSelected}
         />
 
         <CategoryButton
-          name="oil"
+          name={OIL}
           icon={oilIcon}
           iconSelected={oilIconSelected}
         />
 
         <CategoryButton
-          name="butter"
+          name={BUTTER}
           icon={butterIcon}
           iconSelected={butterIconSelected}
         />
 
         <CategoryButton
-          name="water"
+          name={WATER}
           icon={waterIcon}
           iconSelected={waterIconSelected}
         />
 
         <CategoryButton
-          name="fizzy-drink"
+          name={FIZZY_DRINK}
           icon={fizzyDrinkIcon}
           iconSelected={fizzyDrinkIconSelected}
         />
