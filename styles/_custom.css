@@ -7,6 +7,10 @@ body {
   line-height: theme('lineHeight.base');
 }
 
+* {
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;

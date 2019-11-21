@@ -29,7 +29,7 @@ const InputContainer = styled.label.attrs({
   div {
     width: 100%;
     height: 6rem;
-    border: 1px solid black;
+    border: 1px solid ${cssTheme('colors.navy')};
     border-radius: 1rem;
     display: flex;
     flex-flow: column nowrap;
@@ -131,7 +131,7 @@ const Title = styled.h1.attrs({
 const FruitVegTile = styled.div`
   width: ${({ width = '190px' }) => width};
   height: 6rem;
-  border: 1px solid black;
+  border: 1px solid ${cssTheme('colors.navy')};
   border-radius: 1rem;
 
   .checkmark {
