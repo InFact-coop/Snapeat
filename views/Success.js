@@ -10,14 +10,15 @@ import successBG from '../public/backgrounds/success_bg.svg'
 const Success = () => {
   const routeDispatch = useRouteDispatch()
 
-  useEffect(
-    () =>
-      window.setTimeout(
-        () => routeDispatch({ type: CHANGE_VIEW, view: HOME }),
-        2000,
-      ),
-    [routeDispatch],
-  )
+  useEffect(() => {
+    const timeout = window.setTimeout(
+      () => routeDispatch({ type: CHANGE_VIEW, view: HOME }),
+      2000,
+    )
+    return () => {
+      window.clearTimeout(timeout)
+    }
+  }, [routeDispatch])
 
   return (
     <Container>
