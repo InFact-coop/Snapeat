@@ -103,7 +103,7 @@ const Tag = styled.div`
 
 const displayTags = tagNames =>
   R.pipe(
-    R.map(tag => `#${tag}`),
+    R.map(tag => `${tag}`),
     R_.mapIndexed((tag, i) => <Tag key={`tag-${i}`}>{tag}</Tag>),
   )(tagNames)
 

@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik'
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { GO_BACK } from '../utils/constants'
+import { GO_BACK, CHANGE_VIEW, HOME } from '../utils/constants'
 
 import { useRouteDispatch } from '../state/routeContext'
 import { useFoodDataState } from '../state/foodDataContext'
@@ -15,6 +15,7 @@ import VegetableProportion from '../components/foodData/VegetableProportion'
 import FruitProportion from '../components/foodData/FruitProportion'
 import Tags from '../components/foodData/Tags'
 import Results from '../components/foodData/Results'
+import Success from '../components/foodData/Success'
 
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
@@ -75,11 +76,13 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
   }
 
   return (
-    <StyledControlsBack>
-      <Back onClick={backOnClick()}>
-        <img src={backIcon} alt="Back" />
-      </Back>
-    </StyledControlsBack>
+    page !== Steps.Success && (
+      <StyledControlsBack>
+        <Back onClick={backOnClick()}>
+          <img src={backIcon} alt="Back" />
+        </Back>
+      </StyledControlsBack>
+    )
   )
 }
 
@@ -87,6 +90,8 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
 // TODO: add validation
 
 const ControlsNext = ({ incrementPage, page, setPage, values }) => {
+  const routeDispatch = useRouteDispatch()
+
   const nextOnClick = () => {
     const fruitSelected = values.categories.includes('fruit')
     const vegetablesSelected = values.categories.includes('vegetables')
@@ -105,12 +110,18 @@ const ControlsNext = ({ incrementPage, page, setPage, values }) => {
       case Steps.VegetableProportion:
         return () =>
           fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
+      case Steps.Success:
+        return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
       default:
         return incrementPage
     }
   }
 
-  return (
+  return page === Steps.Success ? (
+    <StyledControlsDone>
+      <Next onClick={nextOnClick()}>Done </Next>
+    </StyledControlsDone>
+  ) : (
     <StyledControlsNext>
       {page === Steps.Results ? (
         <Next type="submit" onClick={nextOnClick()}>
@@ -164,9 +175,11 @@ const MultiStep = ({ children }) => {
           <Container>
             <ControlsBack {...{ decrementPage, page, setPage, values }} />
             <StyledForm>
-              <ImageContainer className="relative">
-                <Food src={foodPhoto.fileURL} />
-              </ImageContainer>
+              {page !== Steps.Success && (
+                <ImageContainer className="relative">
+                  <Food src={foodPhoto.fileURL} />
+                </ImageContainer>
+              )}
               <RenderStep
                 {...{
                   validateForm,
@@ -232,9 +245,18 @@ const Back = styled.button.attrs({
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center pt-4 mt-4',
+  className: 'flex justify-center pt-4',
 })`
   background-color: ${cssTheme('colors.lightgray')};
+`
+
+const StyledControlsDone = styled.nav.attrs({
+  className:
+    'text-white text-lg text-center absolute bg-navy mx-4 rounded-button shadow-button',
+})`
+  bottom: 40px;
+  width: calc(100vw - 32px);
+  padding: 15px 0px;
 `
 
 const Next = styled.button.attrs({
@@ -253,6 +275,7 @@ const FoodData = () => {
       <FruitProportion />
       <Tags />
       <Results />
+      <Success />
     </MultiStep>
   )
 }
