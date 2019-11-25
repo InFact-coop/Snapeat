@@ -1,6 +1,4 @@
-import * as R from 'ramda'
 import styled from 'styled-components'
-import R_ from '../../utils/R_'
 
 import {
   FRUIT,
@@ -45,7 +43,13 @@ import quarterIcon from '../../public/icons/quantities/regular/quarter.svg'
 
 import * as Steps from '.'
 
-import { CardBackground, Title, FruitVegTile, TileContainer } from './shared'
+import {
+  TagButton,
+  CardBackground,
+  Title,
+  FruitVegTile,
+  TileContainer,
+} from './shared'
 
 const categoryIcons = {
   [FRUIT]: fruitIcon,
@@ -86,27 +90,6 @@ const CategoryTile = ({ category }) => (
   </FruitVegTile>
 )
 
-const Tag = styled.div`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: ${cssTheme('spacing.2')};
-  padding: ${cssTheme('spacing.1')};
-  padding-left: ${cssTheme('spacing.3')};
-  padding-right: ${cssTheme('spacing.3')};
-  border: 1px solid ${cssTheme('colors.navy')};
-  border-radius: ${cssTheme('spacing.12')};
-
-  background-color: ${cssTheme('colors.navy')};
-  color: ${cssTheme('colors.white')};
-`
-
-const displayTags = tagNames =>
-  R.pipe(
-    R.map(tag => `${tag}`),
-    R_.mapIndexed((tag, i) => <Tag key={`tag-${i}`}>{tag}</Tag>),
-  )(tagNames)
-
 const TagsContainer = styled.div.attrs({
   className: 'flex flex-wrap justify-around w-4/5 center m-auto',
 })``
@@ -126,9 +109,7 @@ const FruitVegProportion = ({ proportion, category }) => (
   </>
 )
 
-// eslint-disable-next-line no-unused-vars
 const Results = ({ values }) => {
-  // eslint-disable-next-line no-unused-vars
   const { categories, proportionFruit, proportionVeg, tags } = values
 
   return (
@@ -148,8 +129,11 @@ const Results = ({ values }) => {
         <FruitVegProportion proportion={proportionFruit} category="fruit" />
       )}
       <Title>and it was:</Title>
-
-      <TagsContainer>{displayTags(tags)}</TagsContainer>
+      <TagsContainer>
+        {tags.map(tag => (
+          <TagButton key={tag}>{tag}</TagButton>
+        ))}
+      </TagsContainer>
     </CardBackground>
   )
 }
