@@ -14,6 +14,7 @@ import {
 
 import { useRouteDispatch } from '../state/routeContext'
 import { useFoodDataState } from '../state/foodDataContext'
+import { useProjectState } from '../state/projectContext'
 
 import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
@@ -223,8 +224,8 @@ const ControlsNext = ({
 
 const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
+  const { project } = useProjectState()
 
-  const project = 'Alexandra Rose'
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
   const firstPage = R.head(pages)

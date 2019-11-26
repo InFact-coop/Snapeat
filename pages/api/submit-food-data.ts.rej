@@ -1,0 +1,4 @@
+diff a/pages/api/submit-food-data.ts b/pages/api/submit-food-data.ts	(rejected hunks)
+@@ -16 +16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
+-      user
++      user,
