@@ -54,3 +54,42 @@ export const CATEGORY_ARRAY = [
   WATER,
   FIZZY_DRINK,
 ]
+
+// food tags
+export const TAKEAWAY = '#takeaway'
+export const FRIED = '#fried'
+export const FRESH = '#fresh'
+export const MADE_FROM_SCRATCH = '#madefromscratch'
+export const READY_MEAL = '#readymeal'
+export const QUICK_AND_EASY = '#quickandeasy'
+export const HOMECOOKED = '#homecooked'
+export const HEALTHY = '#healthy'
+export const FROZEN = '#frozen'
+export const VEGAN = '#vegan'
+export const VEGETARIAN = '#vegetarian'
+export const KIDS_FAVOURITE = '#kidsfavourite'
+
+// food tag array
+export const TAG_ARRAY = [
+  TAKEAWAY,
+  FRIED,
+  FRESH,
+  MADE_FROM_SCRATCH,
+  READY_MEAL,
+  QUICK_AND_EASY,
+  HOMECOOKED,
+  HEALTHY,
+  FROZEN,
+  VEGAN,
+  VEGETARIAN,
+  KIDS_FAVOURITE,
+]
+
+// food proportion
+export const QUARTER = 'quarter'
+export const HALF = 'half'
+export const MOSTLY = 'mostly'
+export const ALL = 'all'
+
+// food proportion array
+export const PROPORTION_ARRAY = [QUARTER, HALF, MOSTLY, ALL]
