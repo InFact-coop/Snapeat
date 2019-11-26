@@ -2,7 +2,7 @@ import React from 'react'
 
 import { NO_PROJECT, CHANGE_PROJECT } from '../utils/constants'
 
-const initialState = { error: NO_PROJECT }
+const initialState = { project: undefined, error: NO_PROJECT }
 
 const ProjectStateContext = React.createContext()
 const ProjectDispatchContext = React.createContext()
