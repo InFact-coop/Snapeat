@@ -118,20 +118,30 @@ const TagsContainer = styled.div.attrs({
   className: 'flex flex-wrap justify-around w-4/5 center m-auto',
 })``
 
-const FruitVegProportion = ({ proportion, category }) => (
-  <>
-    <Title>Roughly, the amount of {category} on the plate was:</Title>
-    <FruitVegTile
-      className="flex flex-col justify-center space-between mx-auto mb-5"
-      icon={proportionIcons[proportion]}
-    >
-      <div className="checkmark" />
-      <p className="w-full text-center">
-        {proportion.charAt(0).toUpperCase() + proportion.slice(1)}
-      </p>
-    </FruitVegTile>
-  </>
-)
+const FruitVegProportion = ({ proportion, category, setPage }) => {
+  const page = category === 'fruit' ? 'FruitProportion' : 'VegetableProportion'
+  return (
+    <>
+      <Title>Roughly, the amount of {category} on the plate was:</Title>
+      <button
+        className="w-full"
+        onClick={() => {
+          setPage(page)
+        }}
+      >
+        <FruitVegTile
+          className="flex flex-col justify-center space-between mx-auto mb-5"
+          icon={proportionIcons[proportion]}
+        >
+          <div className="checkmark" />
+          <p className="w-full text-center">
+            {proportion.charAt(0).toUpperCase() + proportion.slice(1)}
+          </p>
+        </FruitVegTile>
+      </button>
+    </>
+  )
+}
 
 const Results = ({ values, setPage }) => {
   const { categories, proportionFruit, proportionVeg, tags } = values
@@ -148,10 +158,18 @@ const Results = ({ values, setPage }) => {
         ))}
       </TileContainer>
       {proportionVeg && (
-        <FruitVegProportion proportion={proportionVeg} category="vegetables" />
+        <FruitVegProportion
+          proportion={proportionVeg}
+          category="vegetables"
+          setPage={setPage}
+        />
       )}
       {proportionFruit && (
-        <FruitVegProportion proportion={proportionFruit} category="fruit" />
+        <FruitVegProportion
+          proportion={proportionFruit}
+          category="fruit"
+          setPage={setPage}
+        />
       )}
       <Title>and it was:</Title>
 
