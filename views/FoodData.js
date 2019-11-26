@@ -4,7 +4,13 @@ import { Formik, Form } from 'formik'
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { GO_BACK, CHANGE_VIEW, HOME } from '../utils/constants'
+import {
+  GO_BACK,
+  CHANGE_VIEW,
+  HOME,
+  FRUIT,
+  VEGETABLES,
+} from '../utils/constants'
 
 import { useRouteDispatch } from '../state/routeContext'
 import { useFoodDataState } from '../state/foodDataContext'
@@ -107,9 +113,9 @@ const ControlsNext = ({
   const routeDispatch = useRouteDispatch()
 
   const nextOnClick = () => {
-    const fruitSelected = values.categories.includes('fruit')
+    const fruitSelected = values.categories.includes(FRUIT)
     const fruitProportionEmpty = values.proportionFruit === ''
-    const vegetablesSelected = values.categories.includes('vegetables')
+    const vegetablesSelected = values.categories.includes(VEGETABLES)
     const vegetableProportionEmpty = values.proportionVeg === ''
 
     // resets proportion values if fruit/veg have been unselected
