@@ -964,6 +964,7 @@ type PageInfo {
 type Project {
   id: ID!
   name: String!
+  slug: String!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -978,6 +979,7 @@ type ProjectConnection {
 input ProjectCreateInput {
   id: ID
   name: String!
+  slug: String!
   users: UserCreateManyWithoutProjectsInput
 }
 
@@ -989,6 +991,7 @@ input ProjectCreateManyWithoutUsersInput {
 input ProjectCreateWithoutUsersInput {
   id: ID
   name: String!
+  slug: String!
 }
 
 type ProjectEdge {
@@ -1001,6 +1004,8 @@ enum ProjectOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  slug_ASC
+  slug_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1010,6 +1015,7 @@ enum ProjectOrderByInput {
 type ProjectPreviousValues {
   id: ID!
   name: String!
+  slug: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1043,6 +1049,20 @@ input ProjectScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  slug: String
+  slug_not: String
+  slug_in: [String!]
+  slug_not_in: [String!]
+  slug_lt: String
+  slug_lte: String
+  slug_gt: String
+  slug_gte: String
+  slug_contains: String
+  slug_not_contains: String
+  slug_starts_with: String
+  slug_not_starts_with: String
+  slug_ends_with: String
+  slug_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -1084,15 +1104,18 @@ input ProjectSubscriptionWhereInput {
 
 input ProjectUpdateInput {
   name: String
+  slug: String
   users: UserUpdateManyWithoutProjectsInput
 }
 
 input ProjectUpdateManyDataInput {
   name: String
+  slug: String
 }
 
 input ProjectUpdateManyMutationInput {
   name: String
+  slug: String
 }
 
 input ProjectUpdateManyWithoutUsersInput {
@@ -1114,6 +1137,7 @@ input ProjectUpdateManyWithWhereNestedInput {
 
 input ProjectUpdateWithoutUsersDataInput {
   name: String
+  slug: String
 }
 
 input ProjectUpdateWithWhereUniqueWithoutUsersInput {
@@ -1156,6 +1180,20 @@ input ProjectWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  slug: String
+  slug_not: String
+  slug_in: [String!]
+  slug_not_in: [String!]
+  slug_lt: String
+  slug_lte: String
+  slug_gt: String
+  slug_gte: String
+  slug_contains: String
+  slug_not_contains: String
+  slug_starts_with: String
+  slug_not_starts_with: String
+  slug_ends_with: String
+  slug_not_ends_with: String
   users_every: UserWhereInput
   users_some: UserWhereInput
   users_none: UserWhereInput
@@ -1182,6 +1220,7 @@ input ProjectWhereInput {
 
 input ProjectWhereUniqueInput {
   id: ID
+  slug: String
 }
 
 type Proportion {

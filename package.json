@@ -24,6 +24,8 @@
     "dev:token": "env-cmd -f ./.config/dev.env npm run token",
     "dev:up": "env-cmd -f ./.config/dev.env npm run up",
     "dev:down": "env-cmd -f ./.config/dev.env npm run down",
+    "dev:seed": "env-cmd -f ./.config/dev.env ts-node -O '{\"module\": \"commonjs\"}' ./prisma/seeds.ts",
+    "dev:flushdb": "env-cmd -f ./.config/dev.env ts-node -O '{\"module\": \"commonjs\"}' ./prisma/flushDB.ts",
     "==prisma:staging==": "------------------------------------------------------------------------------------",
     "staging:deploy": "env-cmd -f ./.config/staging.env npm run deploy && npm run staging:schema",
     "staging:schema": "env-cmd -f ./.config/staging.env npm run schema",

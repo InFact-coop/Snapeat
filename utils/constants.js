@@ -14,6 +14,11 @@ export const FOOD_DATA = 'FOOD_DATA'
 export const CHANGE_VIEW = 'CHANGE_VIEW'
 export const GO_BACK = 'GO_BACK'
 
+// Project Actions
+export const PROJECT_NOT_FOUND = 'PROJECT_NOT_FOUND'
+export const NO_PROJECT = 'NO_PROJECT'
+export const CHANGE_PROJECT = 'CHANGE_PROJECT'
+
 // Food Data Actions
 export const SET_FOOD_PHOTO = 'SET_FOOD_PHOTO'
 

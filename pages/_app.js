@@ -7,6 +7,7 @@ import { ThemeProvider } from 'styled-components'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import { RouteProvider } from '../state/routeContext'
 import { FoodDataProvider } from '../state/foodDataContext'
+import { ProjectProvider } from '../state/projectContext'
 import tailwindConfig from '../tailwind.config'
 
 import 'react-toastify/dist/ReactToastify.min.css'
@@ -22,7 +23,9 @@ class Snapeat extends App {
       <RouteProvider>
         <ThemeProvider theme={theme}>
           <FoodDataProvider>
-            <Component {...pageProps} />
+            <ProjectProvider>
+              <Component {...pageProps} />
+            </ProjectProvider>
           </FoodDataProvider>
         </ThemeProvider>
       </RouteProvider>
