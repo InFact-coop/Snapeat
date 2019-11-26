@@ -17,6 +17,11 @@ const H2 = styled.h2.attrs({
 const Question = styled.label.attrs({
   className: 'font-xl w-full',
 })``
+
+const SubQuestion = styled.label.attrs({
+  className: 'font-base w-full block',
+})``
+
 const Description = styled.p.attrs({
   className: 'font-xs w-full mb-10',
 })``
@@ -29,14 +34,15 @@ const OnboardingStep = ({
   description,
   tooltipTitle,
   tooltipContents,
+  className,
 }) => {
   const [showTooltip, setShowTooltip] = useState(false)
 
   return (
-    <Container>
+    <Container className={className}>
       <H1>{h1}</H1>
       <H2>{h2}</H2>
-      <Question>{question}</Question>
+      <Question as={children.length > 1 ? 'div' : 'label'}>{question}</Question>
       <Description>{description}</Description>
       {children}
       <TooltipLink onClick={() => setShowTooltip(true)}>
@@ -53,4 +59,4 @@ const OnboardingStep = ({
   )
 }
 
-export default OnboardingStep
+export { OnboardingStep as default, SubQuestion }

@@ -206,7 +206,7 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
 }
 
 const StyledForm = styled(Form).attrs({
-  className: 'bg-lightgray h-screen px-4 py-5d5 flex flex-col items-center',
+  className: 'bg-lightgray min-h-screen px-4 py-5d5 flex flex-col items-center',
 })``
 
 const Logo = styled.img.attrs({

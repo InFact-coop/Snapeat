@@ -27,6 +27,13 @@ const initialValues = {
   tags: [],
 }
 
+// const initialValues = {
+//   categories: ['fruit', 'vegetables', 'pasta', 'oil'],
+//   proportionFruit: 'quarter',
+//   proportionVeg: 'quarter',
+//   tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
+// }
+
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
@@ -289,9 +296,7 @@ const Back = styled.button.attrs({
 
 const StyledControlsNext = styled.nav.attrs({
   className: 'flex justify-center pt-4',
-})`
-  background-color: ${cssTheme('colors.lightgray')};
-`
+})``
 
 const StyledControlsDone = styled.nav.attrs({
   className:
