@@ -108,10 +108,18 @@ const Tag = styled.div`
   color: ${cssTheme('colors.white')};
 `
 
-const displayTags = tagNames =>
+const displayTags = (tagNames, setPage) =>
   R.pipe(
     R.map(tag => `${tag}`),
-    R_.mapIndexed((tag, i) => <Tag key={`tag-${i}`}>{tag}</Tag>),
+    R_.mapIndexed((tag, i) => (
+      <button
+        onClick={() => {
+          setPage('Tags')
+        }}
+      >
+        <Tag key={`tag-${i}`}>{tag}</Tag>
+      </button>
+    )),
   )(tagNames)
 
 const TagsContainer = styled.div.attrs({
@@ -173,7 +181,7 @@ const Results = ({ values, setPage }) => {
       )}
       <Title>and it was:</Title>
 
-      <TagsContainer>{displayTags(tags)}</TagsContainer>
+      <TagsContainer>{displayTags(tags, setPage)}</TagsContainer>
     </CardBackground>
   )
 }
