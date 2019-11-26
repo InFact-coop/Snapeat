@@ -73,11 +73,11 @@ const proportionIcons = {
   quarter: quarterIcon,
 }
 
-const CategoryTile = ({ category, setPage }) => (
+const CategoryTile = ({ category, updatePage }) => (
   <button
     className="w-full"
     onClick={() => {
-      setPage('Categories')
+      updatePage('Categories')
     }}
   >
     <FruitVegTile
@@ -108,16 +108,17 @@ const Tag = styled.div`
   color: ${cssTheme('colors.white')};
 `
 
-const displayTags = (tagNames, setPage) =>
+const displayTags = (tagNames, updatePage) =>
   R.pipe(
     R.map(tag => `${tag}`),
     R_.mapIndexed((tag, i) => (
       <button
         onClick={() => {
-          setPage('Tags')
+          updatePage('Tags')
         }}
+        key={`tag-${i}`}
       >
-        <Tag key={`tag-${i}`}>{tag}</Tag>
+        <Tag>{tag}</Tag>
       </button>
     )),
   )(tagNames)
@@ -126,7 +127,7 @@ const TagsContainer = styled.div.attrs({
   className: 'flex flex-wrap justify-around w-4/5 center m-auto',
 })``
 
-const FruitVegProportion = ({ proportion, category, setPage }) => {
+const FruitVegProportion = ({ proportion, category, updatePage }) => {
   const page = category === 'fruit' ? 'FruitProportion' : 'VegetableProportion'
   return (
     <>
@@ -134,7 +135,7 @@ const FruitVegProportion = ({ proportion, category, setPage }) => {
       <button
         className="w-full"
         onClick={() => {
-          setPage(page)
+          updatePage(page)
         }}
       >
         <FruitVegTile
@@ -151,7 +152,7 @@ const FruitVegProportion = ({ proportion, category, setPage }) => {
   )
 }
 
-const Results = ({ values, setPage }) => {
+const Results = ({ values, updatePage }) => {
   const { categories, proportionFruit, proportionVeg, tags } = values
 
   return (
@@ -162,26 +163,30 @@ const Results = ({ values, setPage }) => {
 
       <TileContainer>
         {categories.map(category => (
-          <CategoryTile category={category} key={category} setPage={setPage} />
+          <CategoryTile
+            category={category}
+            key={category}
+            updatePage={updatePage}
+          />
         ))}
       </TileContainer>
       {proportionVeg && (
         <FruitVegProportion
           proportion={proportionVeg}
           category="vegetables"
-          setPage={setPage}
+          updatePage={updatePage}
         />
       )}
       {proportionFruit && (
         <FruitVegProportion
           proportion={proportionFruit}
           category="fruit"
-          setPage={setPage}
+          updatePage={updatePage}
         />
       )}
       <Title>and it was:</Title>
 
-      <TagsContainer>{displayTags(tags, setPage)}</TagsContainer>
+      <TagsContainer>{displayTags(tags, updatePage)}</TagsContainer>
     </CardBackground>
   )
 }
