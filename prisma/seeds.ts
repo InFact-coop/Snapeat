@@ -45,8 +45,23 @@ const seedDatabase = async () => {
     // create project
     const alexandraRose = await prisma.createProject({
       name: 'Alexandra Rose',
+      slug: 'alexandra-rose',
     })
 
+    const foodForLifeProject = await prisma.createProject({
+      name: 'Food for Life Lambeth and Southwark',
+      slug: 'food-for-life',
+    })
+
+    const healthyHighStreetsProject = await prisma.createProject({
+      name: 'Healthy High Streets',
+      slug: 'healthy-high-streets',
+    })
+
+    const collaborationForHealthyLivesProject = await prisma.createProject({
+      name: 'Collaboration for Healthy Lives',
+      slug: 'healthy-lives',
+    })
     // create user
     const lucy = await prisma.createUser({
       consentGDPR: true,

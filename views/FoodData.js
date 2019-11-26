@@ -4,7 +4,13 @@ import { Formik, Form } from 'formik'
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { GO_BACK, CHANGE_VIEW, HOME } from '../utils/constants'
+import {
+  GO_BACK,
+  CHANGE_VIEW,
+  HOME,
+  FRUIT,
+  VEGETABLES,
+} from '../utils/constants'
 
 import { useRouteDispatch } from '../state/routeContext'
 import { useFoodDataState } from '../state/foodDataContext'
@@ -52,7 +58,7 @@ const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   }
 }
 
-const ControlsBack = ({ decrementPage, page, setPage, values }) => {
+const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
   const routeDispatch = useRouteDispatch()
 
   const backOnClick = () => {
@@ -65,17 +71,17 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
       case Steps.FruitProportion:
         return () =>
           vegetablesSelected
-            ? setPage(Steps.VegetableProportion)
-            : setPage(Steps.Categories)
+            ? updatePage(Steps.VegetableProportion)
+            : updatePage(Steps.Categories)
       case Steps.Tags:
         return () => {
           if (fruitSelected) {
-            return setPage(Steps.FruitProportion)
+            return updatePage(Steps.FruitProportion)
           }
           if (vegetablesSelected) {
-            return setPage(Steps.VegetableProportion)
+            return updatePage(Steps.VegetableProportion)
           }
-          return setPage(Steps.Categories)
+          return updatePage(Steps.Categories)
         }
       default:
         return decrementPage
@@ -96,13 +102,44 @@ const ControlsBack = ({ decrementPage, page, setPage, values }) => {
 // TODO: make sure back button goes to right place (if fruit and veg have been clicked or not)
 // TODO: add validation
 
-const ControlsNext = ({ incrementPage, page, setPage, values }) => {
+const ControlsNext = ({
+  incrementPage,
+  page,
+  lastPage,
+  setPage,
+  values,
+  setFieldValue,
+}) => {
   const routeDispatch = useRouteDispatch()
 
   const nextOnClick = () => {
-    const fruitSelected = values.categories.includes('fruit')
-    const vegetablesSelected = values.categories.includes('vegetables')
+    const fruitSelected = values.categories.includes(FRUIT)
+    const fruitProportionEmpty = values.proportionFruit === ''
+    const vegetablesSelected = values.categories.includes(VEGETABLES)
+    const vegetableProportionEmpty = values.proportionVeg === ''
 
+    // resets proportion values if fruit/veg have been unselected
+    if (!fruitSelected && !fruitProportionEmpty) {
+      setFieldValue('proportionFruit', '')
+    }
+    if (!vegetablesSelected && !vegetableProportionEmpty) {
+      setFieldValue('proportionVeg', '')
+    }
+
+    // handles returning to results page if editing answers from there
+    if (lastPage === 'Results') {
+      return () => {
+        if (fruitProportionEmpty && fruitSelected) {
+          setPage(Steps.FruitProportion)
+        } else if (vegetableProportionEmpty && vegetablesSelected) {
+          setPage(Steps.VegetableProportion)
+        } else {
+          setPage(Steps.Results)
+        }
+      }
+    }
+
+    // regular functions for next button
     switch (page) {
       case Steps.Categories:
         return () => {
@@ -151,17 +188,24 @@ const MultiStep = ({ children }) => {
   const firstPage = R.head(pages)
 
   const [page, setPage] = useState(firstPage)
+  const [lastPage, setLastPage] = useState(page)
+
+  // tracks last page visited to help navigating between pages from results page
+  const updatePage = destination => {
+    setLastPage(page)
+    return setPage(destination)
+  }
 
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
 
   const incrementPage = () => {
     const pageIndex = R.findIndex(R.equals(page))(pages)
-    setPage(pages[pageIndex + 1])
+    updatePage(pages[pageIndex + 1])
   }
 
   const decrementPage = () => {
     const pageIndex = R.findIndex(R.equals(page))(pages)
-    setPage(pages[pageIndex - 1])
+    updatePage(pages[pageIndex - 1])
   }
 
   const { validationSchema } = activePage && activePage.type
@@ -180,7 +224,9 @@ const MultiStep = ({ children }) => {
       {({ validateForm, values, setTouched, setFieldValue, errors }) => {
         return (
           <Container>
-            <ControlsBack {...{ decrementPage, page, setPage, values }} />
+            <ControlsBack
+              {...{ decrementPage, page, lastPage, updatePage, values }}
+            />
             <StyledForm>
               {page !== Steps.Success && (
                 <ImageContainer className="relative">
@@ -195,6 +241,7 @@ const MultiStep = ({ children }) => {
                   activePage,
                   props: {
                     setPage,
+                    updatePage,
                     values,
                     incrementPage,
                     decrementPage,
@@ -208,8 +255,10 @@ const MultiStep = ({ children }) => {
               {...{
                 incrementPage,
                 page,
+                lastPage,
                 values,
                 setPage,
+                setFieldValue,
               }}
             />
           </Container>

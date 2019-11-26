@@ -32,5 +32,4 @@ const flushDB = async () => {
   console.log(JSON.stringify(deleteCategories, undefined, 2)) //eslint-disable-line no-console
 }
 
-// flushDB()
 export default flushDB

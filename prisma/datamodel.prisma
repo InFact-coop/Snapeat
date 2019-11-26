@@ -50,6 +50,7 @@ type Category {
 type Project {
   id: ID! @id
   name: String!
+  slug: String! @unique
   users: [User!] @relation(onDelete: CASCADE)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
