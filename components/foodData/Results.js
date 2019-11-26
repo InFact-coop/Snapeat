@@ -73,17 +73,24 @@ const proportionIcons = {
   quarter: quarterIcon,
 }
 
-const CategoryTile = ({ category }) => (
-  <FruitVegTile
-    className="flex flex-col justify-center space-between mx-auto mb-5"
-    icon={categoryIcons[category]}
-    width="100%"
+const CategoryTile = ({ category, setPage }) => (
+  <button
+    className="w-full"
+    onClick={() => {
+      setPage('Categories')
+    }}
   >
-    <div className="checkmark" />
-    <p className="w-full text-center">
-      {category.charAt(0).toUpperCase() + category.slice(1)}
-    </p>
-  </FruitVegTile>
+    <FruitVegTile
+      className="flex flex-col justify-center space-between mx-auto mb-5"
+      icon={categoryIcons[category]}
+      width="100%"
+    >
+      <div className="checkmark" />
+      <p className="w-full text-center">
+        {category.charAt(0).toUpperCase() + category.slice(1)}
+      </p>
+    </FruitVegTile>
+  </button>
 )
 
 const Tag = styled.div`
@@ -126,9 +133,7 @@ const FruitVegProportion = ({ proportion, category }) => (
   </>
 )
 
-// eslint-disable-next-line no-unused-vars
-const Results = ({ values }) => {
-  // eslint-disable-next-line no-unused-vars
+const Results = ({ values, setPage }) => {
   const { categories, proportionFruit, proportionVeg, tags } = values
 
   return (
@@ -136,9 +141,10 @@ const Results = ({ values }) => {
       <Title className="w-11/12 mt-6">
         In summary, tonight&apos;s meal was composed of
       </Title>
+
       <TileContainer>
         {categories.map(category => (
-          <CategoryTile category={category} key={category} />
+          <CategoryTile category={category} key={category} setPage={setPage} />
         ))}
       </TileContainer>
       {proportionVeg && (
