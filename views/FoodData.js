@@ -20,38 +20,61 @@ import Categories from '../components/foodData/Categories'
 import VegetableProportion from '../components/foodData/VegetableProportion'
 import FruitProportion from '../components/foodData/FruitProportion'
 import Tags from '../components/foodData/Tags'
+import Spinner from '../components/foodData/Spinner'
 import Results from '../components/foodData/Results'
 import Success from '../components/foodData/Success'
+import Error from '../components/foodData/Error'
 
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
 
-const initialValues = {
-  categories: [],
-  proportionFruit: '',
-  proportionVeg: '',
-  tags: [],
-}
-
 // const initialValues = {
-//   categories: ['fruit', 'vegetables', 'pasta', 'oil'],
-//   proportionFruit: 'quarter',
-//   proportionVeg: 'quarter',
-//   tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
+//   categories: [],
+//   proportionFruit: '',
+//   proportionVeg: '',
+//   tags: [],
 // }
 
-const onSubmit = ({ incrementPage, formCompleted }) => async values => {
+const initialValues = {
+  categories: ['fruit', 'vegetables', 'pasta', 'oil'],
+  proportionFruit: 'quarter',
+  proportionVeg: 'quarter',
+  tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
+}
+
+const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
+  setPage(Steps.Spinner)
+
+  const data = new FormData()
+  data.set('photo', foodPhoto.file, foodPhoto.fileName)
+
   try {
     //eslint-disable-next-line no-console
-    console.log('Food data form submitted', values)
+    console.log('Food data values', values)
 
-    if (!formCompleted) incrementPage()
+    // const {
+    //   data: { url },
+    // } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
 
-    await axios.get()
+    // console.log('photo uploaded', url) //eslint-disable-line
 
-    incrementPage()
+    await axios
+      .post(`${process.env.HOST}/api/submit-food-data`, {
+        project,
+        imageURL:
+          'http://res.cloudinary.com/infact-digital-co-operative/image/upload/v1574773242/taew6klwnhdryupxiubc.jpg',
+        user: {
+          email: 'lucy@infactcoop.com',
+        },
+        ...values,
+      })
+      .then(setPage(Steps.Success))
+      .catch(setPage(Steps.Error))
+
+    return
   } catch (e) {
     // TODO: trigger submit error (maybe with toast error)
+    setPage(Steps.Error)
 
     //eslint-disable-next-line no-console
     console.error('Error submitting food data form', e)
@@ -109,6 +132,8 @@ const ControlsNext = ({
   setPage,
   values,
   setFieldValue,
+  project,
+  foodPhoto,
 }) => {
   const routeDispatch = useRouteDispatch()
 
@@ -154,6 +179,8 @@ const ControlsNext = ({
       case Steps.VegetableProportion:
         return () =>
           fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
+      case Steps.Results:
+        return () => onSubmit({ setPage, project, foodPhoto })(values)
       case Steps.Success:
         return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
       default:
@@ -161,28 +188,43 @@ const ControlsNext = ({
     }
   }
 
-  return page === Steps.Success ? (
-    <StyledControlsDone>
-      <Next onClick={nextOnClick()}>Done </Next>
-    </StyledControlsDone>
-  ) : (
-    <StyledControlsNext>
-      {page === Steps.Results ? (
-        <Next type="submit" onClick={nextOnClick()}>
-          <img src={nextIcon} alt="Next" />
-        </Next>
-      ) : (
-        <Next onClick={nextOnClick()}>
-          <img src={nextIcon} alt="Next" />
-        </Next>
-      )}
-    </StyledControlsNext>
-  )
+  switch (page) {
+    case Steps.Success: {
+      return (
+        <StyledControlsDone>
+          <Next onClick={nextOnClick()}>Done</Next>
+        </StyledControlsDone>
+      )
+    }
+    case Steps.Error: {
+      return (
+        <StyledControlsDone>
+          <Next onClick={nextOnClick()}>Try again</Next>
+        </StyledControlsDone>
+      )
+    }
+    default: {
+      return (
+        <StyledControlsNext>
+          {page === Steps.Results ? (
+            <Next type="submit" onClick={nextOnClick()}>
+              <img src={nextIcon} alt="Next" />
+            </Next>
+          ) : (
+            <Next onClick={nextOnClick()}>
+              <img src={nextIcon} alt="Next" />
+            </Next>
+          )}
+        </StyledControlsNext>
+      )
+    }
+  }
 }
 
 const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
 
+  const project = 'Alexandra Rose'
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
   const firstPage = R.head(pages)
@@ -259,6 +301,8 @@ const MultiStep = ({ children }) => {
                 values,
                 setPage,
                 setFieldValue,
+                foodPhoto,
+                project,
               }}
             />
           </Container>
@@ -329,7 +373,9 @@ const FoodData = () => {
       <FruitProportion />
       <Tags />
       <Results />
+      <Spinner />
       <Success />
+      <Error />
     </MultiStep>
   )
 }

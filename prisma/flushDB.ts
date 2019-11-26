@@ -30,6 +30,11 @@ const flushDB = async () => {
 
   console.log(JSON.stringify(deleteChildren, undefined, 2)) //eslint-disable-line no-console
   console.log(JSON.stringify(deleteCategories, undefined, 2)) //eslint-disable-line no-console
+  console.log(JSON.stringify(deleteProjects, undefined, 2)) //eslint-disable-line no-console
+  console.log(JSON.stringify(deleteUsers, undefined, 2)) //eslint-disable-line no-console
+  console.log(JSON.stringify(deleteMeals, undefined, 2)) //eslint-disable-line no-console
+  console.log(JSON.stringify(deleteProportions, undefined, 2)) //eslint-disable-line no-console
+  console.log(JSON.stringify(deleteTags, undefined, 2)) //eslint-disable-line no-console
 }
 
 export default flushDB

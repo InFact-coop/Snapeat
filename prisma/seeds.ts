@@ -5,11 +5,8 @@
 
 import { prisma } from './generated/ts'
 import flushDB from './flushDB'
-
-import { TAG_ARRAY } from '../utils/constants'
-import { CATEGORY_ARRAY } from '../utils/constants'
-import { PROPORTION_ARRAY } from '../utils/constants'
 import * as R from 'ramda'
+import { CATEGORY_ARRAY, TAG_ARRAY, PROPORTION_ARRAY } from '../utils/constants'
 
 const seedDatabase = async () => {
   try {
@@ -62,6 +59,7 @@ const seedDatabase = async () => {
       name: 'Collaboration for Healthy Lives',
       slug: 'healthy-lives',
     })
+
     // create user
     const lucy = await prisma.createUser({
       consentGDPR: true,
