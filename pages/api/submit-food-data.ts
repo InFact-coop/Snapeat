@@ -1,10 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { prisma } from '../../prisma/generated/ts'
 import * as R from 'ramda'
 
+//eslint-disable-next-line
+import { prisma } from '../../prisma/generated/ts/index'
+
+//eslint-disable-next-line
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    console.log('values in api', req.body)
     const {
       project,
       imageURL,
@@ -70,6 +72,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200).json({ meal })
   } catch (e) {
-    console.log('There was an error uploading the photo:', e) //eslint-disable-line no-console
+    //eslint-disable-next-line no-console
+    console.log('There was an error uploading the photo:', e)
   }
 }
