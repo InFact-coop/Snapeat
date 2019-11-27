@@ -1,6 +1,14 @@
 /* Muli */
 @font-face {
   font-family: 'Muli';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/fonts/muli/muli-v16-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Muli Light'), local('Muli-Light'),
+    /* Modern Browsers */ url('/fonts/muli/Muli-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Muli';
   font-style: italic;
   font-weight: 400;
   src: url('/fonts/muli/muli-v16-latin-italic.eot'); /* IE9 Compat Modes */
