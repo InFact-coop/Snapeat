@@ -9,6 +9,7 @@ export const ERROR = 'ERROR'
 export const LOADING = 'LOADING'
 export const SUCCESS = 'SUCCESS'
 export const FOOD_DATA = 'FOOD_DATA'
+export const PRIVACY = 'PRIVACY'
 
 // Router Actions
 export const CHANGE_VIEW = 'CHANGE_VIEW'
