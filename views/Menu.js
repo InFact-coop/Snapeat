@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import {
   GO_BACK,
   CHANGE_VIEW,

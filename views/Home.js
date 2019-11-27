@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 // import axios from 'axios'
 
-import { useRouteDispatch } from '../state/routeContext'
-import { useFoodDataDispatch } from '../state/foodDataContext'
+import { useRouteDispatch } from '../context/routeContext'
+import { useFoodDataDispatch } from '../context/foodDataContext'
 import {
   CHANGE_VIEW,
   MENU,

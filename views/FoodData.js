@@ -12,9 +12,9 @@ import {
   VEGETABLES,
 } from '../utils/constants'
 
-import { useRouteDispatch } from '../state/routeContext'
-import { useFoodDataState } from '../state/foodDataContext'
-import { useProjectState } from '../state/projectContext'
+import { useRouteDispatch } from '../context/routeContext'
+import { useFoodDataState } from '../context/foodDataContext'
+import { useProjectState } from '../context/projectContext'
 
 import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'

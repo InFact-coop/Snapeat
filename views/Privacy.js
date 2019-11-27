@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import { HOME, CHANGE_VIEW } from '../utils/constants'
 
 import menuBG from '../public/backgrounds/termsConditionsBackground.svg'
