@@ -1,29 +1,30 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import axios from 'axios'
 
-import { CHANGE_PROJECT } from '../utils/constants'
-import { useRouteState } from '../state/routeContext'
-import { useProjectDispatch } from '../state/projectContext'
+import { toast } from 'react-toastify'
+
+import { useAuth } from '../context/authContext'
+
+import AuthenticatedApp from '../apps/AuthenticatedApp'
+import UnauthenticatedApp from '../apps/UnauthenticatedApp'
+
+import 'react-toastify/dist/ReactToastify.min.css'
+import '../styles/index.css'
+
 import getLastPath from '../utils/getLastPath'
 
-import views from '../views'
+toast.configure()
 
 const Container = styled.section.attrs({
   className: 'bg-lightgray w-screen h-screen',
 })``
 
+// TODO: check that everything that was in _app.js and pages/index.js (ie toast and css and ting) is still in new setup
+
 const Index = ({ project }) => {
-  const projectDispatch = useProjectDispatch()
-  const { currentView } = useRouteState()
-
-  useEffect(
-    () => projectDispatch({ project: { project }, type: CHANGE_PROJECT }),
-    [],
-  )
-
-  const CurrentView = views[currentView]
+  const { user } = useAuth()
 
   return (
     <>
@@ -38,7 +39,7 @@ const Index = ({ project }) => {
       </Head>
 
       <Container>
-        <CurrentView />
+        {user ? <AuthenticatedApp project={project} /> : <UnauthenticatedApp />}
       </Container>
     </>
   )
