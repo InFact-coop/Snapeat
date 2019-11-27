@@ -350,6 +350,8 @@ export type ProjectOrderByInput =
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "slug_ASC"
+  | "slug_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -418,6 +420,7 @@ export interface TagUpdateWithWhereUniqueWithoutMealsInput {
 
 export type CategoryWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export interface MealUpdateWithoutCategoriesDataInput {
@@ -565,6 +568,7 @@ export interface ProportionSubscriptionWhereInput {
 
 export interface ProjectUpdateWithoutUsersDataInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
 }
 
 export interface ProjectWhereInput {
@@ -596,6 +600,20 @@ export interface ProjectWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  slug?: Maybe<String>;
+  slug_not?: Maybe<String>;
+  slug_in?: Maybe<String[] | String>;
+  slug_not_in?: Maybe<String[] | String>;
+  slug_lt?: Maybe<String>;
+  slug_lte?: Maybe<String>;
+  slug_gt?: Maybe<String>;
+  slug_gte?: Maybe<String>;
+  slug_contains?: Maybe<String>;
+  slug_not_contains?: Maybe<String>;
+  slug_starts_with?: Maybe<String>;
+  slug_not_starts_with?: Maybe<String>;
+  slug_ends_with?: Maybe<String>;
+  slug_not_ends_with?: Maybe<String>;
   users_every?: Maybe<UserWhereInput>;
   users_some?: Maybe<UserWhereInput>;
   users_none?: Maybe<UserWhereInput>;
@@ -666,6 +684,20 @@ export interface ProjectScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  slug?: Maybe<String>;
+  slug_not?: Maybe<String>;
+  slug_in?: Maybe<String[] | String>;
+  slug_not_in?: Maybe<String[] | String>;
+  slug_lt?: Maybe<String>;
+  slug_lte?: Maybe<String>;
+  slug_gt?: Maybe<String>;
+  slug_gte?: Maybe<String>;
+  slug_contains?: Maybe<String>;
+  slug_not_contains?: Maybe<String>;
+  slug_starts_with?: Maybe<String>;
+  slug_not_starts_with?: Maybe<String>;
+  slug_ends_with?: Maybe<String>;
+  slug_not_ends_with?: Maybe<String>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -759,6 +791,7 @@ export interface UserUpdateManyMutationInput {
 
 export interface ProjectUpdateManyDataInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
 }
 
 export interface UserCreateInput {
@@ -966,6 +999,7 @@ export interface UserCreateWithoutProjectsInput {
 
 export type TagWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export interface TagUpdateWithoutMealsDataInput {
@@ -1558,6 +1592,7 @@ export interface ProportionUpsertWithoutFruitMealsInput {
 
 export type ProjectWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  slug?: Maybe<String>;
 }>;
 
 export interface ProportionUpdateOneWithoutVegMealsInput {
@@ -1571,6 +1606,7 @@ export interface ProportionUpdateOneWithoutVegMealsInput {
 
 export type ProportionWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export interface ProportionUpdateWithoutVegMealsDataInput {
@@ -1621,6 +1657,7 @@ export interface MealUpdateWithWhereUniqueWithoutProportionFruitInput {
 
 export interface ProjectUpdateInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
   users?: Maybe<UserUpdateManyWithoutProjectsInput>;
 }
 
@@ -1650,6 +1687,7 @@ export interface MealUpsertWithWhereUniqueWithoutProportionFruitInput {
 export interface ProjectCreateWithoutUsersInput {
   id?: Maybe<ID_Input>;
   name: String;
+  slug: String;
 }
 
 export interface ProportionUpsertWithoutVegMealsInput {
@@ -1719,6 +1757,7 @@ export interface MealUpdateManyWithoutCategoriesInput {
 export interface ProjectCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
+  slug: String;
   users?: Maybe<UserCreateManyWithoutProjectsInput>;
 }
 
@@ -1977,6 +2016,7 @@ export interface MealUpdateWithWhereUniqueWithoutUserInput {
 
 export interface ProjectUpdateManyMutationInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
 }
 
 export interface MealUpdateWithoutUserDataInput {
@@ -2534,19 +2574,29 @@ export interface AggregateProportionSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface Category {
+export interface Meal {
   id: ID_Output;
-  name: String;
+  imageURL: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface CategoryPromise extends Promise<Category>, Fragmentable {
+export interface MealPromise extends Promise<Meal>, Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  meals: <T = FragmentableArray<Meal>>(args?: {
-    where?: MealWhereInput;
-    orderBy?: MealOrderByInput;
+  user: <T = UserPromise>() => T;
+  imageURL: () => Promise<String>;
+  categories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tags: <T = FragmentableArray<Tag>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2555,16 +2605,28 @@ export interface CategoryPromise extends Promise<Category>, Fragmentable {
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  proportionFruit: <T = ProportionPromise>() => T;
+  proportionVeg: <T = ProportionPromise>() => T;
 }
 
-export interface CategorySubscription
-  extends Promise<AsyncIterator<Category>>,
+export interface MealSubscription
+  extends Promise<AsyncIterator<Meal>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  meals: <T = Promise<AsyncIterator<MealSubscription>>>(args?: {
-    where?: MealWhereInput;
-    orderBy?: MealOrderByInput;
+  user: <T = UserSubscription>() => T;
+  imageURL: () => Promise<AsyncIterator<String>>;
+  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tags: <T = Promise<AsyncIterator<TagSubscription>>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2573,16 +2635,28 @@ export interface CategorySubscription
   }) => T;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  proportionFruit: <T = ProportionSubscription>() => T;
+  proportionVeg: <T = ProportionSubscription>() => T;
 }
 
-export interface CategoryNullablePromise
-  extends Promise<Category | null>,
+export interface MealNullablePromise
+  extends Promise<Meal | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  meals: <T = FragmentableArray<Meal>>(args?: {
-    where?: MealWhereInput;
-    orderBy?: MealOrderByInput;
+  user: <T = UserPromise>() => T;
+  imageURL: () => Promise<String>;
+  categories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tags: <T = FragmentableArray<Tag>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2591,6 +2665,8 @@ export interface CategoryNullablePromise
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  proportionFruit: <T = ProportionPromise>() => T;
+  proportionVeg: <T = ProportionPromise>() => T;
 }
 
 export interface ProportionConnection {
@@ -2953,29 +3029,19 @@ export interface MealPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface Meal {
+export interface Category {
   id: ID_Output;
-  imageURL: String;
+  name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface MealPromise extends Promise<Meal>, Fragmentable {
+export interface CategoryPromise extends Promise<Category>, Fragmentable {
   id: () => Promise<ID_Output>;
-  user: <T = UserPromise>() => T;
-  imageURL: () => Promise<String>;
-  categories: <T = FragmentableArray<Category>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  tags: <T = FragmentableArray<Tag>>(args?: {
-    where?: TagWhereInput;
-    orderBy?: TagOrderByInput;
+  name: () => Promise<String>;
+  meals: <T = FragmentableArray<Meal>>(args?: {
+    where?: MealWhereInput;
+    orderBy?: MealOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2984,28 +3050,16 @@ export interface MealPromise extends Promise<Meal>, Fragmentable {
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
-  proportionFruit: <T = ProportionPromise>() => T;
-  proportionVeg: <T = ProportionPromise>() => T;
 }
 
-export interface MealSubscription
-  extends Promise<AsyncIterator<Meal>>,
+export interface CategorySubscription
+  extends Promise<AsyncIterator<Category>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  user: <T = UserSubscription>() => T;
-  imageURL: () => Promise<AsyncIterator<String>>;
-  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  tags: <T = Promise<AsyncIterator<TagSubscription>>>(args?: {
-    where?: TagWhereInput;
-    orderBy?: TagOrderByInput;
+  name: () => Promise<AsyncIterator<String>>;
+  meals: <T = Promise<AsyncIterator<MealSubscription>>>(args?: {
+    where?: MealWhereInput;
+    orderBy?: MealOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3014,28 +3068,16 @@ export interface MealSubscription
   }) => T;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  proportionFruit: <T = ProportionSubscription>() => T;
-  proportionVeg: <T = ProportionSubscription>() => T;
 }
 
-export interface MealNullablePromise
-  extends Promise<Meal | null>,
+export interface CategoryNullablePromise
+  extends Promise<Category | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  user: <T = UserPromise>() => T;
-  imageURL: () => Promise<String>;
-  categories: <T = FragmentableArray<Category>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  tags: <T = FragmentableArray<Tag>>(args?: {
-    where?: TagWhereInput;
-    orderBy?: TagOrderByInput;
+  name: () => Promise<String>;
+  meals: <T = FragmentableArray<Meal>>(args?: {
+    where?: MealWhereInput;
+    orderBy?: MealOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3044,13 +3086,12 @@ export interface MealNullablePromise
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
-  proportionFruit: <T = ProportionPromise>() => T;
-  proportionVeg: <T = ProportionPromise>() => T;
 }
 
 export interface Project {
   id: ID_Output;
   name: String;
+  slug: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -3058,6 +3099,7 @@ export interface Project {
 export interface ProjectPromise extends Promise<Project>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  slug: () => Promise<String>;
   users: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -3076,6 +3118,7 @@ export interface ProjectSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
   users: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -3094,6 +3137,7 @@ export interface ProjectNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  slug: () => Promise<String>;
   users: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -3259,6 +3303,7 @@ export interface TagSubscriptionPayloadSubscription
 export interface ProjectPreviousValues {
   id: ID_Output;
   name: String;
+  slug: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -3268,6 +3313,7 @@ export interface ProjectPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  slug: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -3277,6 +3323,7 @@ export interface ProjectPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
