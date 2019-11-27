@@ -14,7 +14,7 @@ const ProportionExamples = ({ toggleExamples }) => {
       <CloseButton onClick={toggleExamples}>
         <img src={closeIcon} alt="Close" />
       </CloseButton>
-      <p className="w-11/12 mx-auto font-xl text-center mb-5 mt-8">
+      <p className="w-11/12 mx-auto font-xl text-center mb-5 mt-4">
         It can be hard to know how much fruit or veg there is on a plate. Here
         are some examples to help.
       </p>
@@ -55,7 +55,7 @@ const CloseButton = styled.button.attrs({
 `
 
 const Text = styled.p.attrs({
-  className: 'w-11/12 mx-auto font-xl text-center mb-5 mt-5',
+  className: 'w-11/12 mx-auto font-xl text-center mb-3 mt-3',
 })``
 
 const ExampleContainer = styled.section.attrs({

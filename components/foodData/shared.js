@@ -182,6 +182,12 @@ const TagButton = ({ children }) => {
   )
 }
 
+const ExamplesButton = styled.button.attrs({
+  className: 'w-11/12 font-base text-center mt-4 underline block mx-auto',
+})`
+  color: ${cssTheme('colors.blue')};
+`
+
 export {
   Title,
   TileContainer,
@@ -191,4 +197,5 @@ export {
   FruitVegTile,
   TagsContainer,
   TagButton,
+  ExamplesButton,
 }

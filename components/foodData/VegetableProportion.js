@@ -16,6 +16,7 @@ import {
   RadioTile,
   TileContainer,
   FruitVegTile,
+  ExamplesButton,
 } from './shared'
 
 import * as Steps from '.'
@@ -73,7 +74,9 @@ const VegetableProportion = ({ toggleExamples, showExamples }) => {
           iconSelected={allIconSelected}
         />
       </TileContainer>
-      <button onClick={toggleExamples}>Show examples</button>
+      <ExamplesButton onClick={toggleExamples}>
+        Not sure? Check out these examples
+      </ExamplesButton>
     </CardBackground>
   )
 }
