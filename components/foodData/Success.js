@@ -17,10 +17,9 @@ const Success = ({ values }) => {
       <img className="mt-4 m-auto" alt="Snapeat logo" src={logo} />
       <img className="mt-20 m-auto" alt="checkmark" src={checkmark} />
       <Text className="font-bold">All done!</Text>
-      <Text>
-        Thanks for logging what your child had for dinner today. <br />
-        Have a great evening.
-      </Text>
+      <Text>Thanks for logging what your child had for dinner today.</Text>
+      <br />
+      <Text>Have a great evening.</Text>
     </section>
   )
 }

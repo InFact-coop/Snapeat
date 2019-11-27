@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 import { CHANGE_PROJECT } from '../utils/constants'
-import getView from '../views/getView'
 import { useRouteState } from '../state/routeContext'
 import { useProjectDispatch } from '../state/projectContext'
 import getLastPath from '../utils/getLastPath'
