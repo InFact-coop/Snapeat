@@ -8,6 +8,8 @@ import quarterIcon from '../../public/icons/quantities/regular/quarter.svg'
 import quarterIconSelected from '../../public/icons/quantities/selected/quarter-selected.svg'
 import vegIcon from '../../public/icons/categories/regular/vegan.svg'
 
+import ProportionExamples from '../ProportionExamples'
+
 import {
   Title,
   CardBackground,
@@ -18,8 +20,13 @@ import {
 
 import * as Steps from '.'
 
-const VegetableProportion = () => {
-  return (
+const VegetableProportion = ({ toggleExamples, showExamples }) => {
+  return showExamples ? (
+    <ProportionExamples
+      toggleExamples={toggleExamples}
+      showExamples={showExamples}
+    />
+  ) : (
     <CardBackground>
       <Title>You tagged Vegetables</Title>
       <FruitVegTile
@@ -66,6 +73,7 @@ const VegetableProportion = () => {
           iconSelected={allIconSelected}
         />
       </TileContainer>
+      <button onClick={toggleExamples}>Show examples</button>
     </CardBackground>
   )
 }
