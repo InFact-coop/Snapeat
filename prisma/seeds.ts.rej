@@ -1,0 +1,9 @@
+diff a/prisma/seeds.ts b/prisma/seeds.ts	(rejected hunks)
+@@ -8,5 +8,2 @@ import flushDB from './flushDB'
+-import * as R from "ramda"
+-import { CATEGORY_ARRAY, TAG_ARRAY, PROPORTION_ARRAY } from "../utils/constants"
+-
+-
+-
++import * as R from 'ramda'
++import { CATEGORY_ARRAY, TAG_ARRAY, PROPORTION_ARRAY } from '../utils/constants'

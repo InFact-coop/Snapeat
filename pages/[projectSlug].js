@@ -9,6 +9,8 @@ import { useRouteState } from '../state/routeContext'
 import { useProjectDispatch } from '../state/projectContext'
 import getLastPath from '../utils/getLastPath'
 
+import views from '../views'
+
 const Container = styled.section.attrs({
   className: 'bg-lightgray w-screen h-screen',
 })``
@@ -22,6 +24,8 @@ const Index = ({ project }) => {
     [],
   )
 
+  const Component = views[currentView]
+
   return (
     <>
       <Head>
@@ -34,7 +38,9 @@ const Index = ({ project }) => {
         <link href="/iphone-icon.png" rel="apple-touch-icon" sizes="180x180" />
       </Head>
 
-      <Container>{getView(currentView)}</Container>
+      <Container>
+        <Component />
+      </Container>
     </>
   )
 }
