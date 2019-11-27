@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+//eslint-disable-next-line
 import { prisma } from '../../prisma/generated/ts'
 import { PROJECT_NOT_FOUND } from '../../utils/constants'
+
+//eslint-disable-next-line
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const slug = req.query.slug as string
   try {

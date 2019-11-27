@@ -7,16 +7,21 @@ import formidable from 'formidable'
 const cloudinary = require('cloudinary').v2
 
 cloudinary.config({
+  //eslint-disable-next-line
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  //eslint-disable-next-line
   api_key: process.env.CLOUDINARY_API_KEY,
+  //eslint-disable-next-line
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
+//eslint-disable-next-line
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const form = new formidable.IncomingForm()
-    form.parse(req, async (err, _fields, files) => {
+    form.parse(req, (err, _fields, files) => {
       if (err) {
+        //eslint-disable-next-line no-console
         console.error('form parsing error', err)
       }
 
@@ -24,6 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       cloudinary.uploader.upload(`${photo.path}`, (error: any, result: any) => {
         if (error) {
+          //eslint-disable-next-line no-console
           console.error('cloudinary error error', error)
         }
 

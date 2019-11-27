@@ -350,6 +350,8 @@ export type ProjectOrderByInput =
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "slug_ASC"
+  | "slug_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -565,6 +567,7 @@ export interface ProportionSubscriptionWhereInput {
 
 export interface ProjectUpdateWithoutUsersDataInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
 }
 
 export interface ProjectWhereInput {
@@ -596,6 +599,20 @@ export interface ProjectWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  slug?: Maybe<String>;
+  slug_not?: Maybe<String>;
+  slug_in?: Maybe<String[] | String>;
+  slug_not_in?: Maybe<String[] | String>;
+  slug_lt?: Maybe<String>;
+  slug_lte?: Maybe<String>;
+  slug_gt?: Maybe<String>;
+  slug_gte?: Maybe<String>;
+  slug_contains?: Maybe<String>;
+  slug_not_contains?: Maybe<String>;
+  slug_starts_with?: Maybe<String>;
+  slug_not_starts_with?: Maybe<String>;
+  slug_ends_with?: Maybe<String>;
+  slug_not_ends_with?: Maybe<String>;
   users_every?: Maybe<UserWhereInput>;
   users_some?: Maybe<UserWhereInput>;
   users_none?: Maybe<UserWhereInput>;
@@ -666,6 +683,20 @@ export interface ProjectScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  slug?: Maybe<String>;
+  slug_not?: Maybe<String>;
+  slug_in?: Maybe<String[] | String>;
+  slug_not_in?: Maybe<String[] | String>;
+  slug_lt?: Maybe<String>;
+  slug_lte?: Maybe<String>;
+  slug_gt?: Maybe<String>;
+  slug_gte?: Maybe<String>;
+  slug_contains?: Maybe<String>;
+  slug_not_contains?: Maybe<String>;
+  slug_starts_with?: Maybe<String>;
+  slug_not_starts_with?: Maybe<String>;
+  slug_ends_with?: Maybe<String>;
+  slug_not_ends_with?: Maybe<String>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -759,6 +790,7 @@ export interface UserUpdateManyMutationInput {
 
 export interface ProjectUpdateManyDataInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
 }
 
 export interface UserCreateInput {
@@ -1558,6 +1590,7 @@ export interface ProportionUpsertWithoutFruitMealsInput {
 
 export type ProjectWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  slug?: Maybe<String>;
 }>;
 
 export interface ProportionUpdateOneWithoutVegMealsInput {
@@ -1621,6 +1654,7 @@ export interface MealUpdateWithWhereUniqueWithoutProportionFruitInput {
 
 export interface ProjectUpdateInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
   users?: Maybe<UserUpdateManyWithoutProjectsInput>;
 }
 
@@ -1650,6 +1684,7 @@ export interface MealUpsertWithWhereUniqueWithoutProportionFruitInput {
 export interface ProjectCreateWithoutUsersInput {
   id?: Maybe<ID_Input>;
   name: String;
+  slug: String;
 }
 
 export interface ProportionUpsertWithoutVegMealsInput {
@@ -1719,6 +1754,7 @@ export interface MealUpdateManyWithoutCategoriesInput {
 export interface ProjectCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
+  slug: String;
   users?: Maybe<UserCreateManyWithoutProjectsInput>;
 }
 
@@ -1977,6 +2013,7 @@ export interface MealUpdateWithWhereUniqueWithoutUserInput {
 
 export interface ProjectUpdateManyMutationInput {
   name?: Maybe<String>;
+  slug?: Maybe<String>;
 }
 
 export interface MealUpdateWithoutUserDataInput {
@@ -3051,6 +3088,7 @@ export interface MealNullablePromise
 export interface Project {
   id: ID_Output;
   name: String;
+  slug: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -3058,6 +3096,7 @@ export interface Project {
 export interface ProjectPromise extends Promise<Project>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  slug: () => Promise<String>;
   users: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -3076,6 +3115,7 @@ export interface ProjectSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
   users: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -3094,6 +3134,7 @@ export interface ProjectNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  slug: () => Promise<String>;
   users: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -3259,6 +3300,7 @@ export interface TagSubscriptionPayloadSubscription
 export interface ProjectPreviousValues {
   id: ID_Output;
   name: String;
+  slug: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -3268,6 +3310,7 @@ export interface ProjectPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  slug: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -3277,6 +3320,7 @@ export interface ProjectPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  slug: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
