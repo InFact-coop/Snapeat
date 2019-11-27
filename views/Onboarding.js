@@ -6,6 +6,8 @@ import axios from 'axios'
 import * as R from 'ramda'
 import R_ from '../utils/R_'
 
+import { useProjectState } from '../state/projectContext'
+
 import * as Steps from '../components/onboarding'
 import PostCode from '../components/onboarding/PostCode'
 import Children from '../components/onboarding/Children'
@@ -131,6 +133,7 @@ const TopNav = ({ pageIndex, decrementPage }) => {
 
 const MultiStep = ({ children }) => {
   const [page, setPage] = useState(Steps.PostCode)
+  const { error, project } = useProjectState()
 
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
@@ -140,9 +143,14 @@ const MultiStep = ({ children }) => {
   const incrementPage = () => {
     setPage(pages[pageIndex + 1])
   }
-
   const decrementPage = () => {
     setPage(pages[pageIndex - 1])
+  }
+
+  const initValues = () => {
+    if (error) return initialValues
+    if (project) return { ...initialValues, projects: [project] }
+    return initialValues
   }
 
   const { validationSchema } = activePage && activePage.type
@@ -151,12 +159,12 @@ const MultiStep = ({ children }) => {
   return (
     <Formik
       {...{
-        initialValues,
+        initialValues: initValues(),
         validationSchema,
         onSubmit: onSubmit({
           incrementPage,
         }),
-        enableReinitialize: false,
+        enableReinitialize: true,
       }}
     >
       {({ validateForm, values, setTouched, setFieldValue, errors }) => {
