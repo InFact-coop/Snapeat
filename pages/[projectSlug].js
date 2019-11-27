@@ -23,7 +23,7 @@ const Index = ({ project }) => {
     [],
   )
 
-  const Component = views[currentView]
+  const CurrentView = views[currentView]
 
   return (
     <>
@@ -38,7 +38,7 @@ const Index = ({ project }) => {
       </Head>
 
       <Container>
-        <Component />
+        <CurrentView />
       </Container>
     </>
   )
