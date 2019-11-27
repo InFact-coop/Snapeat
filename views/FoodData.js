@@ -29,19 +29,19 @@ import Error from '../components/foodData/Error'
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
 
-// const initialValues = {
-//   categories: [],
-//   proportionFruit: '',
-//   proportionVeg: '',
-//   tags: [],
-// }
-
 const initialValues = {
-  categories: ['fruit', 'vegetables', 'pasta', 'oil'],
-  proportionFruit: 'quarter',
-  proportionVeg: 'quarter',
-  tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
+  categories: [],
+  proportionFruit: '',
+  proportionVeg: '',
+  tags: [],
 }
+
+// const initialValues = {
+//   categories: ['fruit', 'vegetables', 'pasta', 'oil'],
+//   proportionFruit: 'quarter',
+//   proportionVeg: 'quarter',
+//   tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
+// }
 
 const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
   setPage(Steps.Spinner)
@@ -232,6 +232,12 @@ const MultiStep = ({ children }) => {
 
   const [page, setPage] = useState(firstPage)
   const [lastPage, setLastPage] = useState(page)
+  const [showExamples, setShowExamples] = useState(false)
+
+  // controls toggling examples in fruit and veg proportion pages
+  const toggleExamples = () => {
+    setShowExamples(!showExamples)
+  }
 
   // tracks last page visited to help navigating between pages from results page
   const updatePage = destination => {
@@ -290,22 +296,26 @@ const MultiStep = ({ children }) => {
                     decrementPage,
                     setFieldValue,
                     errors,
+                    toggleExamples,
+                    showExamples,
                   },
                 }}
               />
             </StyledForm>
-            <ControlsNext
-              {...{
-                incrementPage,
-                page,
-                lastPage,
-                values,
-                setPage,
-                setFieldValue,
-                foodPhoto,
-                project,
-              }}
-            />
+            {!showExamples && (
+              <ControlsNext
+                {...{
+                  incrementPage,
+                  page,
+                  lastPage,
+                  values,
+                  setPage,
+                  setFieldValue,
+                  foodPhoto,
+                  project,
+                }}
+              />
+            )}
           </Container>
         )
       }}
