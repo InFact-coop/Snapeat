@@ -112,9 +112,14 @@ const Menu = () => {
   )
 }
 
-const Logo = styled.img`
-  width: 100px;
-  margin-left: calc((100vw - 100px) / 2);
+const Logo = styled.img.attrs({
+  className: 'w-auto sm:w-25',
+})`
+  margin-left: calc((100vw - 80px) / 2);
+
+  @media ${cssTheme('media.sm')} {
+    margin-left: calc((100vw - 100px) / 2);
+  }
 `
 
 const CloseButton = styled.button.attrs({
@@ -125,7 +130,7 @@ const CloseButton = styled.button.attrs({
 `
 
 const HeaderContainer = styled.div.attrs({
-  className: 'absolute w-screen top-0 left-0 z-2 mt-4',
+  className: 'absolute w-screen top-0 left-0 z-2 mt-5d5',
 })`
   display: grid;
   grid-template-columns: 1fr 12.5%;
