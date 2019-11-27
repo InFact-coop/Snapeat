@@ -49,6 +49,7 @@ const Menu = () => {
           Terms & Conditions
         </div>
         <div
+          className="mb-2"
           onClick={() => routeDispatch({ type: CHANGE_VIEW, view: PRIVACY })}
           onKeyPress={() => routeDispatch({ type: CHANGE_VIEW, view: PRIVACY })}
         >
@@ -112,7 +113,8 @@ const Menu = () => {
 }
 
 const Logo = styled.img`
-  margin-left: calc((100vw - 98px) / 2);
+  width: 100px;
+  margin-left: calc((100vw - 100px) / 2);
 `
 
 const CloseButton = styled.button.attrs({
