@@ -9,6 +9,7 @@ import {
   SUCCESS,
   LOADING,
   FOOD_DATA,
+  PRIVACY,
 } from '../utils/constants'
 
 import Home from './Home'
@@ -21,6 +22,7 @@ import Loading from './Loading'
 import Success from './Success'
 import CategorySelect from './CategorySelect'
 import FoodData from './FoodData'
+import Privacy from './Privacy'
 
 export default {
   [HOME]: Home,
@@ -33,4 +35,5 @@ export default {
   [SUCCESS]: Success,
   [CATEGORY_SELECT]: CategorySelect,
   [FOOD_DATA]: FoodData,
+  [PRIVACY]: Privacy,
 }
