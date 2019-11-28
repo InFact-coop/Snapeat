@@ -420,6 +420,7 @@ export interface TagUpdateWithWhereUniqueWithoutMealsInput {
 
 export type CategoryWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export interface MealUpdateWithoutCategoriesDataInput {
@@ -998,6 +999,7 @@ export interface UserCreateWithoutProjectsInput {
 
 export type TagWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export interface TagUpdateWithoutMealsDataInput {
@@ -1604,6 +1606,7 @@ export interface ProportionUpdateOneWithoutVegMealsInput {
 
 export type ProportionWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export interface ProportionUpdateWithoutVegMealsDataInput {
@@ -2571,19 +2574,29 @@ export interface AggregateProportionSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface Category {
+export interface Meal {
   id: ID_Output;
-  name: String;
+  imageURL: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface CategoryPromise extends Promise<Category>, Fragmentable {
+export interface MealPromise extends Promise<Meal>, Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  meals: <T = FragmentableArray<Meal>>(args?: {
-    where?: MealWhereInput;
-    orderBy?: MealOrderByInput;
+  user: <T = UserPromise>() => T;
+  imageURL: () => Promise<String>;
+  categories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tags: <T = FragmentableArray<Tag>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2592,16 +2605,28 @@ export interface CategoryPromise extends Promise<Category>, Fragmentable {
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  proportionFruit: <T = ProportionPromise>() => T;
+  proportionVeg: <T = ProportionPromise>() => T;
 }
 
-export interface CategorySubscription
-  extends Promise<AsyncIterator<Category>>,
+export interface MealSubscription
+  extends Promise<AsyncIterator<Meal>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  meals: <T = Promise<AsyncIterator<MealSubscription>>>(args?: {
-    where?: MealWhereInput;
-    orderBy?: MealOrderByInput;
+  user: <T = UserSubscription>() => T;
+  imageURL: () => Promise<AsyncIterator<String>>;
+  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tags: <T = Promise<AsyncIterator<TagSubscription>>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2610,16 +2635,28 @@ export interface CategorySubscription
   }) => T;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  proportionFruit: <T = ProportionSubscription>() => T;
+  proportionVeg: <T = ProportionSubscription>() => T;
 }
 
-export interface CategoryNullablePromise
-  extends Promise<Category | null>,
+export interface MealNullablePromise
+  extends Promise<Meal | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  meals: <T = FragmentableArray<Meal>>(args?: {
-    where?: MealWhereInput;
-    orderBy?: MealOrderByInput;
+  user: <T = UserPromise>() => T;
+  imageURL: () => Promise<String>;
+  categories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tags: <T = FragmentableArray<Tag>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2628,6 +2665,8 @@ export interface CategoryNullablePromise
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  proportionFruit: <T = ProportionPromise>() => T;
+  proportionVeg: <T = ProportionPromise>() => T;
 }
 
 export interface ProportionConnection {
@@ -2990,29 +3029,19 @@ export interface MealPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface Meal {
+export interface Category {
   id: ID_Output;
-  imageURL: String;
+  name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface MealPromise extends Promise<Meal>, Fragmentable {
+export interface CategoryPromise extends Promise<Category>, Fragmentable {
   id: () => Promise<ID_Output>;
-  user: <T = UserPromise>() => T;
-  imageURL: () => Promise<String>;
-  categories: <T = FragmentableArray<Category>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  tags: <T = FragmentableArray<Tag>>(args?: {
-    where?: TagWhereInput;
-    orderBy?: TagOrderByInput;
+  name: () => Promise<String>;
+  meals: <T = FragmentableArray<Meal>>(args?: {
+    where?: MealWhereInput;
+    orderBy?: MealOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3021,28 +3050,16 @@ export interface MealPromise extends Promise<Meal>, Fragmentable {
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
-  proportionFruit: <T = ProportionPromise>() => T;
-  proportionVeg: <T = ProportionPromise>() => T;
 }
 
-export interface MealSubscription
-  extends Promise<AsyncIterator<Meal>>,
+export interface CategorySubscription
+  extends Promise<AsyncIterator<Category>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  user: <T = UserSubscription>() => T;
-  imageURL: () => Promise<AsyncIterator<String>>;
-  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  tags: <T = Promise<AsyncIterator<TagSubscription>>>(args?: {
-    where?: TagWhereInput;
-    orderBy?: TagOrderByInput;
+  name: () => Promise<AsyncIterator<String>>;
+  meals: <T = Promise<AsyncIterator<MealSubscription>>>(args?: {
+    where?: MealWhereInput;
+    orderBy?: MealOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3051,28 +3068,16 @@ export interface MealSubscription
   }) => T;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  proportionFruit: <T = ProportionSubscription>() => T;
-  proportionVeg: <T = ProportionSubscription>() => T;
 }
 
-export interface MealNullablePromise
-  extends Promise<Meal | null>,
+export interface CategoryNullablePromise
+  extends Promise<Category | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  user: <T = UserPromise>() => T;
-  imageURL: () => Promise<String>;
-  categories: <T = FragmentableArray<Category>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  tags: <T = FragmentableArray<Tag>>(args?: {
-    where?: TagWhereInput;
-    orderBy?: TagOrderByInput;
+  name: () => Promise<String>;
+  meals: <T = FragmentableArray<Meal>>(args?: {
+    where?: MealWhereInput;
+    orderBy?: MealOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3081,8 +3086,6 @@ export interface MealNullablePromise
   }) => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
-  proportionFruit: <T = ProportionPromise>() => T;
-  proportionVeg: <T = ProportionPromise>() => T;
 }
 
 export interface Project {

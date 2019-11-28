@@ -256,6 +256,7 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Child {
@@ -1415,6 +1416,7 @@ input ProportionWhereInput {
 
 input ProportionWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Query {
@@ -1673,6 +1675,7 @@ input TagWhereInput {
 
 input TagWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type User {

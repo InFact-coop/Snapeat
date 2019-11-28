@@ -29,19 +29,19 @@ import Error from '../components/foodData/Error'
 import backIcon from '../public/icons/back_white.svg'
 import nextIcon from '../public/icons/btn_round-next.svg'
 
-// const initialValues = {
-//   categories: [],
-//   proportionFruit: '',
-//   proportionVeg: '',
-//   tags: [],
-// }
-
 const initialValues = {
-  categories: ['fruit', 'vegetables', 'pasta', 'oil'],
-  proportionFruit: 'quarter',
-  proportionVeg: 'quarter',
-  tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
+  categories: [],
+  proportionFruit: '',
+  proportionVeg: '',
+  tags: [],
 }
+
+// const initialValues = {
+//   categories: ['fruit', 'vegetables', 'pasta', 'oil'],
+//   proportionFruit: 'quarter',
+//   proportionVeg: 'quarter',
+//   tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
+// }
 
 const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
   setPage(Steps.Spinner)
@@ -53,24 +53,23 @@ const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
     //eslint-disable-next-line no-console
     console.log('Food data values', values)
 
-    // const {
-    //   data: { url },
-    // } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
+    // upload photo to cloudinary
+    const {
+      data: { url },
+    } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
 
-    // console.log('photo uploaded', url) //eslint-disable-line
-
-    await axios
+    // upload meal to DB
+    axios
       .post(`${process.env.HOST}/api/submit-food-data`, {
         project,
-        imageURL:
-          'http://res.cloudinary.com/infact-digital-co-operative/image/upload/v1574773242/taew6klwnhdryupxiubc.jpg',
+        imageURL: url,
         user: {
           email: 'lucy@infactcoop.com',
         },
         ...values,
       })
-      .then(setPage(Steps.Success))
-      .catch(setPage(Steps.Error))
+      .then(() => setPage(Steps.Success))
+      .catch(() => setPage(Steps.Error))
 
     return
   } catch (e) {
@@ -184,6 +183,8 @@ const ControlsNext = ({
         return () => onSubmit({ setPage, project, foodPhoto })(values)
       case Steps.Success:
         return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
+      case Steps.Error:
+        return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
       default:
         return incrementPage
     }
@@ -232,6 +233,12 @@ const MultiStep = ({ children }) => {
 
   const [page, setPage] = useState(firstPage)
   const [lastPage, setLastPage] = useState(page)
+  const [showExamples, setShowExamples] = useState(false)
+
+  // controls toggling examples in fruit and veg proportion pages
+  const toggleExamples = () => {
+    setShowExamples(!showExamples)
+  }
 
   // tracks last page visited to help navigating between pages from results page
   const updatePage = destination => {
@@ -290,22 +297,26 @@ const MultiStep = ({ children }) => {
                     decrementPage,
                     setFieldValue,
                     errors,
+                    toggleExamples,
+                    showExamples,
                   },
                 }}
               />
             </StyledForm>
-            <ControlsNext
-              {...{
-                incrementPage,
-                page,
-                lastPage,
-                values,
-                setPage,
-                setFieldValue,
-                foodPhoto,
-                project,
-              }}
-            />
+            {!showExamples && (
+              <ControlsNext
+                {...{
+                  incrementPage,
+                  page,
+                  lastPage,
+                  values,
+                  setPage,
+                  setFieldValue,
+                  foodPhoto,
+                  project,
+                }}
+              />
+            )}
           </Container>
         )
       }}
