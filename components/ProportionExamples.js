@@ -1,12 +1,32 @@
 import styled from 'styled-components'
+import * as R from 'ramda'
 
-import quarterPic from '../public/images/example_quarter.png'
-import halfPic from '../public/images/example_half.png'
-import mostlyPic from '../public/images/example_mostly.png'
-import wholePic from '../public/images/example_whole.png'
+import Quarter from '../public/images/example_quarter.png'
+import Half from '../public/images/example_half.png'
+import Mostly from '../public/images/example_mostly.png'
+import Whole from '../public/images/example_whole.png'
 import closeIcon from '../public/icons/close.svg'
 
 import { CardBackground } from './foodData/shared'
+
+const proportionArray = [
+  {
+    name: 'Quarter',
+    img: Quarter,
+  },
+  {
+    name: 'Half',
+    img: Half,
+  },
+  {
+    name: 'Mostly',
+    img: Mostly,
+  },
+  {
+    name: 'Whole',
+    img: Whole,
+  },
+]
 
 const ProportionExamples = ({ toggleExamples }) => {
   return (
@@ -20,25 +40,12 @@ const ProportionExamples = ({ toggleExamples }) => {
       </p>
 
       <ExampleContainer>
-        <Example>
-          <ExamplePic src={quarterPic} alt="Example of a quarter serving" />
-          <Text>Quarter</Text>
-        </Example>
-
-        <Example>
-          <ExamplePic src={halfPic} alt="Example of a half serving" />
-          <Text>Half</Text>
-        </Example>
-
-        <Example>
-          <ExamplePic src={mostlyPic} alt="Example of a mostly serving" />
-          <Text>Mostly</Text>
-        </Example>
-
-        <Example>
-          <ExamplePic src={wholePic} alt="Example of a whole serving" />
-          <Text>Whole</Text>
-        </Example>
+        {R.map(prop => (
+          <Example key="prop">
+            <img src={prop.img} alt={`Example of a ${prop.name} serving`} />
+            <Text>{prop.name}</Text>
+          </Example>
+        ))(proportionArray)}
       </ExampleContainer>
 
       <p className="w-9/12 font-base font-bold mx-auto text-center mb-5 mt-5">
@@ -66,12 +73,9 @@ const ExampleContainer = styled.section.attrs({
   grid-template-rows: auto;
   grid-gap: 1rem;
 `
+
 const Example = styled.section.attrs({
   className: 'flex flex-col',
-})``
-
-const ExamplePic = styled.img.attrs({
-  className: '',
 })``
 
 export default ProportionExamples
