@@ -4,7 +4,7 @@ import axios from 'axios'
 const AuthContext = React.createContext()
 
 const fetchUser = async () => {
-  if (typeof window !== undefined && window.__user) {
+  if (typeof window !== 'undefined' && window.__user) {
     return window.__user
   }
 
@@ -40,7 +40,6 @@ const AuthProvider = props => {
 
     fetchUser().then(fetchedUser => {
       if (!fetchedUser) {
-        // window.location.href = '/api/login'
         setLoading(false)
         return
       }
@@ -51,11 +50,7 @@ const AuthProvider = props => {
 
   if (loading) return <div />
 
-  // const login = () => {}
-  const register = () => {}
-  // const logout = () => {}
-
-  return <AuthContext.Provider value={{ user, register }} {...props} />
+  return <AuthContext.Provider value={{ user }} {...props} />
 }
 
 const useAuth = () => {

@@ -21,7 +21,9 @@ const Privacy = () => {
 
       <Text>
         Snapeat is owned and managed by Guys & St Thomas&#39; Charitable Trust.
-        <br />
+      </Text>
+      <br />
+      <Text>
         Everything you share on Snapeat will be stored safely and your personal
         data will always be private. Read our Plain English Privacy Policy{' '}
         <a href="http://www.google.com">here</a>.
