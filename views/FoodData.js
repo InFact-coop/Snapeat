@@ -53,24 +53,23 @@ const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
     //eslint-disable-next-line no-console
     console.log('Food data values', values)
 
-    // const {
-    //   data: { url },
-    // } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
+    // upload photo to cloudinary
+    const {
+      data: { url },
+    } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
 
-    // console.log('photo uploaded', url) //eslint-disable-line
-
-    await axios
+    // upload meal to DB
+    axios
       .post(`${process.env.HOST}/api/submit-food-data`, {
         project,
-        imageURL:
-          'http://res.cloudinary.com/infact-digital-co-operative/image/upload/v1574773242/taew6klwnhdryupxiubc.jpg',
+        imageURL: url,
         user: {
           email: 'lucy@infactcoop.com',
         },
         ...values,
       })
-      .then(setPage(Steps.Success))
-      .catch(setPage(Steps.Error))
+      .then(() => setPage(Steps.Success))
+      .catch(() => setPage(Steps.Error))
 
     return
   } catch (e) {
@@ -183,6 +182,8 @@ const ControlsNext = ({
       case Steps.Results:
         return () => onSubmit({ setPage, project, foodPhoto })(values)
       case Steps.Success:
+        return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
+      case Steps.Error:
         return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
       default:
         return incrementPage

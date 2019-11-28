@@ -9,10 +9,13 @@ export const ERROR = 'ERROR'
 export const LOADING = 'LOADING'
 export const SUCCESS = 'SUCCESS'
 export const FOOD_DATA = 'FOOD_DATA'
+export const PRIVACY = 'PRIVACY'
+export const TERMS_AND_CONDITIONS = 'TERMS_AND_CONDITIONS'
 
 // Router Actions
 export const CHANGE_VIEW = 'CHANGE_VIEW'
 export const GO_BACK = 'GO_BACK'
+export const SIGN_OUT = 'SIGN_OUT'
 
 // Project Actions
 export const PROJECT_NOT_FOUND = 'PROJECT_NOT_FOUND'
