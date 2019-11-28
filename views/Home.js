@@ -42,30 +42,13 @@ const Home = () => {
     foodDataDispatch({ type: SET_FOOD_PHOTO, payload: photo })
 
     return routeDispatch({ type: CHANGE_VIEW, view: FOOD_DATA })
-
-    // const sendImage = async () => {
-    //   routeDispatch({ type: CHANGE_VIEW, view: LOADING })
-    //
-    //   const data = new FormData()
-    //   data.set('photo', photo.file, photo.fileName)
-    //   try {
-    //     const {
-    //       data: { url },
-    //     } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
-    //
-    //     console.log('photo uploaded', url) //eslint-disable-line
-    //     routeDispatch({ type: CHANGE_VIEW, view: FOOD_DATA })
-    //   } catch (err) {
-    //     console.log(err) //eslint-disable-line
-    //   }
-    // }
-    //
-    // return sendImage()
   }, [foodDataDispatch, photo, routeDispatch])
 
   const onImageSelect = e => {
     e.preventDefault()
+
     const file = e.target.files[0]
+
     if (file) {
       setPhoto({
         file,
