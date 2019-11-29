@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Field } from 'formik'
+import { Field, ErrorMessage } from 'formik'
 
 const TextInput = styled(Field).attrs(({ placeholder, name, ...attrs }) => ({
   className: 'bg-lightgray w-full border-b-2 border-navy',
@@ -27,4 +27,22 @@ const RadioInput = ({ name, children, id, ...attrs }) => (
   </div>
 )
 
-export { TextInput, RadioInput }
+const ErrorContainer = styled.div.attrs({
+  className: 'text-red',
+})``
+
+const Error = ({ name }) => (
+  <ErrorMessage
+    name={name}
+    render={msg => <ErrorContainer>{msg}</ErrorContainer>}
+  />
+)
+
+const Input = ({ Component, ...attrs }) => (
+  <div>
+    <Component {...attrs} />
+    <Error name={attrs.name} />
+  </div>
+)
+
+export { Input, TextInput, RadioInput, Error }
