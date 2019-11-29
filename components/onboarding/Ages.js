@@ -1,7 +1,27 @@
+import { useEffect } from 'react'
+import * as Yup from 'yup'
 import * as R from 'ramda'
 import R_ from '../../utils/R_'
-import { RadioInput } from '../Input'
+import createArrayOfLength from '../../utils/createArrayOfLength'
+
+import { RadioInput, Error } from '../Input'
 import OnboardingStep, { SubQuestion } from './OnboardingStep'
+
+const initValidation = numberOfChildren => {
+  const validationShape = R.pipe(
+    createArrayOfLength,
+    R_.reduceIndexed((acc, _, i) => {
+      return {
+        ...acc,
+        [`age-${i}`]: Yup.string().required(
+          'Please select an age group for your child',
+        ),
+      }
+    }, {}),
+  )(numberOfChildren)
+
+  return Yup.object().shape(validationShape)
+}
 
 const tooltipContents = (
   <>
@@ -35,30 +55,43 @@ const AgeComponent = (_, i) => (
     <RadioInput name={`age-${i}`} id={`age-${i}-16-18`} value="16-18">
       16 - 18
     </RadioInput>
+    <Error name={`age-${i}`} />
   </div>
 )
 
-const ageQuestions = R.pipe(
-  parseInt,
-  numberOfChildren => [...Array(numberOfChildren)],
-  R_.mapIndexed(AgeComponent),
-)
+const ageQuestions = R.pipe(createArrayOfLength, R_.mapIndexed(AgeComponent))
 
-const Ages = ({ values: { numberOfChildren } }) => (
-  <OnboardingStep
-    {...{
-      h1: 'Awesome.',
-      h2: 'Next question:',
-      question: 'How old are your kids?',
-      tooltipTitle: 'Why do we need this information?',
-      tooltipContents,
-      className: 'pb-36',
-    }}
-  >
-    {ageQuestions(numberOfChildren)}
-  </OnboardingStep>
-)
+const Ages = ({
+  values: { numberOfChildren },
+  validationSchema,
+  setValidationSchema,
+}) => {
+  useEffect(() => {
+    // debugger
+    const validation = initValidation(numberOfChildren)
+    if (validation !== validationSchema) {
+      setValidationSchema(validation)
+      // debugger
+    }
+  }, [])
+
+  return (
+    <OnboardingStep
+      {...{
+        h1: 'Awesome.',
+        h2: 'Next question:',
+        question: 'How old are your kids?',
+        tooltipTitle: 'Why do we need this information?',
+        tooltipContents,
+        className: 'pb-36',
+      }}
+    >
+      {ageQuestions(numberOfChildren)}
+    </OnboardingStep>
+  )
+}
 
 Ages.componentName = 'Ages'
+Ages.dynamicValidation = true
 
 export default Ages

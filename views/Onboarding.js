@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import * as Yup from 'yup'
 import styled from 'styled-components'
 import { Formik, Form } from 'formik'
 import axios from 'axios'
@@ -24,6 +25,10 @@ const initialValues = {
   numberOfChildren: 0,
   children: [],
   projects: [],
+  // 'age-0': '',
+  // 'age-1': '',
+  // 'age-2': '',
+  // 'age-3': '',
 }
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
@@ -103,7 +108,7 @@ const StyledBottomNav = styled.nav.attrs({
     'bg-white w-full fixed z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
 })``
 
-const BottomNav = ({ incrementPage, pageIndex, amountOfPages }) => {
+const BottomNav = ({ incrementPage, pageIndex, amountOfPages, isValid }) => {
   const penultimatePage = amountOfPages - 2
 
   return (
@@ -112,7 +117,7 @@ const BottomNav = ({ incrementPage, pageIndex, amountOfPages }) => {
       {pageIndex === penultimatePage ? (
         <Next type="submit" />
       ) : (
-        <Next onClick={incrementPage} />
+        <Next onClick={isValid ? incrementPage : () => {}} />
       )}
     </StyledBottomNav>
   )
@@ -133,6 +138,7 @@ const TopNav = ({ pageIndex, decrementPage }) => {
 
 const MultiStep = ({ children }) => {
   const [page, setPage] = useState(Steps.PostCode)
+  const [validationSchema, setValidationSchema] = useState(Yup.object())
   const { error, project } = useProjectState()
 
   const steps = React.Children.toArray(children)
@@ -143,6 +149,7 @@ const MultiStep = ({ children }) => {
   const incrementPage = () => {
     setPage(pages[pageIndex + 1])
   }
+
   const decrementPage = () => {
     setPage(pages[pageIndex - 1])
   }
@@ -153,21 +160,37 @@ const MultiStep = ({ children }) => {
     return initialValues
   }
 
-  const { validationSchema } = activePage && activePage.type
+  const { validation, dynamicValidation } = activePage && activePage.type
+
+  useEffect(() => {
+    if (!dynamicValidation) {
+      setValidationSchema(validation)
+    }
+  }, [])
+
   const Container = styled.main``
 
+  // debugger
   return (
     <Formik
       {...{
         initialValues: initValues(),
         validationSchema,
+        isInitialValid: false,
         onSubmit: onSubmit({
           incrementPage,
         }),
         enableReinitialize: true,
       }}
     >
-      {({ validateForm, values, setTouched, setFieldValue, errors }) => {
+      {({
+        validateForm,
+        values,
+        setTouched,
+        setFieldValue,
+        errors,
+        isValid,
+      }) => {
         return (
           <Container>
             <StyledForm>
@@ -182,9 +205,11 @@ const MultiStep = ({ children }) => {
                   props: {
                     setPage,
                     values,
+                    validationSchema,
                     incrementPage,
                     setFieldValue,
                     errors,
+                    setValidationSchema,
                   },
                 }}
               />
@@ -192,6 +217,7 @@ const MultiStep = ({ children }) => {
             <BottomNav
               {...{
                 incrementPage,
+                isValid,
                 page,
                 pageIndex,
                 amountOfPages: pages.length,
