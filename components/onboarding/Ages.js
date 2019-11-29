@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import * as R from 'ramda'
 import R_ from '../../utils/R_'
@@ -66,10 +66,17 @@ const Ages = ({
   validationSchema,
   setValidationSchema,
 }) => {
+  const [hasInitialised, setHasInitialised] = useState(false)
   useEffect(() => {
     // debugger
     const validation = initValidation(numberOfChildren)
-    if (validation !== validationSchema) {
+    if (
+      validation !== validationSchema &&
+      !hasInitialised &&
+      !Ages.hasInitialised
+    ) {
+      setHasInitialised(true)
+      Ages.hasInitialised = true
       setValidationSchema(validation)
       // debugger
     }
@@ -93,5 +100,6 @@ const Ages = ({
 
 Ages.componentName = 'Ages'
 Ages.dynamicValidation = true
+Ages.hasInitialised = false
 
 export default Ages
