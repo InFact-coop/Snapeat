@@ -10,7 +10,7 @@ import {
   Button,
 } from '../components/SecurityPages'
 
-const Privacy = () => {
+const TermsAndConditions = () => {
   const routeDispatch = useRouteDispatch()
   const { history } = useRouteState()
 
@@ -26,7 +26,7 @@ const Privacy = () => {
   return (
     <div>
       <HeaderWithGSTCLogo
-        text="Privacy"
+        text="Terms & Conditions"
         close={() => routeDispatch({ type: CHANGE_VIEW, view: returnTo() })}
       />
       <div className="py-1">
@@ -74,4 +74,4 @@ const Privacy = () => {
   )
 }
 
-export default Privacy
+export default TermsAndConditions

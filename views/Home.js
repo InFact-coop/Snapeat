@@ -11,7 +11,7 @@ import {
   ERROR,
   SET_FOOD_PHOTO,
 } from '../utils/constants'
-import { Header } from '../components/Header'
+import { HeaderWithLogo } from '../components/Header'
 import fileNameFormatter from '../utils/fileNameFormatter'
 
 import buttonBG from '../public/backgrounds/camera_bg.svg'
@@ -57,7 +57,7 @@ const Home = () => {
 
   return (
     <Dashboard>
-      <Header />
+      <HeaderWithLogo />
       <CameraContainer>
         <p className="font-bold">What is your child eating for dinner?</p>
         <p>Share a photo</p>
