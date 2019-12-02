@@ -31,10 +31,10 @@ const ErrorContainer = styled.div.attrs({
   className: 'text-red',
 })``
 
-const Error = ({ name }) => (
+const Error = ({ name, className }) => (
   <ErrorMessage
     name={name}
-    render={msg => <ErrorContainer>{msg}</ErrorContainer>}
+    render={msg => <ErrorContainer className={className}>{msg}</ErrorContainer>}
   />
 )
 

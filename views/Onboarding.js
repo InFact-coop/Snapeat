@@ -25,10 +25,7 @@ const initialValues = {
   numberOfChildren: 0,
   children: [],
   projects: [],
-  // 'age-0': '',
-  // 'age-1': '',
-  // 'age-2': '',
-  // 'age-3': '',
+  age: [],
 }
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
@@ -160,13 +157,13 @@ const MultiStep = ({ children }) => {
     return initialValues
   }
 
-  const { validation, dynamicValidation } = activePage && activePage.type
+  const { validation } = activePage && activePage.type
 
   useEffect(() => {
-    if (!dynamicValidation) {
+    if (validation) {
       setValidationSchema(validation)
     }
-  }, [])
+  })
 
   const Container = styled.main``
 
@@ -205,7 +202,6 @@ const MultiStep = ({ children }) => {
                   props: {
                     setPage,
                     values,
-                    validationSchema,
                     incrementPage,
                     setFieldValue,
                     errors,
