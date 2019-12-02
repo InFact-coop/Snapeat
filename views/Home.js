@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-// import axios from 'axios'
+import axios from 'axios'
 
-import { useRouteDispatch } from '../state/routeContext'
-import { useFoodDataDispatch } from '../state/foodDataContext'
+import { useRouteDispatch } from '../context/routeContext'
+import { useFoodDataDispatch } from '../context/foodDataContext'
 import {
   CHANGE_VIEW,
   // LOADING,
@@ -23,6 +23,20 @@ const Home = () => {
   const routeDispatch = useRouteDispatch()
   const foodDataDispatch = useFoodDataDispatch()
   const [photo, setPhoto] = useState()
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await axios.get('/api/me')
+      } catch (err) {
+        //eslint-disable-next-line
+        console.log('error fetching user', err)
+        window.location.href = '/api/logout'
+      }
+    }
+    fetchUser()
+    return fetchUser
+  }, [])
 
   useEffect(() => {
     if (!photo) {

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import { CHANGE_VIEW, MENU } from '../utils/constants'
 import snapeatLogo from '../public/logos/logo2.svg'
 import menuIcon from '../public/icons/menu.svg'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import { HOME, CHANGE_VIEW } from '../utils/constants'
 
 const SignUp = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import { CHANGE_VIEW, HOME } from '../utils/constants'
 
 import logo from '../public/logos/logo1.svg'
