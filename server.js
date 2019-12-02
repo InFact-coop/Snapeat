@@ -1,6 +1,7 @@
 const { join } = require('path')
 const express = require('express')
 const next = require('next')
+const enforce = require('express-sslify')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -14,6 +15,11 @@ app.prepare().then(() => {
     const filePath = join(__dirname, '.next', '/service-worker.js')
     app.serveStatic(req, res, filePath)
   })
+
+  if (!dev) {
+    //eslint-disable-next-line
+    server.use(enforce.HTTPS({ trustProtoHeader: true }))
+  }
 
   server.get('*', (req, res) => {
     return handle(req, res)
