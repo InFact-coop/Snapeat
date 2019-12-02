@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Tooltip, TooltipLink, TooltipClose } from '../Tooltip'
 
 const Container = styled.main.attrs({
-  className: 'flex flex-col',
+  className: 'flex flex-col w-full',
 })``
 const H1 = styled.h1.attrs({
   className: 'font-xxl font-bold text-center mb-5',

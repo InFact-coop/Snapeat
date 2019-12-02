@@ -87,13 +87,13 @@ const MultiStep = ({ children }) => {
     updatePage(pages[pageIndex - 1])
   }
 
-  const { validationSchema } = activePage && activePage.type
+  const { validation } = activePage && activePage.type
 
   return (
     <Formik
       {...{
         initialValues,
-        validationSchema,
+        validation,
         onSubmit: onSubmit({
           incrementPage,
         }),

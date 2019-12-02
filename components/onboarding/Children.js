@@ -1,4 +1,5 @@
-import { TextInput } from '../Input'
+import * as Yup from 'yup'
+import { Input, TextInput } from '../Input'
 import keepFieldCleanOnChange from '../../utils/keepFieldCleanOnChange'
 import OnboardingStep from './OnboardingStep'
 
@@ -15,6 +16,15 @@ const tooltipContents = (
   </>
 )
 
+const validation = Yup.object().shape({
+  numberOfChildren: Yup.string()
+    .required('Please enter a number')
+    .notOneOf(
+      ['0', '00'],
+      'You must have children under 18 to sign up to Snapeat',
+    ),
+})
+
 const Children = ({ setFieldValue, values }) => (
   <OnboardingStep
     {...{
@@ -25,7 +35,8 @@ const Children = ({ setFieldValue, values }) => (
       tooltipContents,
     }}
   >
-    <TextInput
+    <Input
+      Component={TextInput}
       placeholder="Type a number here..."
       name="numberOfChildren"
       maxLength={2}
@@ -40,5 +51,6 @@ const Children = ({ setFieldValue, values }) => (
 )
 
 Children.componentName = 'Children'
+Children.validation = validation
 
 export default Children
