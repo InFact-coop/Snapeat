@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import {
   CHANGE_VIEW,
   GO_BACK,

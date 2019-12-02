@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import { MENU, CHANGE_VIEW, GO_BACK } from '../utils/constants'
 
 const Error = () => {

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useRouteDispatch } from '../state/routeContext'
+import { useRouteDispatch } from '../context/routeContext'
 import { CHANGE_VIEW, MENU } from '../utils/constants'
 import logo from '../public/logos/logo2.svg'
 import menuBG from '../public/backgrounds/menu_bg.svg'

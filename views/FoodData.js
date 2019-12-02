@@ -12,9 +12,9 @@ import {
   VEGETABLES,
 } from '../utils/constants'
 
-import { useRouteDispatch } from '../state/routeContext'
-import { useFoodDataState } from '../state/foodDataContext'
-import { useProjectState } from '../state/projectContext'
+import { useRouteDispatch } from '../context/routeContext'
+import { useFoodDataState } from '../context/foodDataContext'
+import { useProjectState } from '../context/projectContext'
 
 import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
@@ -42,6 +42,112 @@ const initialValues = {
 //   proportionVeg: 'quarter',
 //   tags: ['#readymeal', '#quickandeasy', '#vegetarian'],
 // }
+
+const FoodData = () => {
+  return (
+    <MultiStep>
+      <Categories />
+      <VegetableProportion />
+      <FruitProportion />
+      <Tags />
+      <Results />
+      <Spinner />
+      <Success />
+      <Error />
+    </MultiStep>
+  )
+}
+
+const MultiStep = ({ children }) => {
+  const { foodPhoto } = useFoodDataState()
+  const { project } = useProjectState()
+
+  const steps = React.Children.toArray(children)
+  const pages = steps.map(step => step.type.componentName)
+  const firstPage = R.head(pages)
+
+  const [page, setPage] = useState(firstPage)
+  const [lastPage, setLastPage] = useState(page)
+
+  // tracks last page visited to help navigating between pages from results page
+  const updatePage = destination => {
+    setLastPage(page)
+    return setPage(destination)
+  }
+
+  const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
+
+  const incrementPage = () => {
+    const pageIndex = R.findIndex(R.equals(page))(pages)
+    updatePage(pages[pageIndex + 1])
+  }
+
+  const decrementPage = () => {
+    const pageIndex = R.findIndex(R.equals(page))(pages)
+    updatePage(pages[pageIndex - 1])
+  }
+
+  const { validationSchema } = activePage && activePage.type
+
+  return (
+    <Formik
+      {...{
+        initialValues,
+        validationSchema,
+        onSubmit: onSubmit({
+          incrementPage,
+        }),
+        enableReinitialize: false,
+      }}
+    >
+      {({ validateForm, values, setTouched, setFieldValue, errors }) => {
+        return (
+          <Container>
+            <ControlsBack
+              {...{ decrementPage, page, lastPage, updatePage, values }}
+            />
+            <StyledForm>
+              {page !== Steps.Success && (
+                <ImageContainer className="relative">
+                  <Food src={foodPhoto.fileURL} />
+                </ImageContainer>
+              )}
+              <RenderStep
+                {...{
+                  validateForm,
+                  page,
+                  setTouched,
+                  activePage,
+                  props: {
+                    setPage,
+                    updatePage,
+                    values,
+                    incrementPage,
+                    decrementPage,
+                    setFieldValue,
+                    errors,
+                  },
+                }}
+              />
+            </StyledForm>
+            <ControlsNext
+              {...{
+                incrementPage,
+                page,
+                lastPage,
+                values,
+                setPage,
+                setFieldValue,
+                foodPhoto,
+                project,
+              }}
+            />
+          </Container>
+        )
+      }}
+    </Formik>
+  )
+}
 
 const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
   setPage(Steps.Spinner)
@@ -223,106 +329,6 @@ const ControlsNext = ({
   }
 }
 
-const MultiStep = ({ children }) => {
-  const { foodPhoto } = useFoodDataState()
-  const { project } = useProjectState()
-
-  const steps = React.Children.toArray(children)
-  const pages = steps.map(step => step.type.componentName)
-  const firstPage = R.head(pages)
-
-  const [page, setPage] = useState(firstPage)
-  const [lastPage, setLastPage] = useState(page)
-  const [showExamples, setShowExamples] = useState(false)
-
-  // controls toggling examples in fruit and veg proportion pages
-  const toggleExamples = () => {
-    setShowExamples(!showExamples)
-  }
-
-  // tracks last page visited to help navigating between pages from results page
-  const updatePage = destination => {
-    setLastPage(page)
-    return setPage(destination)
-  }
-
-  const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
-
-  const incrementPage = () => {
-    const pageIndex = R.findIndex(R.equals(page))(pages)
-    updatePage(pages[pageIndex + 1])
-  }
-
-  const decrementPage = () => {
-    const pageIndex = R.findIndex(R.equals(page))(pages)
-    updatePage(pages[pageIndex - 1])
-  }
-
-  const { validationSchema } = activePage && activePage.type
-
-  return (
-    <Formik
-      {...{
-        initialValues,
-        validationSchema,
-        onSubmit: onSubmit({
-          incrementPage,
-        }),
-        enableReinitialize: false,
-      }}
-    >
-      {({ validateForm, values, setTouched, setFieldValue, errors }) => {
-        return (
-          <Container>
-            <ControlsBack
-              {...{ decrementPage, page, lastPage, updatePage, values }}
-            />
-            <StyledForm>
-              {page !== Steps.Success && (
-                <ImageContainer className="relative">
-                  <Food src={foodPhoto.fileURL} />
-                </ImageContainer>
-              )}
-              <RenderStep
-                {...{
-                  validateForm,
-                  page,
-                  setTouched,
-                  activePage,
-                  props: {
-                    setPage,
-                    updatePage,
-                    values,
-                    incrementPage,
-                    decrementPage,
-                    setFieldValue,
-                    errors,
-                    toggleExamples,
-                    showExamples,
-                  },
-                }}
-              />
-            </StyledForm>
-            {!showExamples && (
-              <ControlsNext
-                {...{
-                  incrementPage,
-                  page,
-                  lastPage,
-                  values,
-                  setPage,
-                  setFieldValue,
-                  foodPhoto,
-                  project,
-                }}
-              />
-            )}
-          </Container>
-        )
-      }}
-    </Formik>
-  )
-}
 const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -376,20 +382,5 @@ const Next = styled.button.attrs({
 const Container = styled.main`
   background-color: ${cssTheme('colors.white')};
 `
-
-const FoodData = () => {
-  return (
-    <MultiStep>
-      <Categories />
-      <VegetableProportion />
-      <FruitProportion />
-      <Tags />
-      <Results />
-      <Spinner />
-      <Success />
-      <Error />
-    </MultiStep>
-  )
-}
 
 export default FoodData
