@@ -32,7 +32,7 @@ type Meal {
 
 type Tag {
   id: ID! @id
-  tag_name: String!
+  name: String! @unique
   meals: [Meal] @relation(onDelete: SET_NULL)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
@@ -40,7 +40,7 @@ type Tag {
 
 type Category {
   id: ID! @id
-  name: String!
+  name: String! @unique
   meals: [Meal!] @relation(onDelete: SET_NULL)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
@@ -58,8 +58,7 @@ type Project {
 
 type Proportion {
   id: ID! @id
-  name: String!
-  fraction: Float!
+  name: String! @unique
   fruitMeals: [Meal] @relation(name: "Fruit")
   vegMeals: [Meal] @relation(name: "Veg")
   updatedAt: DateTime! @updatedAt

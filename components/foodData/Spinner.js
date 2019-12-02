@@ -8,7 +8,7 @@ const Text = styled.p.attrs({
 })``
 
 // eslint-disable-next-line no-unused-vars
-const Success = ({ values }) => {
+const Spinner = ({ values }) => {
   // eslint-disable-next-line no-unused-vars
   const { categories, proportionFruit, proportionVeg, tags } = values
 
@@ -16,14 +16,11 @@ const Success = ({ values }) => {
     <section>
       <img className="mt-4 m-auto" alt="Snapeat logo" src={logo} />
       <img className="mt-20 m-auto" alt="checkmark" src={checkmark} />
-      <Text className="font-bold">All done!</Text>
-      <Text>Thanks for logging what your child had for dinner today.</Text>
-      <br />
-      <Text>Have a great evening.</Text>
+      <Text className="font-bold">Trying...</Text>
     </section>
   )
 }
 
-Success.componentName = 'Success'
+Spinner.componentName = 'Spinner'
 
-export default Success
+export default Spinner

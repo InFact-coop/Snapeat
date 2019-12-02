@@ -118,7 +118,7 @@ const RadioTile = ({ name, icon, iconSelected, label, id }) => {
 }
 
 const CardBackground = styled.section.attrs({
-  className: 'z-10 w-screen bg-white',
+  className: 'z-10 w-screen bg-white shadow-tooltip pb-4',
 })`
   border-top-left-radius: 4em;
   border-top-right-radius: 4em;
@@ -142,6 +142,52 @@ const FruitVegTile = styled.div`
   }
 `
 
+const TagsContainer = styled.div.attrs({
+  className: 'flex flex-wrap justify-around w-4/5 center m-auto',
+})``
+
+const CheckboxContainer = styled.label.attrs({
+  className: 'relative cursor-pointer select-none',
+})`
+  input {
+    display: none;
+  }
+
+  .checkmark {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: ${cssTheme('spacing.2')};
+    padding: ${cssTheme('spacing.1')};
+    padding-left: ${cssTheme('spacing.3')};
+    padding-right: ${cssTheme('spacing.3')};
+    border: 1px solid ${cssTheme('colors.navy')};
+    border-radius: ${cssTheme('spacing.12')};
+
+    background: white;
+    color: ${cssTheme('colors.navy')};
+  }
+
+  input:checked ~ .checkmark {
+    background: ${cssTheme('colors.navy')};
+    color: white;
+  }
+`
+const TagButton = ({ children }) => {
+  return (
+    <CheckboxContainer htmlFor={children}>
+      <Field type="checkbox" name="tags" value={children} id={children} />
+      <span className="checkmark">{children}</span>
+    </CheckboxContainer>
+  )
+}
+
+const ExamplesButton = styled.button.attrs({
+  className: 'w-11/12 font-base text-center mt-4 underline block mx-auto',
+})`
+  color: ${cssTheme('colors.blue')};
+`
+
 export {
   Title,
   TileContainer,
@@ -149,4 +195,7 @@ export {
   CheckboxTile,
   RadioTile,
   FruitVegTile,
+  TagsContainer,
+  TagButton,
+  ExamplesButton,
 }

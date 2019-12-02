@@ -256,6 +256,7 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Child {
@@ -1227,7 +1228,6 @@ input ProjectWhereUniqueInput {
 type Proportion {
   id: ID!
   name: String!
-  fraction: Float!
   fruitMeals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   vegMeals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   updatedAt: DateTime!
@@ -1243,7 +1243,6 @@ type ProportionConnection {
 input ProportionCreateInput {
   id: ID
   name: String!
-  fraction: Float!
   fruitMeals: MealCreateManyWithoutProportionFruitInput
   vegMeals: MealCreateManyWithoutProportionVegInput
 }
@@ -1261,14 +1260,12 @@ input ProportionCreateOneWithoutVegMealsInput {
 input ProportionCreateWithoutFruitMealsInput {
   id: ID
   name: String!
-  fraction: Float!
   vegMeals: MealCreateManyWithoutProportionVegInput
 }
 
 input ProportionCreateWithoutVegMealsInput {
   id: ID
   name: String!
-  fraction: Float!
   fruitMeals: MealCreateManyWithoutProportionFruitInput
 }
 
@@ -1282,8 +1279,6 @@ enum ProportionOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  fraction_ASC
-  fraction_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1293,7 +1288,6 @@ enum ProportionOrderByInput {
 type ProportionPreviousValues {
   id: ID!
   name: String!
-  fraction: Float!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1318,14 +1312,12 @@ input ProportionSubscriptionWhereInput {
 
 input ProportionUpdateInput {
   name: String
-  fraction: Float
   fruitMeals: MealUpdateManyWithoutProportionFruitInput
   vegMeals: MealUpdateManyWithoutProportionVegInput
 }
 
 input ProportionUpdateManyMutationInput {
   name: String
-  fraction: Float
 }
 
 input ProportionUpdateOneWithoutFruitMealsInput {
@@ -1348,13 +1340,11 @@ input ProportionUpdateOneWithoutVegMealsInput {
 
 input ProportionUpdateWithoutFruitMealsDataInput {
   name: String
-  fraction: Float
   vegMeals: MealUpdateManyWithoutProportionVegInput
 }
 
 input ProportionUpdateWithoutVegMealsDataInput {
   name: String
-  fraction: Float
   fruitMeals: MealUpdateManyWithoutProportionFruitInput
 }
 
@@ -1397,14 +1387,6 @@ input ProportionWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  fraction: Float
-  fraction_not: Float
-  fraction_in: [Float!]
-  fraction_not_in: [Float!]
-  fraction_lt: Float
-  fraction_lte: Float
-  fraction_gt: Float
-  fraction_gte: Float
   fruitMeals_every: MealWhereInput
   fruitMeals_some: MealWhereInput
   fruitMeals_none: MealWhereInput
@@ -1434,6 +1416,7 @@ input ProportionWhereInput {
 
 input ProportionWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Query {
@@ -1473,7 +1456,7 @@ type Subscription {
 
 type Tag {
   id: ID!
-  tag_name: String!
+  name: String!
   meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -1487,7 +1470,7 @@ type TagConnection {
 
 input TagCreateInput {
   id: ID
-  tag_name: String!
+  name: String!
   meals: MealCreateManyWithoutTagsInput
 }
 
@@ -1498,7 +1481,7 @@ input TagCreateManyWithoutMealsInput {
 
 input TagCreateWithoutMealsInput {
   id: ID
-  tag_name: String!
+  name: String!
 }
 
 type TagEdge {
@@ -1509,8 +1492,8 @@ type TagEdge {
 enum TagOrderByInput {
   id_ASC
   id_DESC
-  tag_name_ASC
-  tag_name_DESC
+  name_ASC
+  name_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1519,7 +1502,7 @@ enum TagOrderByInput {
 
 type TagPreviousValues {
   id: ID!
-  tag_name: String!
+  name: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1539,20 +1522,20 @@ input TagScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  tag_name: String
-  tag_name_not: String
-  tag_name_in: [String!]
-  tag_name_not_in: [String!]
-  tag_name_lt: String
-  tag_name_lte: String
-  tag_name_gt: String
-  tag_name_gte: String
-  tag_name_contains: String
-  tag_name_not_contains: String
-  tag_name_starts_with: String
-  tag_name_not_starts_with: String
-  tag_name_ends_with: String
-  tag_name_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -1593,16 +1576,16 @@ input TagSubscriptionWhereInput {
 }
 
 input TagUpdateInput {
-  tag_name: String
+  name: String
   meals: MealUpdateManyWithoutTagsInput
 }
 
 input TagUpdateManyDataInput {
-  tag_name: String
+  name: String
 }
 
 input TagUpdateManyMutationInput {
-  tag_name: String
+  name: String
 }
 
 input TagUpdateManyWithoutMealsInput {
@@ -1623,7 +1606,7 @@ input TagUpdateManyWithWhereNestedInput {
 }
 
 input TagUpdateWithoutMealsDataInput {
-  tag_name: String
+  name: String
 }
 
 input TagUpdateWithWhereUniqueWithoutMealsInput {
@@ -1652,20 +1635,20 @@ input TagWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  tag_name: String
-  tag_name_not: String
-  tag_name_in: [String!]
-  tag_name_not_in: [String!]
-  tag_name_lt: String
-  tag_name_lte: String
-  tag_name_gt: String
-  tag_name_gte: String
-  tag_name_contains: String
-  tag_name_not_contains: String
-  tag_name_starts_with: String
-  tag_name_not_starts_with: String
-  tag_name_ends_with: String
-  tag_name_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   meals_every: MealWhereInput
   meals_some: MealWhereInput
   meals_none: MealWhereInput
@@ -1692,6 +1675,7 @@ input TagWhereInput {
 
 input TagWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type User {

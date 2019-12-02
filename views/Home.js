@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-// import axios from 'axios'
+import axios from 'axios'
 
-import { useRouteDispatch } from '../state/routeContext'
-import { useFoodDataDispatch } from '../state/foodDataContext'
+import { useRouteDispatch } from '../context/routeContext'
+import { useFoodDataDispatch } from '../context/foodDataContext'
 import {
   CHANGE_VIEW,
-  MENU,
   // LOADING,
   FOOD_DATA,
   ERROR,
   SET_FOOD_PHOTO,
 } from '../utils/constants'
+import { HeaderWithLogo } from '../components/Header'
 import fileNameFormatter from '../utils/fileNameFormatter'
 
 import buttonBG from '../public/backgrounds/camera_bg.svg'
-import menuBG from '../public/backgrounds/menu_bg.svg'
 import cameraBG from '../public/icons/camera_icn.svg'
 
-import menu from '../public/icons/menu.svg'
-import logo from '../public/logos/logo2.svg'
 import cameraButton from '../public/icons/btn_round.svg'
 
 const Home = () => {
   const routeDispatch = useRouteDispatch()
   const foodDataDispatch = useFoodDataDispatch()
   const [photo, setPhoto] = useState()
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await axios.get('/api/me')
+      } catch (err) {
+        //eslint-disable-next-line
+        console.log('error fetching user', err)
+        window.location.href = '/api/logout'
+      }
+    }
+    fetchUser()
+    return fetchUser
+  }, [])
 
   useEffect(() => {
     if (!photo) {
@@ -42,30 +53,13 @@ const Home = () => {
     foodDataDispatch({ type: SET_FOOD_PHOTO, payload: photo })
 
     return routeDispatch({ type: CHANGE_VIEW, view: FOOD_DATA })
-
-    // const sendImage = async () => {
-    //   routeDispatch({ type: CHANGE_VIEW, view: LOADING })
-    //
-    //   const data = new FormData()
-    //   data.set('photo', photo.file, photo.fileName)
-    //   try {
-    //     const {
-    //       data: { url },
-    //     } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
-    //
-    //     console.log('photo uploaded', url) //eslint-disable-line
-    //     routeDispatch({ type: CHANGE_VIEW, view: FOOD_DATA })
-    //   } catch (err) {
-    //     console.log(err) //eslint-disable-line
-    //   }
-    // }
-    //
-    // return sendImage()
   }, [foodDataDispatch, photo, routeDispatch])
 
   const onImageSelect = e => {
     e.preventDefault()
+
     const file = e.target.files[0]
+
     if (file) {
       setPhoto({
         file,
@@ -77,15 +71,7 @@ const Home = () => {
 
   return (
     <Dashboard>
-      <MenuContainer>
-        <Logo alt="logo" src={logo} />
-        <div
-          onClick={() => routeDispatch({ type: CHANGE_VIEW, view: MENU })}
-          onKeyPress={() => routeDispatch({ type: CHANGE_VIEW, view: MENU })}
-        >
-          <img alt="menu" src={menu} />
-        </div>
-      </MenuContainer>
+      <HeaderWithLogo />
       <CameraContainer>
         <p className="font-bold">What is your child eating for dinner?</p>
         <p>Share a photo</p>
@@ -138,19 +124,5 @@ const ButtonForm = styled.form.attrs({
 const CameraContainer = styled.div.attrs({
   className: 'w-full font-xl px-4 pt-5 pb-2d5',
 })``
-
-const MenuContainer = styled.div.attrs({
-  className: 'w-full px-6 pt-5d5',
-})`
-  display: grid;
-  grid-template-columns: 1fr 12.5%;
-  background: url(${menuBG}) left top/cover no-repeat;
-`
-
-const Logo = styled.img.attrs({
-  className: 'mr-12 w-20 sm:w-auto',
-})`
-  justify-self: end;
-`
 
 export default Home

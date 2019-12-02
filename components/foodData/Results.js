@@ -1,6 +1,4 @@
-import * as R from 'ramda'
 import styled from 'styled-components'
-import R_ from '../../utils/R_'
 
 import {
   FRUIT,
@@ -45,7 +43,13 @@ import quarterIcon from '../../public/icons/quantities/regular/quarter.svg'
 
 import * as Steps from '.'
 
-import { CardBackground, Title, FruitVegTile, TileContainer } from './shared'
+import {
+  TagButton,
+  CardBackground,
+  Title,
+  FruitVegTile,
+  TileContainer,
+} from './shared'
 
 const categoryIcons = {
   [FRUIT]: fruitIcon,
@@ -73,62 +77,56 @@ const proportionIcons = {
   quarter: quarterIcon,
 }
 
-const CategoryTile = ({ category }) => (
-  <FruitVegTile
-    className="flex flex-col justify-center space-between mx-auto mb-5"
-    icon={categoryIcons[category]}
-    width="100%"
+const CategoryTile = ({ category, updatePage }) => (
+  <button
+    className="w-full"
+    onClick={() => {
+      updatePage('Categories')
+    }}
   >
-    <div className="checkmark" />
-    <p className="w-full text-center">
-      {category.charAt(0).toUpperCase() + category.slice(1)}
-    </p>
-  </FruitVegTile>
+    <FruitVegTile
+      className="flex flex-col justify-center space-between mx-auto mb-5"
+      icon={categoryIcons[category]}
+      width="100%"
+    >
+      <div className="checkmark" />
+      <p className="w-full text-center">
+        {category.charAt(0).toUpperCase() + category.slice(1)}
+      </p>
+    </FruitVegTile>
+  </button>
 )
-
-const Tag = styled.div`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: ${cssTheme('spacing.2')};
-  padding: ${cssTheme('spacing.1')};
-  padding-left: ${cssTheme('spacing.3')};
-  padding-right: ${cssTheme('spacing.3')};
-  border: 1px solid ${cssTheme('colors.navy')};
-  border-radius: ${cssTheme('spacing.12')};
-
-  background-color: ${cssTheme('colors.navy')};
-  color: ${cssTheme('colors.white')};
-`
-
-const displayTags = tagNames =>
-  R.pipe(
-    R.map(tag => `${tag}`),
-    R_.mapIndexed((tag, i) => <Tag key={`tag-${i}`}>{tag}</Tag>),
-  )(tagNames)
 
 const TagsContainer = styled.div.attrs({
   className: 'flex flex-wrap justify-around w-4/5 center m-auto',
 })``
 
-const FruitVegProportion = ({ proportion, category }) => (
-  <>
-    <Title>Roughly, the amount of {category} on the plate was:</Title>
-    <FruitVegTile
-      className="flex flex-col justify-center space-between mx-auto mb-5"
-      icon={proportionIcons[proportion]}
-    >
-      <div className="checkmark" />
-      <p className="w-full text-center">
-        {proportion.charAt(0).toUpperCase() + proportion.slice(1)}
-      </p>
-    </FruitVegTile>
-  </>
-)
+const FruitVegProportion = ({ proportion, category, updatePage }) => {
+  const page = category === 'fruit' ? 'FruitProportion' : 'VegetableProportion'
+  return (
+    <>
+      <Title>Roughly, the amount of {category} on the plate was:</Title>
+      <button
+        className="w-full"
+        onClick={() => {
+          updatePage(page)
+        }}
+      >
+        <FruitVegTile
+          className="flex flex-col justify-center space-between mx-auto mb-5"
+          icon={proportionIcons[proportion]}
+        >
+          <div className="checkmark" />
+          <p className="w-full text-center">
+            {proportion.charAt(0).toUpperCase() + proportion.slice(1)}
+          </p>
+        </FruitVegTile>
+      </button>
+    </>
+  )
+}
 
-// eslint-disable-next-line no-unused-vars
-const Results = ({ values }) => {
-  // eslint-disable-next-line no-unused-vars
+const Results = ({ values, updatePage }) => {
   const { categories, proportionFruit, proportionVeg, tags } = values
 
   return (
@@ -136,20 +134,43 @@ const Results = ({ values }) => {
       <Title className="w-11/12 mt-6">
         In summary, tonight&apos;s meal was composed of
       </Title>
+
       <TileContainer>
         {categories.map(category => (
-          <CategoryTile category={category} key={category} />
+          <CategoryTile
+            category={category}
+            key={category}
+            updatePage={updatePage}
+          />
         ))}
       </TileContainer>
       {proportionVeg && (
-        <FruitVegProportion proportion={proportionVeg} category="vegetables" />
+        <FruitVegProportion
+          proportion={proportionVeg}
+          category="vegetables"
+          updatePage={updatePage}
+        />
       )}
       {proportionFruit && (
-        <FruitVegProportion proportion={proportionFruit} category="fruit" />
+        <FruitVegProportion
+          proportion={proportionFruit}
+          category="fruit"
+          updatePage={updatePage}
+        />
       )}
       <Title>and it was:</Title>
-
-      <TagsContainer>{displayTags(tags)}</TagsContainer>
+      <TagsContainer>
+        {tags.map(tag => (
+          <button
+            onClick={() => {
+              updatePage('Tags')
+            }}
+            key={tag}
+          >
+            <TagButton>{tag}</TagButton>
+          </button>
+        ))}
+      </TagsContainer>
     </CardBackground>
   )
 }

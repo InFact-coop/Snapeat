@@ -7,7 +7,7 @@ import axios from 'axios'
 import * as R from 'ramda'
 import R_ from '../utils/R_'
 
-import { useProjectState } from '../state/projectContext'
+import { useProjectState } from '../context/projectContext'
 
 import * as Steps from '../components/onboarding'
 import PostCode from '../components/onboarding/PostCode'
