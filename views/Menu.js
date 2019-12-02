@@ -19,7 +19,9 @@ import { Close } from '../components/SecurityPages'
 
 const Menu = () => {
   const routeDispatch = useRouteDispatch()
-  const signOut = () => {}
+  const signOut = () => {
+    window.location.href = '/api/logout'
+  }
 
   return (
     <div className="bg-navy text-white font-subheader font-semibold text-center w-screen h-screen ">

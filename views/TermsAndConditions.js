@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { useRouteDispatch, useRouteState } from '../state/routeContext'
+import { useRouteDispatch, useRouteState } from '../context/routeContext'
 import { HOME, CHANGE_VIEW, SECURITY } from '../utils/constants'
 
 import {
