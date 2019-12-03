@@ -106,7 +106,7 @@ const MultiStep = ({ children }) => {
             <ControlsBack
               {...{ decrementPage, page, lastPage, updatePage, values }}
             />
-            {page !== (Steps.Success && Steps.Error) && (
+            {!page === (Steps.Success || Steps.Spinner || Steps.Error) && (
               <ImageContainer className="relative" src={foodPhoto.fileURL} />
             )}
             <StyledForm>
@@ -216,7 +216,7 @@ const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
   }
 
   return (
-    page !== Steps.Success && (
+    !page === (Steps.Success || Steps.Spinner || Steps.Error) && (
       <StyledControlsBack>
         <Back onClick={backOnClick()}>
           <img src={backIcon} alt="Back" />
@@ -308,6 +308,9 @@ const ControlsNext = ({
           <Next onClick={nextOnClick()}>Try again</Next>
         </StyledControlsDone>
       )
+    }
+    case Steps.Spinner: {
+      return <div />
     }
     default: {
       return (

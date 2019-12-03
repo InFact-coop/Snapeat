@@ -15,7 +15,7 @@ const Error = ({ values }) => {
   return (
     <section>
       <img className="mt-4 m-auto" alt="Snapeat logo" src={logo} />
-      <img className="mt-9 mb-4 m-auto" alt="checkmark" src={emptyplate} />
+      <img className="my-9 m-auto" alt="checkmark" src={emptyplate} />
       <Text className="font-bold text-red">
         Oh no, it looks like something went missing.
       </Text>
