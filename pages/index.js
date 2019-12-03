@@ -6,6 +6,7 @@ import { useAuth } from '../context/authContext'
 import { ProjectProvider } from '../context/projectContext'
 
 import { RouteProvider } from '../context/routeContext'
+import { ConsentProvider } from '../context/consentContext'
 
 import AuthenticatedApp from '../apps/AuthenticatedApp'
 import UnauthenticatedApp from '../apps/UnauthenticatedApp'
@@ -41,13 +42,15 @@ const Index = () => {
 
       <ProjectProvider>
         <Container>
-          {user ? (
-            <RouteProvider>
-              <AuthenticatedApp project={project} />
-            </RouteProvider>
-          ) : (
-            <UnauthenticatedApp />
-          )}
+          <ConsentProvider>
+            {user ? (
+              <RouteProvider>
+                <AuthenticatedApp project={project} />
+              </RouteProvider>
+            ) : (
+              <UnauthenticatedApp />
+            )}
+          </ConsentProvider>
         </Container>
       </ProjectProvider>
     </>
