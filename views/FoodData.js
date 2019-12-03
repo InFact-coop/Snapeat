@@ -106,7 +106,7 @@ const MultiStep = ({ children }) => {
             <ControlsBack
               {...{ decrementPage, page, lastPage, updatePage, values }}
             />
-            {page !== Steps.Success && (
+            {page !== (Steps.Success && Steps.Error) && (
               <ImageContainer className="relative" src={foodPhoto.fileURL} />
             )}
             <StyledForm>
