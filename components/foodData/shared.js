@@ -118,8 +118,10 @@ const RadioTile = ({ name, icon, iconSelected, label, id }) => {
 }
 
 const CardBackground = styled.section.attrs({
-  className: 'z-10 w-screen bg-white shadow-tooltip pb-4',
+  className: 'z-10 w-screen bg-white shadow-tooltip pb-4 absolute',
 })`
+  top: 300px;
+  padding-bottom: 110px;
   border-top-left-radius: 4em;
   border-top-right-radius: 4em;
 `
