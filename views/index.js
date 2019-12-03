@@ -12,6 +12,7 @@ import {
   FOOD_DATA,
   TERMS_AND_CONDITIONS,
   PRIVACY,
+  LANDING,
 } from '../utils/constants'
 
 import Home from './Home'
@@ -27,6 +28,7 @@ import CategorySelect from './CategorySelect'
 import FoodData from './FoodData'
 import Privacy from './Privacy'
 import TermsAndConditions from './TermsAndConditions'
+import Landing from './Landing'
 
 export default {
   [HOME]: Home,
@@ -42,4 +44,5 @@ export default {
   [FOOD_DATA]: FoodData,
   [PRIVACY]: Privacy,
   [TERMS_AND_CONDITIONS]: TermsAndConditions,
+  [LANDING]: Landing,
 }

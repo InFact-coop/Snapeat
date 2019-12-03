@@ -13,6 +13,9 @@ export const FOOD_DATA = 'FOOD_DATA'
 export const PRIVACY = 'PRIVACY'
 export const TERMS_AND_CONDITIONS = 'TERMS_AND_CONDITIONS'
 
+// Unauthenticated views
+export const LANDING = 'LANDING'
+
 // Router Actions
 export const CHANGE_VIEW = 'CHANGE_VIEW'
 export const GO_BACK = 'GO_BACK'
