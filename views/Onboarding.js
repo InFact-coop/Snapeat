@@ -24,9 +24,10 @@ const initialValues = {
   postCode: '',
   numberOfChildren: 0,
   children: [],
-  projects: [],
+  project: '',
   age: [],
 }
+
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
