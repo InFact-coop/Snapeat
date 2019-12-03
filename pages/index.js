@@ -6,6 +6,7 @@ import { useAuth } from '../context/authContext'
 import { ProjectProvider } from '../context/projectContext'
 
 import { RouteProvider } from '../context/routeContext'
+import { UnauthRouteProvider } from '../context/unauthRouteContext'
 
 import AuthenticatedApp from '../apps/AuthenticatedApp'
 import UnauthenticatedApp from '../apps/UnauthenticatedApp'
@@ -46,7 +47,9 @@ const Index = () => {
               <AuthenticatedApp project={project} />
             </RouteProvider>
           ) : (
-            <UnauthenticatedApp />
+            <UnauthRouteProvider>
+              <UnauthenticatedApp />
+            </UnauthRouteProvider>
           )}
         </Container>
       </ProjectProvider>

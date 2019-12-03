@@ -1,31 +1,15 @@
-import styled from 'styled-components'
+import React from 'react'
 
-import logo from '../public/logos/logo1.svg'
+import views from '../views'
 
-import { Button } from '../components/SecurityPages'
+import { useRouteStateUnauth } from '../context/unauthRouteContext'
 
-const Container = styled.section.attrs({
-  className:
-    'bg-lightgray w-screen h-screen flex flex-col justify-center items-center p-4',
-})``
+const UnauthenticatedApp = () => {
+  const { currentView } = useRouteStateUnauth()
 
-const Logo = styled.img.attrs({
-  src: logo,
-  className: 'm-6',
-})``
+  const CurrentView = views[currentView]
 
-const App = () => {
-  return (
-    <Container>
-      <Logo />
-      <Button className="m-6">
-        <a href="/api/login">Log in</a>
-      </Button>
-      <a className="underline m-6" href="/api/logout">
-        Or Sign up
-      </a>
-    </Container>
-  )
+  return <CurrentView />
 }
 
-export default App
+export default UnauthenticatedApp
