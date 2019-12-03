@@ -68,6 +68,9 @@ module.exports = {
         card: '37px',
         button: '35.5px',
       },
+      opacity: {
+        40: '.4',
+      },
     },
     fontSize: {
       xs: '0.75rem', // 12px
@@ -88,9 +91,6 @@ module.exports = {
       xxl: '2rem', // 32px
       subheader: '2rem', // 32px
       header: '3.75rem', // 60px
-    },
-    opacity: {
-      40: '.4',
     },
     colors: {
       navy: '#170a59',
