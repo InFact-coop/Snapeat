@@ -57,9 +57,13 @@ const Label = styled.label.attrs({
   align-self: center;
 `
 
-const Button = styled.button.attrs({
-  className: 'bg-navy shadow-button rounded-button w-full text-white py-4',
-})``
+const Button = styled.button.attrs(({ active }) => ({
+  className: `bg-navy shadow-button rounded-button w-full text-white py-4 ${
+    active
+      ? 'opacity-100 pointer-events-auto'
+      : 'opacity-40 pointer-events-none'
+  }`,
+}))``
 
 const Close = ({ close, closeColour }) => {
   return (

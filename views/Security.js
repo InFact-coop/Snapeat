@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react'
 
 import { useRouteDispatch } from '../context/routeContext'
+import { useConsentDispatch, useConsentState } from '../context/consentContext'
 import {
   HOME,
   CHANGE_VIEW,
   TERMS_AND_CONDITIONS,
   PRIVACY,
+  SET_CONSENT,
+  NO_CONSENT_FROM_USER,
+  ACTIVE_CONSENT_FROM_USER,
 } from '../utils/constants'
 
 import {
@@ -20,9 +24,14 @@ import {
 
 const Security = () => {
   const routeDispatch = useRouteDispatch()
+
+  const consentDispatch = useConsentDispatch()
+  const hasConsent = useConsentState() === ACTIVE_CONSENT_FROM_USER
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
   return (
     <div>
       <HeaderWithGSTCLogo text="T&C & Privacy" />
@@ -60,14 +69,28 @@ const Security = () => {
       </div>
       <Footer>
         <Grid>
-          <Checkbox type="checkbox" id="termsConditions" />
+          <Checkbox
+            type="checkbox"
+            id="termsConditions"
+            onClick={e =>
+              consentDispatch({
+                type: SET_CONSENT,
+                consent: e.target.checked
+                  ? ACTIVE_CONSENT_FROM_USER
+                  : NO_CONSENT_FROM_USER,
+              })
+            }
+          />
           <Label htmlFor="termsConditions">
             I have read and agree to the terms and conditions and the privacy
             policy.
           </Label>
         </Grid>
         <Button
-          onClick={() => routeDispatch({ type: CHANGE_VIEW, view: HOME })}
+          onClick={() =>
+            hasConsent && routeDispatch({ type: CHANGE_VIEW, view: HOME })
+          }
+          active={hasConsent}
         >
           I Agree
         </Button>

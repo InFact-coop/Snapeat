@@ -1,7 +1,7 @@
 import React from 'react'
-import { NO_CONSENT_FOR_USAGE, SET_CONSENT } from '../utils/constants'
+import { NO_CONSENT_FROM_USER, SET_CONSENT } from '../utils/constants'
 
-const initialState = NO_CONSENT_FOR_USAGE
+const initialState = NO_CONSENT_FROM_USER
 
 const ConsentStateContext = React.createContext()
 const ConsentDispatchContext = React.createContext()
