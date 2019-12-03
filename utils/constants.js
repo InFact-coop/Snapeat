@@ -2,19 +2,22 @@
 export const HOME = 'HOME'
 export const MENU = 'MENU'
 export const ONBOARDING = 'ONBOARDING'
-export const SECURITY = 'SECURITY'
-export const WELCOME = 'WELCOME'
+export const SECURITY_AUTH = 'SECURITY_AUTH'
 export const SIGN_UP = 'SIGN_UP'
 export const CATEGORY_SELECT = 'CATEGORY_SELECT'
 export const ERROR = 'ERROR'
 export const LOADING = 'LOADING'
 export const SUCCESS = 'SUCCESS'
 export const FOOD_DATA = 'FOOD_DATA'
-export const PRIVACY = 'PRIVACY'
-export const TERMS_AND_CONDITIONS = 'TERMS_AND_CONDITIONS'
+export const PRIVACY_AUTH = 'PRIVACY_AUTH'
+export const TERMS_AND_CONDITIONS_AUTH = 'TERMS_AND_CONDITIONS_AUTH'
 
 // Unauthenticated views
 export const LANDING = 'LANDING'
+export const SECURITY_UNAUTH = 'SECURITY_UNAUTH'
+export const TERMS_AND_CONDITIONS_UNAUTH = 'TERMS_AND_CONDITIONS_UNAUTH'
+export const PRIVACY_UNAUTH = 'PRIVACY_UNAUTH'
+export const WELCOME = 'WELCOME'
 
 // Router Actions
 export const CHANGE_VIEW = 'CHANGE_VIEW'

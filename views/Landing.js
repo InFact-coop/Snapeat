@@ -5,7 +5,7 @@ import logo from '../public/logos/logo1.svg'
 import { Button } from '../components/SecurityPages'
 
 import { useRouteDispatchUnauth } from '../context/unauthRouteContext'
-import { CHANGE_VIEW, SECURITY } from '../utils/constants'
+import { CHANGE_VIEW, SECURITY_UNAUTH } from '../utils/constants'
 
 const Container = styled.section.attrs({
   className:
@@ -19,15 +19,18 @@ const Logo = styled.img.attrs({
 
 const Landing = () => {
   const routeDispatch = useRouteDispatchUnauth()
+
   return (
     <Container>
       <Logo />
       <Button className="m-6">
-        <a href="/api/login">Log in</a>
+        <a href="/api/login" className="w-full">
+          Log in
+        </a>
       </Button>
       <button
         onClick={() => {
-          return routeDispatch({ type: CHANGE_VIEW, view: SECURITY })
+          return routeDispatch({ type: CHANGE_VIEW, view: SECURITY_UNAUTH })
         }}
         className="underline m-6"
       >
