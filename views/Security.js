@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 
-import { useRouteDispatch } from '../context/routeContext'
+import { useRouteDispatchUnauth } from '../context/unauthRouteContext'
 import {
-  HOME,
+  // HOME,
   CHANGE_VIEW,
   TERMS_AND_CONDITIONS,
   PRIVACY,
+  WELCOME,
 } from '../utils/constants'
 
 import {
@@ -19,7 +20,7 @@ import {
 } from '../components/SecurityPages'
 
 const Security = () => {
-  const routeDispatch = useRouteDispatch()
+  const routeDispatch = useRouteDispatchUnauth()
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -67,7 +68,7 @@ const Security = () => {
           </Label>
         </Grid>
         <Button
-          onClick={() => routeDispatch({ type: CHANGE_VIEW, view: HOME })}
+          onClick={() => routeDispatch({ type: CHANGE_VIEW, view: WELCOME })}
         >
           I Agree
         </Button>
