@@ -6,6 +6,7 @@ import { useAuth } from '../context/authContext'
 import { ProjectProvider } from '../context/projectContext'
 
 import { RouteProvider } from '../context/routeContext'
+import { UnauthRouteProvider } from '../context/unauthRouteContext'
 import { ConsentProvider } from '../context/consentContext'
 
 import AuthenticatedApp from '../apps/AuthenticatedApp'
@@ -48,7 +49,9 @@ const Index = () => {
                 <AuthenticatedApp project={project} />
               </RouteProvider>
             ) : (
-              <UnauthenticatedApp />
+              <UnauthRouteProvider>
+                <UnauthenticatedApp />
+              </UnauthRouteProvider>
             )}
           </ConsentProvider>
         </Container>

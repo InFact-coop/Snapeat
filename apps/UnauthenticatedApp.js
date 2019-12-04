@@ -1,16 +1,15 @@
-import styled from 'styled-components'
+import React from 'react'
 
-const Container = styled.section.attrs({
-  className: 'bg-lightgray w-screen',
-})``
+import views from '../views'
 
-const App = () => {
-  return (
-    <Container>
-      UnauthenticatedApp <a href="/api/login">Login</a>
-      <a href="/api/logout">Logout</a>
-    </Container>
-  )
+import { useRouteStateUnauth } from '../context/unauthRouteContext'
+
+const UnauthenticatedApp = () => {
+  const { currentView } = useRouteStateUnauth()
+
+  const CurrentView = views[currentView]
+
+  return <CurrentView />
 }
 
-export default App
+export default UnauthenticatedApp
