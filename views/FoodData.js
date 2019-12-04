@@ -106,12 +106,10 @@ const MultiStep = ({ children }) => {
             <ControlsBack
               {...{ decrementPage, page, lastPage, updatePage, values }}
             />
+            {!page === (Steps.Success || Steps.Spinner || Steps.Error) && (
+              <ImageContainer className="relative" src={foodPhoto.fileURL} />
+            )}
             <StyledForm>
-              {page !== Steps.Success && (
-                <ImageContainer className="relative">
-                  <Food src={foodPhoto.fileURL} />
-                </ImageContainer>
-              )}
               <RenderStep
                 {...{
                   validateForm,
@@ -218,7 +216,7 @@ const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
   }
 
   return (
-    page !== Steps.Success && (
+    !page === (Steps.Success || Steps.Spinner || Steps.Error) && (
       <StyledControlsBack>
         <Back onClick={backOnClick()}>
           <img src={backIcon} alt="Back" />
@@ -311,6 +309,9 @@ const ControlsNext = ({
         </StyledControlsDone>
       )
     }
+    case Steps.Spinner: {
+      return <div />
+    }
     default: {
       return (
         <StyledControlsNext>
@@ -343,16 +344,16 @@ const StyledForm = styled(Form).attrs({
   className: 'bg-lightgray px-4 flex flex-col items-center',
 })``
 
-const ImageContainer = styled.div`
-  height: 300px;
+const ImageContainer = styled.div.attrs({
+  role: 'img',
+  'aria-label': "Photo of user's dinner",
+})`
+  height: 400px;
   width: 100vw;
+  background-image: ${({ src }) => `url(${src})`};
+  background-position: center;
+  background-size: cover;
 `
-
-const Food = styled.img.attrs(({ src }) => ({
-  src,
-  className: 'min-w-full absolute',
-  alt: 'Photo of users dinner',
-}))``
 
 const StyledControlsBack = styled.nav.attrs({
   className: 'absolute top-0 min-w-full z-10',
@@ -363,8 +364,11 @@ const Back = styled.button.attrs({
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center pt-4',
-})``
+  className: 'flex justify-center pt-4 fixed w-full bg-white',
+})`
+  bottom: 0;
+  z-index: 30000;
+`
 
 const StyledControlsDone = styled.nav.attrs({
   className:
