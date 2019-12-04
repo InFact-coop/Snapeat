@@ -13,6 +13,12 @@ export const FOOD_DATA = 'FOOD_DATA'
 export const PRIVACY = 'PRIVACY'
 export const TERMS_AND_CONDITIONS = 'TERMS_AND_CONDITIONS'
 
+// Form States
+export const FORM_NOT_SENT = 'FORM_NOT_SENT'
+export const FORM_SENDING = 'FORM_SENDING'
+export const FORM_SUCCESS = 'FORM_SUCCESS'
+export const FORM_ERROR = 'FORM_ERROR'
+
 // Router Actions
 export const CHANGE_VIEW = 'CHANGE_VIEW'
 export const GO_BACK = 'GO_BACK'
@@ -30,6 +36,8 @@ export const SET_FOOD_PHOTO = 'SET_FOOD_PHOTO'
 export const NO_CONSENT_FROM_USER = 'NO_CONSENT_FROM_USER'
 export const ACTIVE_CONSENT_FROM_USER = 'ACTIVE_CONSENT_FROM_USER'
 export const SET_CONSENT = 'SET_CONSENT'
+
+export const USER_NOT_FOUND = 'USER_NOT_FOUND'
 
 // Food categories
 export const FRUIT = 'fruit'

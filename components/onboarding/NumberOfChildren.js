@@ -25,7 +25,7 @@ const validation = Yup.object().shape({
     ),
 })
 
-const Children = ({ setFieldValue, values }) => (
+const NumberOfChildren = ({ setFieldValue, values }) => (
   <OnboardingStep
     {...{
       h1: 'Great stuff!',
@@ -50,7 +50,7 @@ const Children = ({ setFieldValue, values }) => (
   </OnboardingStep>
 )
 
-Children.componentName = 'Children'
-Children.validation = validation
+NumberOfChildren.componentName = 'NumberOfChildren'
+NumberOfChildren.validation = validation
 
-export default Children
+export default NumberOfChildren

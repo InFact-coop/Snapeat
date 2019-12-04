@@ -7,7 +7,6 @@ import {
   MENU,
   CATEGORY_SELECT,
   ERROR,
-  SUCCESS,
   LOADING,
   FOOD_DATA,
   TERMS_AND_CONDITIONS,
@@ -22,7 +21,6 @@ import SignUp from './SignUp'
 import Menu from './Menu'
 import Error from './Error'
 import Loading from './Loading'
-import Success from './Success'
 import CategorySelect from './CategorySelect'
 import FoodData from './FoodData'
 import Privacy from './Privacy'
@@ -37,7 +35,6 @@ export default {
   [ERROR]: Error,
   [MENU]: Menu,
   [LOADING]: Loading,
-  [SUCCESS]: Success,
   [CATEGORY_SELECT]: CategorySelect,
   [FOOD_DATA]: FoodData,
   [PRIVACY]: Privacy,
