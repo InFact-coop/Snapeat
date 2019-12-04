@@ -30,21 +30,21 @@ import {
   FORM_SUCCESS,
 } from '../utils/constants'
 
-const initialValues = {
-  ages: ['5-8', '9-12'],
-  numberOfChildren: '2',
-  phoneNumber: '',
-  postCode: 'N4 3HF',
-  project: 'healthy-lives',
-}
-
 // const initialValues = {
-//   postCode: '',
-//   numberOfChildren: 0,
-//   ages: [],
-//   project: '',
+//   ages: ['5-8', '9-12'],
+//   numberOfChildren: '2',
 //   phoneNumber: '',
+//   postCode: 'N4 3HF',
+//   project: 'healthy-lives',
 // }
+
+const initialValues = {
+  postCode: '',
+  numberOfChildren: 0,
+  ages: [],
+  project: '',
+  phoneNumber: '',
+}
 
 const onSubmit = ({ setFormStatus }) => async values => {
   try {
