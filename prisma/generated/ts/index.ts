@@ -366,6 +366,8 @@ export type UserOrderByInput =
   | "postCode_DESC"
   | "email_ASC"
   | "email_DESC"
+  | "phoneNumber_ASC"
+  | "phoneNumber_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -452,6 +454,7 @@ export interface UserUpdateWithoutMealsDataInput {
   email?: Maybe<String>;
   projects?: Maybe<ProjectUpdateManyWithoutUsersInput>;
   children?: Maybe<ChildUpdateManyWithoutParentInput>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface ProportionWhereInput {
@@ -787,6 +790,7 @@ export interface UserUpdateManyMutationInput {
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface ProjectUpdateManyDataInput {
@@ -802,6 +806,7 @@ export interface UserCreateInput {
   meals?: Maybe<MealCreateManyWithoutUserInput>;
   projects?: Maybe<ProjectCreateManyWithoutUsersInput>;
   children?: Maybe<ChildCreateManyWithoutParentInput>;
+  phoneNumber: String;
 }
 
 export interface ChildUpdateManyWithoutParentInput {
@@ -986,6 +991,7 @@ export interface UserUpdateManyDataInput {
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface UserCreateWithoutProjectsInput {
@@ -995,6 +1001,7 @@ export interface UserCreateWithoutProjectsInput {
   email: String;
   meals?: Maybe<MealCreateManyWithoutUserInput>;
   children?: Maybe<ChildCreateManyWithoutParentInput>;
+  phoneNumber: String;
 }
 
 export type TagWhereUniqueInput = AtLeastOne<{
@@ -1021,6 +1028,7 @@ export interface TagUpsertWithWhereUniqueWithoutMealsInput {
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
 }>;
 
 export interface TagScalarWhereInput {
@@ -1488,6 +1496,20 @@ export interface UserWhereInput {
   children_every?: Maybe<ChildWhereInput>;
   children_some?: Maybe<ChildWhereInput>;
   children_none?: Maybe<ChildWhereInput>;
+  phoneNumber?: Maybe<String>;
+  phoneNumber_not?: Maybe<String>;
+  phoneNumber_in?: Maybe<String[] | String>;
+  phoneNumber_not_in?: Maybe<String[] | String>;
+  phoneNumber_lt?: Maybe<String>;
+  phoneNumber_lte?: Maybe<String>;
+  phoneNumber_gt?: Maybe<String>;
+  phoneNumber_gte?: Maybe<String>;
+  phoneNumber_contains?: Maybe<String>;
+  phoneNumber_not_contains?: Maybe<String>;
+  phoneNumber_starts_with?: Maybe<String>;
+  phoneNumber_not_starts_with?: Maybe<String>;
+  phoneNumber_ends_with?: Maybe<String>;
+  phoneNumber_not_ends_with?: Maybe<String>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1566,6 +1588,7 @@ export interface UserUpdateInput {
   meals?: Maybe<MealUpdateManyWithoutUserInput>;
   projects?: Maybe<ProjectUpdateManyWithoutUsersInput>;
   children?: Maybe<ChildUpdateManyWithoutParentInput>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface MealUpdateManyWithWhereNestedInput {
@@ -1648,6 +1671,7 @@ export interface UserUpdateWithoutProjectsDataInput {
   email?: Maybe<String>;
   meals?: Maybe<MealUpdateManyWithoutUserInput>;
   children?: Maybe<ChildUpdateManyWithoutParentInput>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface MealUpdateWithWhereUniqueWithoutProportionFruitInput {
@@ -1810,6 +1834,7 @@ export interface UserCreateWithoutChildrenInput {
   email: String;
   meals?: Maybe<MealCreateManyWithoutUserInput>;
   projects?: Maybe<ProjectCreateManyWithoutUsersInput>;
+  phoneNumber: String;
 }
 
 export interface ProportionUpdateManyMutationInput {
@@ -1866,6 +1891,20 @@ export interface UserScalarWhereInput {
   email_not_starts_with?: Maybe<String>;
   email_ends_with?: Maybe<String>;
   email_not_ends_with?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
+  phoneNumber_not?: Maybe<String>;
+  phoneNumber_in?: Maybe<String[] | String>;
+  phoneNumber_not_in?: Maybe<String[] | String>;
+  phoneNumber_lt?: Maybe<String>;
+  phoneNumber_lte?: Maybe<String>;
+  phoneNumber_gt?: Maybe<String>;
+  phoneNumber_gte?: Maybe<String>;
+  phoneNumber_contains?: Maybe<String>;
+  phoneNumber_not_contains?: Maybe<String>;
+  phoneNumber_starts_with?: Maybe<String>;
+  phoneNumber_not_starts_with?: Maybe<String>;
+  phoneNumber_ends_with?: Maybe<String>;
+  phoneNumber_not_ends_with?: Maybe<String>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1930,6 +1969,7 @@ export interface UserUpdateWithoutChildrenDataInput {
   email?: Maybe<String>;
   meals?: Maybe<MealUpdateManyWithoutUserInput>;
   projects?: Maybe<ProjectUpdateManyWithoutUsersInput>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface TagWhereInput {
@@ -2034,6 +2074,7 @@ export interface UserCreateWithoutMealsInput {
   email: String;
   projects?: Maybe<ProjectCreateManyWithoutUsersInput>;
   children?: Maybe<ChildCreateManyWithoutParentInput>;
+  phoneNumber: String;
 }
 
 export interface MealUpsertWithWhereUniqueWithoutUserInput {
@@ -2119,6 +2160,7 @@ export interface UserPreviousValues {
   consentGDPR: Boolean;
   postCode: String;
   email: String;
+  phoneNumber: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -2130,6 +2172,7 @@ export interface UserPreviousValuesPromise
   consentGDPR: () => Promise<Boolean>;
   postCode: () => Promise<String>;
   email: () => Promise<String>;
+  phoneNumber: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -2141,6 +2184,7 @@ export interface UserPreviousValuesSubscription
   consentGDPR: () => Promise<AsyncIterator<Boolean>>;
   postCode: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
+  phoneNumber: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -2166,6 +2210,7 @@ export interface User {
   consentGDPR: Boolean;
   postCode: String;
   email: String;
+  phoneNumber: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -2202,6 +2247,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  phoneNumber: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -2240,6 +2286,7 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  phoneNumber: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -2278,6 +2325,7 @@ export interface UserNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  phoneNumber: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }

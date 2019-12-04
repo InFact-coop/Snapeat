@@ -60,6 +60,7 @@
     "formik": "^2.0.4",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
+    "libphonenumber-js": "^1.7.29",
     "next": "^9.1.4",
     "next-compose-plugins": "^2.2.0",
     "next-cookies": "^2.0.1",
