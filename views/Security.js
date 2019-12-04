@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
 
 import { useRouteDispatch } from '../context/routeContext'
+import { useRouteDispatchUnauth } from '../context/unauthRouteContext'
 import { useConsentDispatch, useConsentState } from '../context/consentContext'
 import {
   HOME,
   CHANGE_VIEW,
-  TERMS_AND_CONDITIONS,
-  PRIVACY,
+  TERMS_AND_CONDITIONS_AUTH,
+  TERMS_AND_CONDITIONS_UNAUTH,
+  PRIVACY_AUTH,
+  PRIVACY_UNAUTH,
+  WELCOME,
   SET_CONSENT,
   NO_CONSENT_FROM_USER,
   ACTIVE_CONSENT_FROM_USER,
@@ -22,9 +26,36 @@ import {
   Footer,
 } from '../components/SecurityPages'
 
-const Security = () => {
+export const SecurityAuth = () => {
   const routeDispatch = useRouteDispatch()
+  return (
+    <Content
+      routeDispatch={routeDispatch}
+      privacy={PRIVACY_AUTH}
+      termsAndConditions={TERMS_AND_CONDITIONS_AUTH}
+      continueTo={HOME}
+    />
+  )
+}
 
+export const SecurityUnauth = () => {
+  const routeDispatch = useRouteDispatchUnauth()
+  return (
+    <Content
+      routeDispatch={routeDispatch}
+      privacy={PRIVACY_UNAUTH}
+      termsAndConditions={TERMS_AND_CONDITIONS_UNAUTH}
+      continueTo={WELCOME}
+    />
+  )
+}
+
+const Content = ({
+  routeDispatch,
+  privacy,
+  termsAndConditions,
+  continueTo,
+}) => {
   const consentDispatch = useConsentDispatch()
   const hasConsent = useConsentState() === ACTIVE_CONSENT_FROM_USER
 
@@ -45,7 +76,7 @@ const Security = () => {
           Policy{' '}
           <button
             className="inline underline text-blue"
-            onClick={() => routeDispatch({ type: CHANGE_VIEW, view: PRIVACY })}
+            onClick={() => routeDispatch({ type: CHANGE_VIEW, view: privacy })}
           >
             here
           </button>
@@ -58,7 +89,10 @@ const Security = () => {
           <button
             className="inline underline text-blue"
             onClick={() =>
-              routeDispatch({ type: CHANGE_VIEW, view: TERMS_AND_CONDITIONS })
+              routeDispatch({
+                type: CHANGE_VIEW,
+                view: termsAndConditions,
+              })
             }
           >
             Terms and Conditions
@@ -88,7 +122,7 @@ const Security = () => {
         </Grid>
         <Button
           onClick={() =>
-            hasConsent && routeDispatch({ type: CHANGE_VIEW, view: HOME })
+            hasConsent && routeDispatch({ type: CHANGE_VIEW, view: continueTo })
           }
           active={hasConsent}
         >
@@ -98,5 +132,3 @@ const Security = () => {
     </div>
   )
 }
-
-export default Security
