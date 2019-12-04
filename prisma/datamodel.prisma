@@ -6,6 +6,7 @@ type User {
   meals: [Meal] @relation(onDelete: CASCADE)
   projects: [Project!] @relation(onDelete: SET_NULL)
   children: [Child!] @relation(onDelete: CASCADE) 
+  phoneNumber: String! @unique
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }

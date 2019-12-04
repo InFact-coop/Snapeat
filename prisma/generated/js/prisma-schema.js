@@ -1686,6 +1686,7 @@ type User {
   meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
   children(where: ChildWhereInput, orderBy: ChildOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Child!]
+  phoneNumber: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1704,6 +1705,7 @@ input UserCreateInput {
   meals: MealCreateManyWithoutUserInput
   projects: ProjectCreateManyWithoutUsersInput
   children: ChildCreateManyWithoutParentInput
+  phoneNumber: String!
 }
 
 input UserCreateManyWithoutProjectsInput {
@@ -1728,6 +1730,7 @@ input UserCreateWithoutChildrenInput {
   email: String!
   meals: MealCreateManyWithoutUserInput
   projects: ProjectCreateManyWithoutUsersInput
+  phoneNumber: String!
 }
 
 input UserCreateWithoutMealsInput {
@@ -1737,6 +1740,7 @@ input UserCreateWithoutMealsInput {
   email: String!
   projects: ProjectCreateManyWithoutUsersInput
   children: ChildCreateManyWithoutParentInput
+  phoneNumber: String!
 }
 
 input UserCreateWithoutProjectsInput {
@@ -1746,6 +1750,7 @@ input UserCreateWithoutProjectsInput {
   email: String!
   meals: MealCreateManyWithoutUserInput
   children: ChildCreateManyWithoutParentInput
+  phoneNumber: String!
 }
 
 type UserEdge {
@@ -1762,6 +1767,8 @@ enum UserOrderByInput {
   postCode_DESC
   email_ASC
   email_DESC
+  phoneNumber_ASC
+  phoneNumber_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1773,6 +1780,7 @@ type UserPreviousValues {
   consentGDPR: Boolean!
   postCode: String!
   email: String!
+  phoneNumber: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1822,6 +1830,20 @@ input UserScalarWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  phoneNumber: String
+  phoneNumber_not: String
+  phoneNumber_in: [String!]
+  phoneNumber_not_in: [String!]
+  phoneNumber_lt: String
+  phoneNumber_lte: String
+  phoneNumber_gt: String
+  phoneNumber_gte: String
+  phoneNumber_contains: String
+  phoneNumber_not_contains: String
+  phoneNumber_starts_with: String
+  phoneNumber_not_starts_with: String
+  phoneNumber_ends_with: String
+  phoneNumber_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -1868,18 +1890,21 @@ input UserUpdateInput {
   meals: MealUpdateManyWithoutUserInput
   projects: ProjectUpdateManyWithoutUsersInput
   children: ChildUpdateManyWithoutParentInput
+  phoneNumber: String
 }
 
 input UserUpdateManyDataInput {
   consentGDPR: Boolean
   postCode: String
   email: String
+  phoneNumber: String
 }
 
 input UserUpdateManyMutationInput {
   consentGDPR: Boolean
   postCode: String
   email: String
+  phoneNumber: String
 }
 
 input UserUpdateManyWithoutProjectsInput {
@@ -1919,6 +1944,7 @@ input UserUpdateWithoutChildrenDataInput {
   email: String
   meals: MealUpdateManyWithoutUserInput
   projects: ProjectUpdateManyWithoutUsersInput
+  phoneNumber: String
 }
 
 input UserUpdateWithoutMealsDataInput {
@@ -1927,6 +1953,7 @@ input UserUpdateWithoutMealsDataInput {
   email: String
   projects: ProjectUpdateManyWithoutUsersInput
   children: ChildUpdateManyWithoutParentInput
+  phoneNumber: String
 }
 
 input UserUpdateWithoutProjectsDataInput {
@@ -1935,6 +1962,7 @@ input UserUpdateWithoutProjectsDataInput {
   email: String
   meals: MealUpdateManyWithoutUserInput
   children: ChildUpdateManyWithoutParentInput
+  phoneNumber: String
 }
 
 input UserUpdateWithWhereUniqueWithoutProjectsInput {
@@ -2012,6 +2040,20 @@ input UserWhereInput {
   children_every: ChildWhereInput
   children_some: ChildWhereInput
   children_none: ChildWhereInput
+  phoneNumber: String
+  phoneNumber_not: String
+  phoneNumber_in: [String!]
+  phoneNumber_not_in: [String!]
+  phoneNumber_lt: String
+  phoneNumber_lte: String
+  phoneNumber_gt: String
+  phoneNumber_gte: String
+  phoneNumber_contains: String
+  phoneNumber_not_contains: String
+  phoneNumber_starts_with: String
+  phoneNumber_not_starts_with: String
+  phoneNumber_ends_with: String
+  phoneNumber_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -2036,6 +2078,7 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+  phoneNumber: String
 }
 `
       }
