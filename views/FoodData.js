@@ -216,7 +216,7 @@ const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
   }
 
   return (
-    !page === (Steps.Success || Steps.Spinner || Steps.Error) && (
+    !(page === (Steps.Success || Steps.Spinner || Steps.Error)) && (
       <StyledControlsBack>
         <Back onClick={backOnClick()}>
           <img src={backIcon} alt="Back" />
