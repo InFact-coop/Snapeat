@@ -71,6 +71,17 @@ module.exports = {
       opacity: {
         40: '.4',
       },
+      colors: {
+        navy: '#170a59',
+        blue: `#428dfc`,
+        yellow: '#f8dd74',
+        white: '#fdfdfd',
+        black: '#4c4c4c',
+        green: '#88fcc6',
+        red: '#ef3f5f',
+        lightgray: '#f8f8f8',
+        lightnavy: '#8780a8',
+      },
     },
     fontSize: {
       xs: '0.75rem', // 12px
@@ -91,16 +102,6 @@ module.exports = {
       xxl: '2rem', // 32px
       subheader: '2rem', // 32px
       header: '3.75rem', // 60px
-    },
-    colors: {
-      navy: '#170a59',
-      blue: `#428dfc`,
-      yellow: '#f8dd74',
-      white: '#fdfdfd',
-      black: '#4c4c4c',
-      green: '#88fcc6',
-      red: '#ef3f5f',
-      lightgray: '#f8f8f8',
     },
     fontFamily: {
       sans: [
