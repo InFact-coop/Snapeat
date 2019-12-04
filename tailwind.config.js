@@ -24,6 +24,8 @@ module.exports = {
         '5': '1.25rem', // 20px
         '5d5': '1.375rem', // 22px
         '6': '1.5rem', // 24px
+        '7': '1.75rem', // 28px
+        '7d5': '1.875rem', // 30px
         '9': '2.25rem', // 36px
         '9d5': '2.375rem', // 38px
         '10': '2.5rem', // 40px
@@ -66,6 +68,20 @@ module.exports = {
         card: '37px',
         button: '35.5px',
       },
+      opacity: {
+        40: '.4',
+      },
+      colors: {
+        navy: '#170a59',
+        blue: `#428dfc`,
+        yellow: '#f8dd74',
+        white: '#fdfdfd',
+        black: '#4c4c4c',
+        green: '#88fcc6',
+        red: '#ef3f5f',
+        lightgray: '#f8f8f8',
+        lightnavy: '#8780a8',
+      },
     },
     fontSize: {
       xs: '0.75rem', // 12px
@@ -86,19 +102,6 @@ module.exports = {
       xxl: '2rem', // 32px
       subheader: '2rem', // 32px
       header: '3.75rem', // 60px
-    },
-    opacity: {
-      40: '.4',
-    },
-    colors: {
-      navy: '#170a59',
-      blue: `#428dfc`,
-      yellow: '#f8dd74',
-      white: '#fdfdfd',
-      black: '#4c4c4c',
-      green: '#88fcc6',
-      red: '#ef3f5f',
-      lightgray: '#f8f8f8',
     },
     fontFamily: {
       sans: [

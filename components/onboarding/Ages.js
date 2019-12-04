@@ -13,8 +13,14 @@ const initValidation = length =>
     age: Yup.lazy(() =>
       Yup.array()
         .required("Please make sure you have selected your children's ages")
-        .min(length, 'Please select an age group for all your children')
-        .max(length, 'Please select an age group for all your children'),
+        .min(
+          length,
+          'Please check you have selected ages for all of your children',
+        )
+        .max(
+          length,
+          'Please check you have selected ages for all of your children',
+        ),
     ),
   })
 

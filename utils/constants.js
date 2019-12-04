@@ -32,6 +32,11 @@ export const CHANGE_PROJECT = 'CHANGE_PROJECT'
 // Food Data Actions
 export const SET_FOOD_PHOTO = 'SET_FOOD_PHOTO'
 
+// Consent Actions
+export const NO_CONSENT_FROM_USER = 'NO_CONSENT_FROM_USER'
+export const ACTIVE_CONSENT_FROM_USER = 'ACTIVE_CONSENT_FROM_USER'
+export const SET_CONSENT = 'SET_CONSENT'
+
 // Food categories
 export const FRUIT = 'fruit'
 export const VEGETABLES = 'vegetables'

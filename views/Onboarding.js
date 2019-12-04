@@ -14,6 +14,7 @@ import PostCode from '../components/onboarding/PostCode'
 import Children from '../components/onboarding/Children'
 import Ages from '../components/onboarding/Ages'
 import Projects from '../components/onboarding/Projects'
+import Phone from '../components/onboarding/Phone'
 import Confirmation from '../components/onboarding/Confirmation'
 
 import logo1 from '../public/logos/logo1.svg'
@@ -23,10 +24,11 @@ import arrowBack from '../public/icons/back_blue.svg'
 const initialValues = {
   postCode: '',
   numberOfChildren: 0,
-  children: [],
-  projects: [],
   age: [],
+  project: '',
+  phoneNumber: '',
 }
+
 const onSubmit = ({ incrementPage, formCompleted }) => async values => {
   try {
     //eslint-disable-next-line no-console
@@ -252,6 +254,7 @@ const Onboarding = () => {
       <Children />
       <Ages />
       <Projects />
+      <Phone />
       <Confirmation />
     </MultiStep>
   )
