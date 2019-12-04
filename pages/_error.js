@@ -25,7 +25,12 @@ function Error({ statusCode }) {
         <Text className="">
           Go back to the homepage but if the problem persists, don&apos;t
           hesitate to{' '}
-          <a className="underline" href="/">
+          <a
+            className="underline"
+            href="https://airtable.com/shrA8ckDkLTVqLoab"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             contact us
           </a>
           .
