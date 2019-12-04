@@ -3,6 +3,7 @@ import {
   ONBOARDING,
   SECURITY_AUTH,
   SECURITY_UNAUTH,
+  SPINNER,
   WELCOME,
   SIGN_UP,
   MENU,
@@ -25,6 +26,7 @@ import SignUp from './SignUp'
 import Menu from './Menu'
 import Error from './Error'
 import Loading from './Loading'
+import Spinner from './Spinner'
 import CategorySelect from './CategorySelect'
 import FoodData from './FoodData'
 import { PrivacyAuth, PrivacyUnauth } from './Privacy'
@@ -41,6 +43,7 @@ export default {
   [SECURITY_AUTH]: SecurityAuth,
   [SECURITY_UNAUTH]: SecurityUnauth,
   [SIGN_UP]: SignUp,
+  [SPINNER]: Spinner,
   [ERROR]: Error,
   [MENU]: Menu,
   [LOADING]: Loading,

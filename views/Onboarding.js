@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
+
 import * as Yup from 'yup'
 import styled from 'styled-components'
 import { Formik, Form } from 'formik'
@@ -8,6 +10,7 @@ import * as R from 'ramda'
 import R_ from '../utils/R_'
 
 import { useProjectState } from '../context/projectContext'
+import { useAuth } from '../context/authContext'
 
 import * as Steps from '../components/onboarding'
 import PostCode from '../components/onboarding/PostCode'
@@ -46,21 +49,23 @@ const initialValues = {
   phoneNumber: '',
 }
 
-const onSubmit = ({ setFormStatus }) => async values => {
+const onSubmit = ({ setFormStatus, email }) => async values => {
   try {
     //eslint-disable-next-line no-console
     console.log('Onboarding form submitted', values)
     setFormStatus(FORM_SENDING)
 
-    const {
-      data: { name: email },
-    } = await axios.get(`/api/me`)
+    const phoneNumber = parsePhoneNumberFromString(
+      values.phoneNumber,
+      'GB',
+    ).formatInternational()
 
     const {
       data: { user },
     } = await axios.post(`${process.env.HOST}/api/create-user`, {
-      email,
       ...values,
+      email,
+      phoneNumber,
     })
 
     //eslint-disable-next-line no-console
@@ -142,6 +147,7 @@ const BottomNav = ({
   isValid,
   values,
   errors,
+  email,
 }) => {
   const lastPage = amountOfPages - 1 === pageIndex
 
@@ -151,7 +157,7 @@ const BottomNav = ({
       {lastPage ? (
         <Next
           type="submit"
-          onClick={() => onSubmit({ setFormStatus })(values)}
+          onClick={() => onSubmit({ setFormStatus, email })(values)}
         />
       ) : (
         <Next
@@ -180,6 +186,9 @@ const MultiStep = ({ children }) => {
   const [validationSchema, setValidationSchema] = useState(Yup.object())
   const [formStatus, setFormStatus] = useState(FORM_NOT_SENT)
   const { error, project } = useProjectState()
+  const {
+    user: { name: email },
+  } = useAuth()
 
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
@@ -230,6 +239,7 @@ const MultiStep = ({ children }) => {
         isInitialValid: false,
         onSubmit: onSubmit({
           incrementPage,
+          setFormStatus,
         }),
         enableReinitialize: true,
       }}
@@ -242,47 +252,48 @@ const MultiStep = ({ children }) => {
         errors,
         isValid,
       }) => {
-        if (formStatus === FORM_NOT_SENT) {
-          return (
-            <Container>
-              <StyledForm>
-                <Logo />
-                <TopNav {...{ pageIndex, decrementPage }} />
-                <RenderStep
-                  {...{
-                    validateForm,
-                    page,
-                    setTouched,
-                    activePage,
-                    props: {
-                      setPage,
-                      values,
-                      incrementPage,
-                      setFieldValue,
-                      errors,
-                      setValidationSchema,
-                    },
-                  }}
-                />
-              </StyledForm>
-              <BottomNav
-                {...{
-                  incrementPage,
-                  isValid,
-                  page,
-                  pageIndex,
-                  amountOfPages: pages.length,
-                  errors,
-                  values,
-                  setFormStatus,
-                }}
-              />
-              <FormStatusPage />)
-            </Container>
-          )
+        if (formStatus !== FORM_NOT_SENT) {
+          return <FormStatusPage />
         }
 
-        return <FormStatusPage />
+        return (
+          <Container>
+            <StyledForm>
+              <Logo />
+              <TopNav {...{ pageIndex, decrementPage }} />
+              <RenderStep
+                {...{
+                  validateForm,
+                  page,
+                  setTouched,
+                  activePage,
+                  props: {
+                    setPage,
+                    values,
+                    incrementPage,
+                    setFieldValue,
+                    errors,
+                    setValidationSchema,
+                  },
+                }}
+              />
+            </StyledForm>
+            <BottomNav
+              {...{
+                incrementPage,
+                isValid,
+                page,
+                pageIndex,
+                amountOfPages: pages.length,
+                errors,
+                values,
+                setFormStatus,
+                email,
+              }}
+            />
+            <FormStatusPage />)
+          </Container>
+        )
       }}
     </Formik>
   )
