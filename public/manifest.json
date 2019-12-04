@@ -1,8 +1,13 @@
 {
   "lang": "en",
-  "name": "Snapeat",
-  "short_name": "Snapeat",
+  "name": "SnapEat",
+  "short_name": "SnapEat",
   "description": "An app which allows users to record their child's evening meals.",
+  "theme_color": "#f8dd74",
+  "background_color": "#f8f8f8",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/android-icon-192x192.png",
@@ -14,10 +19,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#f8dd74",
-  "background_color": "#f8f8f8",
-  "start_url": "/",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }

@@ -65,7 +65,7 @@ const seedDatabase = async () => {
       consentGDPR: true,
       postCode: 'E50DW',
       email: 'lucy@infactcoop.com',
-      phoneNumber: '07912541122',
+      phoneNumber: '+447443998236',
       projects: {
         connect: {
           id: alexandraRose.id,
