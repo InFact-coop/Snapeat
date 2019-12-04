@@ -262,7 +262,7 @@ input CategoryWhereUniqueInput {
 type Child {
   id: ID!
   Parent: User!
-  age: Int!
+  age: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -276,7 +276,7 @@ type ChildConnection {
 input ChildCreateInput {
   id: ID
   Parent: UserCreateOneWithoutChildrenInput!
-  age: Int!
+  age: String!
 }
 
 input ChildCreateManyWithoutParentInput {
@@ -286,7 +286,7 @@ input ChildCreateManyWithoutParentInput {
 
 input ChildCreateWithoutParentInput {
   id: ID
-  age: Int!
+  age: String!
 }
 
 type ChildEdge {
@@ -307,7 +307,7 @@ enum ChildOrderByInput {
 
 type ChildPreviousValues {
   id: ID!
-  age: Int!
+  age: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -327,14 +327,20 @@ input ChildScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  age: Int
-  age_not: Int
-  age_in: [Int!]
-  age_not_in: [Int!]
-  age_lt: Int
-  age_lte: Int
-  age_gt: Int
-  age_gte: Int
+  age: String
+  age_not: String
+  age_in: [String!]
+  age_not_in: [String!]
+  age_lt: String
+  age_lte: String
+  age_gt: String
+  age_gte: String
+  age_contains: String
+  age_not_contains: String
+  age_starts_with: String
+  age_not_starts_with: String
+  age_ends_with: String
+  age_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -376,15 +382,15 @@ input ChildSubscriptionWhereInput {
 
 input ChildUpdateInput {
   Parent: UserUpdateOneRequiredWithoutChildrenInput
-  age: Int
+  age: String
 }
 
 input ChildUpdateManyDataInput {
-  age: Int
+  age: String
 }
 
 input ChildUpdateManyMutationInput {
-  age: Int
+  age: String
 }
 
 input ChildUpdateManyWithoutParentInput {
@@ -405,7 +411,7 @@ input ChildUpdateManyWithWhereNestedInput {
 }
 
 input ChildUpdateWithoutParentDataInput {
-  age: Int
+  age: String
 }
 
 input ChildUpdateWithWhereUniqueWithoutParentInput {
@@ -435,14 +441,20 @@ input ChildWhereInput {
   id_ends_with: ID
   id_not_ends_with: ID
   Parent: UserWhereInput
-  age: Int
-  age_not: Int
-  age_in: [Int!]
-  age_not_in: [Int!]
-  age_lt: Int
-  age_lte: Int
-  age_gt: Int
-  age_gte: Int
+  age: String
+  age_not: String
+  age_in: [String!]
+  age_not_in: [String!]
+  age_lt: String
+  age_lte: String
+  age_gt: String
+  age_gte: String
+  age_contains: String
+  age_not_contains: String
+  age_starts_with: String
+  age_not_starts_with: String
+  age_ends_with: String
+  age_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]

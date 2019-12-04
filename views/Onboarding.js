@@ -11,39 +11,66 @@ import { useProjectState } from '../context/projectContext'
 
 import * as Steps from '../components/onboarding'
 import PostCode from '../components/onboarding/PostCode'
-import Children from '../components/onboarding/Children'
+import NumberOfChildren from '../components/onboarding/NumberOfChildren'
 import Ages from '../components/onboarding/Ages'
 import Projects from '../components/onboarding/Projects'
 import Phone from '../components/onboarding/Phone'
-import Confirmation from '../components/onboarding/Confirmation'
+
+import Spinner from '../components/onboarding/Spinner'
+import Success from '../components/onboarding/Success'
+import Error from '../components/onboarding/Error'
 
 import logo1 from '../public/logos/logo1.svg'
 import arrowNext from '../public/icons/arrow_next.svg'
 import arrowBack from '../public/icons/back_blue.svg'
+import {
+  FORM_NOT_SENT,
+  FORM_SENDING,
+  FORM_ERROR,
+  FORM_SUCCESS,
+} from '../utils/constants'
+
+// const initialValues = {
+//   ages: ['5-8', '9-12'],
+//   numberOfChildren: '2',
+//   phoneNumber: '',
+//   postCode: 'N4 3HF',
+//   project: 'healthy-lives',
+// }
 
 const initialValues = {
   postCode: '',
   numberOfChildren: 0,
-  age: [],
+  ages: [],
   project: '',
   phoneNumber: '',
 }
 
-const onSubmit = ({ incrementPage, formCompleted }) => async values => {
+const onSubmit = ({ setFormStatus }) => async values => {
   try {
     //eslint-disable-next-line no-console
     console.log('Onboarding form submitted', values)
+    setFormStatus(FORM_SENDING)
 
-    if (!formCompleted) incrementPage()
+    const {
+      data: { name: email },
+    } = await axios.get(`/api/me`)
 
-    await axios.get()
-
-    incrementPage()
-  } catch (e) {
-    // TODO: trigger submit error (maybe with toast error)
+    const {
+      data: { user },
+    } = await axios.post(`${process.env.HOST}/api/create-user`, {
+      email,
+      ...values,
+    })
 
     //eslint-disable-next-line no-console
+    console.log('Onboarding successful', user)
+
+    setFormStatus(FORM_SUCCESS)
+  } catch (e) {
+    //eslint-disable-next-line no-console
     console.error('Error submitting onboarding form', e)
+    setFormStatus(FORM_ERROR)
   }
 }
 
@@ -107,16 +134,29 @@ const StyledBottomNav = styled.nav.attrs({
     'bg-white w-full fixed z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
 })``
 
-const BottomNav = ({ incrementPage, pageIndex, amountOfPages, isValid }) => {
-  const penultimatePage = amountOfPages - 2
+const BottomNav = ({
+  incrementPage,
+  setFormStatus,
+  pageIndex,
+  amountOfPages,
+  isValid,
+  values,
+  errors,
+}) => {
+  const lastPage = amountOfPages - 1 === pageIndex
 
   return (
     <StyledBottomNav>
       <Progress {...{ pageIndex, amountOfPages }} />
-      {pageIndex === penultimatePage ? (
-        <Next type="submit" />
+      {lastPage ? (
+        <Next
+          type="submit"
+          onClick={() => onSubmit({ setFormStatus })(values)}
+        />
       ) : (
-        <Next onClick={isValid ? incrementPage : () => {}} />
+        <Next
+          onClick={isValid || R.isEmpty(errors) ? incrementPage : () => ({})}
+        />
       )}
     </StyledBottomNav>
   )
@@ -136,8 +176,9 @@ const TopNav = ({ pageIndex, decrementPage }) => {
 }
 
 const MultiStep = ({ children }) => {
-  const [page, setPage] = useState(Steps.PostCode)
+  const [page, setPage] = useState(Steps.Phone)
   const [validationSchema, setValidationSchema] = useState(Yup.object())
+  const [formStatus, setFormStatus] = useState(FORM_NOT_SENT)
   const { error, project } = useProjectState()
 
   const steps = React.Children.toArray(children)
@@ -158,6 +199,18 @@ const MultiStep = ({ children }) => {
     if (project) return { ...initialValues, projects: [project] }
     return initialValues
   }
+  const FormStatusPage = () => {
+    switch (formStatus) {
+      case FORM_SENDING:
+        return <Spinner />
+      case FORM_SUCCESS:
+        return <Success />
+      case FORM_ERROR:
+        return <Error />
+      default:
+        return null
+    }
+  }
 
   const { validation } = activePage && activePage.type
 
@@ -169,7 +222,6 @@ const MultiStep = ({ children }) => {
 
   const Container = styled.main``
 
-  // debugger
   return (
     <Formik
       {...{
@@ -190,39 +242,47 @@ const MultiStep = ({ children }) => {
         errors,
         isValid,
       }) => {
-        return (
-          <Container>
-            <StyledForm>
-              <Logo />
-              <TopNav {...{ pageIndex, decrementPage }} />
-              <RenderStep
+        if (formStatus === FORM_NOT_SENT) {
+          return (
+            <Container>
+              <StyledForm>
+                <Logo />
+                <TopNav {...{ pageIndex, decrementPage }} />
+                <RenderStep
+                  {...{
+                    validateForm,
+                    page,
+                    setTouched,
+                    activePage,
+                    props: {
+                      setPage,
+                      values,
+                      incrementPage,
+                      setFieldValue,
+                      errors,
+                      setValidationSchema,
+                    },
+                  }}
+                />
+              </StyledForm>
+              <BottomNav
                 {...{
-                  validateForm,
+                  incrementPage,
+                  isValid,
                   page,
-                  setTouched,
-                  activePage,
-                  props: {
-                    setPage,
-                    values,
-                    incrementPage,
-                    setFieldValue,
-                    errors,
-                    setValidationSchema,
-                  },
+                  pageIndex,
+                  amountOfPages: pages.length,
+                  errors,
+                  values,
+                  setFormStatus,
                 }}
               />
-            </StyledForm>
-            <BottomNav
-              {...{
-                incrementPage,
-                isValid,
-                page,
-                pageIndex,
-                amountOfPages: pages.length,
-              }}
-            />
-          </Container>
-        )
+              <FormStatusPage />)
+            </Container>
+          )
+        }
+
+        return <FormStatusPage />
       }}
     </Formik>
   )
@@ -251,11 +311,10 @@ const Onboarding = () => {
   return (
     <MultiStep>
       <PostCode />
-      <Children />
+      <NumberOfChildren />
       <Ages />
       <Projects />
       <Phone />
-      <Confirmation />
     </MultiStep>
   )
 }
