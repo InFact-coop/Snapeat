@@ -11,6 +11,8 @@ import { ConsentProvider } from '../context/consentContext'
 import AuthenticatedApp from '../apps/AuthenticatedApp'
 import UnauthenticatedApp from '../apps/UnauthenticatedApp'
 
+import BugButton from '../components/BugButton'
+
 const Container = styled.section.attrs({
   className: 'bg-lightgray w-screen h-screen',
 })``
@@ -42,6 +44,7 @@ const Index = () => {
 
       <ProjectProvider>
         <Container>
+          <BugButton />
           <ConsentProvider>
             {user ? (
               <RouteProvider>
