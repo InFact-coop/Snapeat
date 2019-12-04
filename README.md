@@ -1,1 +1,1 @@
-# Snapeat
+# SnapEat

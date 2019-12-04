@@ -26,7 +26,7 @@ const Menu = () => {
   return (
     <div className="bg-navy text-white font-subheader font-semibold text-center w-screen h-screen ">
       <HeaderContainer>
-        <Logo alt="Snapeat logo" src={logo} />
+        <Logo alt="SnapEat logo" src={logo} />
         <Close
           closeColour="white"
           alt="Close menu"
