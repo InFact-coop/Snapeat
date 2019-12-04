@@ -244,7 +244,7 @@ const StyledForm = styled(Form).attrs({
 const Logo = styled.img.attrs({
   src: logo1,
   className: '',
-  alt: 'Snapeat',
+  alt: 'SnapEat',
 })``
 
 const Onboarding = () => {
