@@ -6,7 +6,7 @@ import OnboardingStep from './OnboardingStep'
 const tooltipContents = (
   <>
     <p className="mb-5">
-      At the Snapeat Project we want to learn what children in Lambeth and
+      At the SnapEat Project we want to learn what children in Lambeth and
       Southwark are eating when they are at home.
     </p>
     <p className="mb-5">
@@ -21,7 +21,7 @@ const validation = Yup.object().shape({
     .required('Please enter a number')
     .notOneOf(
       ['0', '00'],
-      'You must have children under 18 to sign up to Snapeat',
+      'You must have children under 18 to sign up to SnapEat',
     ),
 })
 

@@ -22,7 +22,7 @@ const Success = () => {
 
   return (
     <Container>
-      <img alt="Snapeat logo" src={logo} className="m-auto mb-40" />
+      <img alt="SnapEat logo" src={logo} className="m-auto mb-40" />
       <Heading>All set</Heading>
     </Container>
   )

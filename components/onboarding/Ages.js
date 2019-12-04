@@ -27,7 +27,7 @@ const initValidation = length =>
 const tooltipContents = (
   <>
     <p className="mb-5">
-      At the Snapeat Project we want to learn what children in Lambeth and
+      At the SnapEat Project we want to learn what children in Lambeth and
       Southwark are eating when they are at home.
     </p>
     <p className="mb-5">
