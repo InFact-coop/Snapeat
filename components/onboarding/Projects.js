@@ -26,22 +26,34 @@ const Projects = ({ values, setFieldValue }) => {
   const [availableProjects, setAvailableProjects] = useState([])
 
   useEffect(() => {
-    const getOptions = async () => {
-      const {
-        data: { projects },
-      } = await axios.get(`${process.env.HOST}/api/get-available-projects`)
+    const source = axios.CancelToken.source()
 
-      return R.pipe(
-        R.map(({ name, slug }) => ({
-          label: name,
-          value: slug,
-        })),
-        setAvailableProjects,
-      )(projects)
+    const getOptions = async () => {
+      try {
+        const {
+          data: { projects },
+        } = await axios.get(`${process.env.HOST}/api/get-available-projects`, {
+          cancelToken: source.token,
+        })
+
+        return R.pipe(
+          R.map(({ name, slug }) => ({
+            label: name,
+            value: slug,
+          })),
+          setAvailableProjects,
+        )(projects)
+      } catch (e) {
+        // eslint-disable-next-line
+        console.log('Inside useEffect catch')
+      }
     }
+
     getOptions()
 
-    return () => ({})
+    return () => {
+      source.cancel()
+    }
   }, [])
 
   return (
