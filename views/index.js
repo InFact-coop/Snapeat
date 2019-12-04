@@ -1,7 +1,8 @@
 import {
   HOME,
   ONBOARDING,
-  SECURITY,
+  SECURITY_AUTH,
+  SECURITY_UNAUTH,
   WELCOME,
   SIGN_UP,
   MENU,
@@ -10,13 +11,16 @@ import {
   SUCCESS,
   LOADING,
   FOOD_DATA,
-  TERMS_AND_CONDITIONS,
-  PRIVACY,
+  TERMS_AND_CONDITIONS_AUTH,
+  TERMS_AND_CONDITIONS_UNAUTH,
+  PRIVACY_AUTH,
+  PRIVACY_UNAUTH,
+  LANDING,
 } from '../utils/constants'
 
 import Home from './Home'
 import Onboarding from './Onboarding'
-import Security from './Security'
+import { SecurityAuth, SecurityUnauth } from './Security'
 import Welcome from './Welcome'
 import SignUp from './SignUp'
 import Menu from './Menu'
@@ -25,14 +29,19 @@ import Loading from './Loading'
 import Success from './Success'
 import CategorySelect from './CategorySelect'
 import FoodData from './FoodData'
-import Privacy from './Privacy'
-import TermsAndConditions from './TermsAndConditions'
+import { PrivacyAuth, PrivacyUnauth } from './Privacy'
+import {
+  TermsAndConditionsAuth,
+  TermsAndConditionsUnauth,
+} from './TermsAndConditions'
+import Landing from './Landing'
 
 export default {
   [HOME]: Home,
   [ONBOARDING]: Onboarding,
   [WELCOME]: Welcome,
-  [SECURITY]: Security,
+  [SECURITY_AUTH]: SecurityAuth,
+  [SECURITY_UNAUTH]: SecurityUnauth,
   [SIGN_UP]: SignUp,
   [ERROR]: Error,
   [MENU]: Menu,
@@ -40,6 +49,9 @@ export default {
   [SUCCESS]: Success,
   [CATEGORY_SELECT]: CategorySelect,
   [FOOD_DATA]: FoodData,
-  [PRIVACY]: Privacy,
-  [TERMS_AND_CONDITIONS]: TermsAndConditions,
+  [PRIVACY_AUTH]: PrivacyAuth,
+  [PRIVACY_UNAUTH]: PrivacyUnauth,
+  [TERMS_AND_CONDITIONS_AUTH]: TermsAndConditionsAuth,
+  [TERMS_AND_CONDITIONS_UNAUTH]: TermsAndConditionsUnauth,
+  [LANDING]: Landing,
 }
