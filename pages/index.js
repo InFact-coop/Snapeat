@@ -36,7 +36,7 @@ const Index = () => {
         <link rel="icon" href="/favicon.ico" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Snapeat" />
+        <meta name="apple-mobile-web-app-title" content="SnapEat" />
         <link href="/manifest.json" rel="manifest" />
         <link href="/iphone-icon.png" rel="apple-touch-icon" sizes="180x180" />
       </Head>

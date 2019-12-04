@@ -69,9 +69,9 @@ const Content = ({
 
       <div className="py-1">
         <Text>
-          Snapeat is owned and managed by Guys & St Thomas&#39; Charitable
+          SnapEat is owned and managed by Guys & St Thomas&#39; Charitable
           Trust. <br />
-          Everything you share on Snapeat will be stored safely and your
+          Everything you share on SnapEat will be stored safely and your
           personal data will always be private. Read our Plain English Privacy
           Policy{' '}
           <button
@@ -84,7 +84,7 @@ const Content = ({
         </Text>
 
         <Text>
-          If you are still happy to take part in the Snapeat Project please read
+          If you are still happy to take part in the SnapEat Project please read
           our{' '}
           <button
             className="inline underline text-blue"

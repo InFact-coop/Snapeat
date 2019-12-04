@@ -40,7 +40,7 @@ const Stages = {
     illustration: illustration1,
     title: 'Hi!',
     copy:
-      'Thanks for agreeing to take part in Snapeat. A project to see how children in Lambeth and Southwark eat.',
+      'Thanks for agreeing to take part in SnapEat. A project to see how children in Lambeth and Southwark eat.',
     buttonText: 'Start',
     progress: progress1,
   },
