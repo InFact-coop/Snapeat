@@ -17,17 +17,12 @@ const Landing = () => {
       </MenuContainer>
       <div className="px-4">
         <Text className="font-bold">Welcome!</Text>
-        <Text>
-          New here?
-          {<br />}
-          Don&apos;t worry, just sign up to gain access to Snapeat.
-        </Text>
-        <Text>
-          Returning?
-          {<br />}
-          Just log in!
-        </Text>
-
+        <Text>New here?</Text>
+        <br />
+        <Text>Don&apos;t worry, just sign up to gain access to Snapeat.</Text>
+        <Text>Returning?</Text>
+        <br />
+        <Text>Just log in!</Text>
         <a
           href="https://airtable.com/shrA8ckDkLTVqLoab"
           target="_blank"

@@ -27,11 +27,9 @@
     "dev:seed": "env-cmd -f ./.config/dev.env ts-node -O '{\"module\": \"commonjs\"}' ./prisma/seeds.ts",
     "dev:flushdb": "env-cmd -f ./.config/dev.env ts-node -O '{\"module\": \"commonjs\"}' ./prisma/flushDB.ts",
     "==prisma:staging==": "------------------------------------------------------------------------------------",
-    "staging:nodemon": " nodemon --exec \"env-cmd -f ./.config/staging.env node --inspect server.js\"  -w ./server.js -w ./next.config.js -w ./.config/staging.env",
     "staging:deploy": "env-cmd -f ./.config/staging.env npm run deploy && npm run staging:schema",
     "staging:schema": "env-cmd -f ./.config/staging.env npm run schema",
     "staging:token": "env-cmd -f ./.config/staging.env npm run token",
-    "staging:seed": "env-cmd -f ./.config/staging.env ts-node -O '{\"module\": \"commonjs\"}' ./prisma/staging-seeds.ts",
     "staging:up": "env-cmd -f ./.config/staging.env npm run up",
     "staging:down": "env-cmd -f ./.config/staging.env npm run down"
   },
