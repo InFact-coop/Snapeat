@@ -66,6 +66,7 @@ const MultiStep = ({ children }) => {
   const pages = steps.map(step => step.type.componentName)
   const firstPage = R.head(pages)
 
+  // const [page, setPage] = useState(firstPage)
   const [page, setPage] = useState(firstPage)
   const [lastPage, setLastPage] = useState(page)
 
@@ -110,36 +111,38 @@ const MultiStep = ({ children }) => {
               <ImageContainer className="relative" src={foodPhoto.fileURL} />
             )}
             <StyledForm>
-              <RenderStep
-                {...{
-                  validateForm,
-                  page,
-                  setTouched,
-                  activePage,
-                  props: {
-                    setPage,
-                    updatePage,
-                    values,
+              <FormContainer>
+                <RenderStep
+                  {...{
+                    validateForm,
+                    page,
+                    setTouched,
+                    activePage,
+                    props: {
+                      setPage,
+                      updatePage,
+                      values,
+                      incrementPage,
+                      decrementPage,
+                      setFieldValue,
+                      errors,
+                    },
+                  }}
+                />
+                <ControlsNext
+                  {...{
                     incrementPage,
-                    decrementPage,
+                    page,
+                    lastPage,
+                    values,
+                    setPage,
                     setFieldValue,
-                    errors,
-                  },
-                }}
-              />
+                    foodPhoto,
+                    project,
+                  }}
+                />
+              </FormContainer>
             </StyledForm>
-            <ControlsNext
-              {...{
-                incrementPage,
-                page,
-                lastPage,
-                values,
-                setPage,
-                setFieldValue,
-                foodPhoto,
-                project,
-              }}
-            />
           </Container>
         )
       }}
@@ -364,9 +367,8 @@ const Back = styled.button.attrs({
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center pt-4 fixed w-full bg-white',
+  className: 'flex justify-center pt-4 w-full bg-white',
 })`
-  bottom: 0;
   z-index: 30000;
 `
 
@@ -385,6 +387,11 @@ const Next = styled.button.attrs({
 
 const Container = styled.main`
   background-color: ${cssTheme('colors.white')};
+`
+const FormContainer = styled.div.attrs({
+  className: 'absolute',
+})`
+  top: 300px;
 `
 
 export default FoodData
