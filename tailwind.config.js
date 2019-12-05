@@ -50,6 +50,8 @@ module.exports = {
       width: {
         '2d5': '0.625rem', // 10px
         '16d5': '4.125rem', // 66px
+        '20': '20%',
+        '45': '45%',
       },
       height: {
         '2d5': '0.625rem', // 10px
@@ -63,10 +65,6 @@ module.exports = {
         '1/2': '50%',
         '3/4': '75%',
         full: '100%',
-      },
-      borderRadius: {
-        card: '37px',
-        button: '35.5px',
       },
       opacity: {
         40: '.4',
@@ -121,6 +119,8 @@ module.exports = {
       ],
     },
     borderRadius: {
+      card: '37px 37px 0 0 ',
+      button: '35.5px',
       tooltip: '1rem 1rem 0% 0% / 2.5rem 2.5rem 0% 0%',
       full: '100%',
     },

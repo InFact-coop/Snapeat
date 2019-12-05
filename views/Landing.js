@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import snapeatLogo from '../public/logos/splash_logo.svg'
-import menuBG from '../public/backgrounds/menu_bg.svg'
+import menuBG from '../public/backgrounds/landing_bg.svg'
 import dividerSVG from '../public/icons/divider.svg'
 
 import { useRouteDispatchUnauth } from '../context/unauthRouteContext'
@@ -9,31 +9,34 @@ import { CHANGE_VIEW, SECURITY_UNAUTH } from '../utils/constants'
 
 const Landing = () => {
   const routeDispatch = useRouteDispatchUnauth()
-
   return (
     <Container>
       <MenuContainer>
         <SnapeatLogo alt="logo" src={snapeatLogo} />
       </MenuContainer>
-      <div className="p-4">
+      <div className="px-4">
         <Text className="font-bold">Welcome!</Text>
-        <Text>
-          New here?
-          <br />
-          Don&apos;t worry, just sign up to gain access to Snapeat.
-        </Text>
-        <Text>
-          Returning?
-          <br />
-          Just log in!
-        </Text>
+        <Text>New here?</Text>
+        <Text>Don&apos;t worry, just sign up to gain access to Snapeat.</Text>
+        <br />
+        <Text>Returning?</Text>
+        <Text>Just log in!</Text>
+        <a
+          href="https://airtable.com/shrA8ckDkLTVqLoab"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-sm sm:font-lg m-4 underline text-red"
+        >
+          Something wrong? Tell us here
+        </a>
       </div>
       <ButtonContainer>
         <Login href="api/login">Login</Login>
-        <div className="flex m-4">
-          <img className="" src={dividerSVG} alt="divider" />
-          <p className="m-1 text-center">or</p>
-          <img className="" src={dividerSVG} alt="divider" />
+
+        <div className="flex justify-between my-3 sm:my-4">
+          <img className="w-45" src={dividerSVG} alt="divider" />
+          <p className="w-20 m-1 text-center">or</p>
+          <img className="w-45" src={dividerSVG} alt="divider" />
         </div>
 
         <Signup
@@ -48,47 +51,43 @@ const Landing = () => {
   )
 }
 
+const MenuContainer = styled.div.attrs({
+  className: 'w-screen flex justify-center px-6 pt-4',
+})`
+  background: url(${menuBG}) left top/cover no-repeat;
+`
+
+const SnapeatLogo = styled.img.attrs({
+  className: 'h-12 sm:h-15',
+})``
+
 const Text = styled.p.attrs({
-  className: 'font-xl m-4',
+  className: 'font-lg sm:font-xl m-4',
 })``
 
 const Container = styled.section.attrs({
   className: 'h-full w-full',
 })`
   display: grid;
-  grid-template-rows: 18% 1fr 40%;
-`
-
-const MenuContainer = styled.div.attrs({
-  className: 'w-screen px-6 pt-5d5',
-})`
-  background: url(${menuBG}) left top/cover no-repeat;
-`
-
-const SnapeatLogo = styled.img.attrs({
-  className: 'w-auto sm:w-25',
-})`
-  margin-left: calc((100vw - 48px - 80px) / 2);
+  grid-template-rows: 22% 1fr 200px;
 
   @media ${cssTheme('media.sm')} {
-    smargin-left: calc((100vw - 48px - 100px) / 2);
+    grid-template-rows: 22% 1fr 260px;
   }
 `
 
 const Login = styled.a.attrs({
   className:
-    'block bg-navy rounded-button w-full text-white py-4 mt-6 text-center',
+    'block text-center bg-navy rounded-button shadow-button w-full text-white py-4',
 })``
 
 const Signup = styled.button.attrs({
   className:
-    'bg-white rounded-button w-full text-navy py-4 border border-solid border-navy mb-8',
+    'bg-white rounded-button shadow-button w-full text-navy py-4 border border-solid border-navy',
 })``
 
 const ButtonContainer = styled.div.attrs({
-  className: 'w-screen px-6 pt-5d5 bg-white',
-})`
-  border-radius: ${cssTheme('borderRadius.tooltip')};
-`
+  className: 'w-screen rounded-card shadow-tooltip px-6 py-5 sm:py-12 bg-white',
+})``
 
 export default Landing

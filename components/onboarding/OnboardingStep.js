@@ -53,6 +53,14 @@ const OnboardingStep = ({
           <TooltipClose onClick={() => setShowTooltip(false)} />
           <H1>{tooltipTitle}</H1>
           {tooltipContents}
+          <a
+            href="https://airtable.com/shrA8ckDkLTVqLoab"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-red"
+          >
+            Something wrong? Tell us here
+          </a>
         </Tooltip>
       )}
     </Container>

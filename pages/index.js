@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 
@@ -11,8 +11,6 @@ import { ConsentProvider } from '../context/consentContext'
 
 import AuthenticatedApp from '../apps/AuthenticatedApp'
 import UnauthenticatedApp from '../apps/UnauthenticatedApp'
-
-import BugButton from '../components/BugButton'
 
 const Container = styled.section.attrs({
   className: 'bg-lightgray w-screen h-screen',
@@ -31,21 +29,27 @@ const Index = () => {
     updatedAt: '2019-11-27T15:18:16.772Z',
   }
 
+  useEffect(() => {
+    const iOS =
+      !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
+
+    if (iOS) {
+      const manifestLink = document.getElementById('manifest-link')
+      manifestLink.parentNode.removeChild(manifestLink)
+    }
+  }, [])
+
   return (
     <>
       <Head>
-        <title>App</title>
+        <title>SnapEat</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="SnapEat" />
-        <link href="/manifest.json" rel="manifest" />
+        <link id="manifest-link" href="/manifest.json" rel="manifest" />
         <link href="/iphone-icon.png" rel="apple-touch-icon" sizes="180x180" />
       </Head>
 
       <ProjectProvider>
         <Container>
-          <BugButton />
           <ConsentProvider>
             {user ? (
               <RouteProvider>

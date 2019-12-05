@@ -66,7 +66,6 @@ const MultiStep = ({ children }) => {
   const pages = steps.map(step => step.type.componentName)
   const firstPage = R.head(pages)
 
-  // const [page, setPage] = useState(firstPage)
   const [page, setPage] = useState(firstPage)
   const [lastPage, setLastPage] = useState(page)
 
@@ -90,6 +89,19 @@ const MultiStep = ({ children }) => {
 
   const { validation } = activePage && activePage.type
 
+  const formLayout = () => {
+    switch (page) {
+      case Steps.Success:
+        return false
+      case Steps.Spinner:
+        return false
+      case Steps.Error:
+        return false
+      default:
+        return true
+    }
+  }
+
   return (
     <Formik
       {...{
@@ -107,11 +119,11 @@ const MultiStep = ({ children }) => {
             <ControlsBack
               {...{ decrementPage, page, lastPage, updatePage, values }}
             />
-            {!(page === (Steps.Success || Steps.Spinner || Steps.Error)) && (
+            {formLayout() && (
               <ImageContainer className="relative" src={foodPhoto.fileURL} />
             )}
-            <StyledForm>
-              <FormContainer>
+            <FormContainer formLayout={formLayout} page={page}>
+              <StyledForm>
                 <RenderStep
                   {...{
                     validateForm,
@@ -129,20 +141,20 @@ const MultiStep = ({ children }) => {
                     },
                   }}
                 />
-                <ControlsNext
-                  {...{
-                    incrementPage,
-                    page,
-                    lastPage,
-                    values,
-                    setPage,
-                    setFieldValue,
-                    foodPhoto,
-                    project,
-                  }}
-                />
-              </FormContainer>
-            </StyledForm>
+              </StyledForm>
+              <ControlsNext
+                {...{
+                  incrementPage,
+                  page,
+                  lastPage,
+                  values,
+                  setPage,
+                  setFieldValue,
+                  foodPhoto,
+                  project,
+                }}
+              />
+            </FormContainer>
           </Container>
         )
       }}
@@ -287,7 +299,9 @@ const ControlsNext = ({
         return () =>
           fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
       case Steps.Results:
-        return () => onSubmit({ setPage, project, foodPhoto })(values)
+        return () => {
+          return onSubmit({ setPage, project, foodPhoto })(values)
+        }
       case Steps.Success:
         return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
       case Steps.Error:
@@ -344,7 +358,7 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
 }
 
 const StyledForm = styled(Form).attrs({
-  className: 'bg-lightgray px-4 flex flex-col items-center',
+  className: 'bg-lightgray flex flex-col items-center',
 })``
 
 const ImageContainer = styled.div.attrs({
@@ -391,7 +405,12 @@ const Container = styled.main`
 const FormContainer = styled.div.attrs({
   className: 'absolute',
 })`
-  top: 300px;
+  top: ${({ page, formLayout }) => {
+    return formLayout(page) ? `300px;` : `0px;`
+  }};
+  min-height: ${({ page, formLayout }) => {
+    return formLayout(page) ? `auto;` : `100%;`
+  }};
 `
 
 export default FoodData
