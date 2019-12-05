@@ -136,7 +136,7 @@ const Back = ({ onClick }) => (
 
 const StyledBottomNav = styled.nav.attrs({
   className:
-    'bg-white w-full fixed z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
+    'bg-white w-full absolute z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
 })``
 
 const BottomNav = ({
