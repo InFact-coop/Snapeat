@@ -49,135 +49,15 @@ const initialValues = {
   phoneNumber: '',
 }
 
-const onSubmit = ({ setFormStatus, email }) => async values => {
-  try {
-    //eslint-disable-next-line no-console
-    console.log('Onboarding form submitted', values)
-    setFormStatus(FORM_SENDING)
-
-    const phoneNumber = parsePhoneNumberFromString(
-      values.phoneNumber,
-      'GB',
-    ).formatInternational()
-
-    const {
-      data: { user },
-    } = await axios.post(`${process.env.HOST}/api/create-user`, {
-      ...values,
-      email,
-      phoneNumber,
-    })
-
-    //eslint-disable-next-line no-console
-    console.log('Onboarding successful', user)
-
-    setFormStatus(FORM_SUCCESS)
-  } catch (e) {
-    //eslint-disable-next-line no-console
-    console.error('Error submitting onboarding form', e)
-    setFormStatus(FORM_ERROR)
-  }
-}
-
-const Dot = styled.div.attrs(({ completed }) => ({
-  className: `mr-2d5 h-2d5 w-2d5 rounded-full bg-navy ${
-    completed ? 'opacity-100' : 'opacity-40'
-  }`,
-}))`
-  &:last-child {
-    margin-right: 0;
-  }
-`
-
-const DotsContainer = styled.div.attrs({
-  className: 'flex mb-6',
-})``
-
-const Progress = ({ pageIndex, amountOfPages }) => {
-  const pageNumber = pageIndex + 1
-  const createDot = completed => (_, index) => (
-    <Dot
-      completed={completed}
-      key={`dot-${completed ? 'completed' : 'toComplete'}-${index}`}
-    />
-  )
-
-  const completed = R_.mapIndexed(createDot(true))([...Array(pageNumber)])
-  const toComplete = R_.mapIndexed(createDot())([
-    ...Array(amountOfPages - pageNumber),
-  ])
-
+const Onboarding = () => {
   return (
-    <DotsContainer>
-      <>
-        {completed}
-        {toComplete}
-      </>
-    </DotsContainer>
-  )
-}
-
-const Next = styled.button.attrs({
-  className: 'w-16d5 h-16d5 shadow-button bg-navy rounded-full',
-})`
-  background: center no-repeat url(${arrowNext}) ${cssTheme('colors.navy')};
-`
-
-const StyledBack = styled.button.attrs({
-  className: 'flex items-center justify-between',
-})``
-
-const Back = ({ onClick }) => (
-  <StyledBack onClick={onClick}>
-    <img src={arrowBack} alt="Back arrow" className="mr-2d5" />
-    <span>Back</span>
-  </StyledBack>
-)
-
-const StyledBottomNav = styled.nav.attrs({
-  className:
-    'bg-white w-full absolute z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
-})``
-
-const BottomNav = ({
-  incrementPage,
-  setFormStatus,
-  pageIndex,
-  amountOfPages,
-  isValid,
-  values,
-  errors,
-  email,
-}) => {
-  const lastPage = amountOfPages - 1 === pageIndex
-
-  return (
-    <StyledBottomNav>
-      <Progress {...{ pageIndex, amountOfPages }} />
-      {lastPage ? (
-        <Next
-          type="submit"
-          onClick={() => onSubmit({ setFormStatus, email })(values)}
-        />
-      ) : (
-        <Next
-          onClick={isValid || R.isEmpty(errors) ? incrementPage : () => ({})}
-        />
-      )}
-    </StyledBottomNav>
-  )
-}
-
-const StyledTopNav = styled.nav.attrs(({ firstPage }) => ({
-  className: `w-full ${firstPage ? 'mb-16' : 'mb-11'}`,
-}))``
-
-const TopNav = ({ pageIndex, decrementPage }) => {
-  const firstPage = pageIndex === 0
-  return (
-    <StyledTopNav {...{ firstPage }}>
-      {!firstPage && <Back onClick={decrementPage} />}
-    </StyledTopNav>
+    <MultiStep>
+      <PostCode />
+      <NumberOfChildren />
+      <Ages />
+      <Projects />
+      <Phone />
+    </MultiStep>
   )
 }
 
@@ -208,18 +88,6 @@ const MultiStep = ({ children }) => {
     if (project) return { ...initialValues, projects: [project] }
     return initialValues
   }
-  const FormStatusPage = () => {
-    switch (formStatus) {
-      case FORM_SENDING:
-        return <Spinner />
-      case FORM_SUCCESS:
-        return <Success />
-      case FORM_ERROR:
-        return <Error />
-      default:
-        return null
-    }
-  }
 
   const { validation } = activePage && activePage.type
 
@@ -228,8 +96,6 @@ const MultiStep = ({ children }) => {
       setValidationSchema(validation)
     }
   })
-
-  const Container = styled.main``
 
   return (
     <Formik
@@ -253,11 +119,11 @@ const MultiStep = ({ children }) => {
         isValid,
       }) => {
         if (formStatus !== FORM_NOT_SENT) {
-          return <FormStatusPage />
+          return <FormStatusPage formStatus={formStatus} />
         }
 
         return (
-          <Container>
+          <Main>
             <StyledForm>
               <Logo />
               <TopNav {...{ pageIndex, decrementPage }} />
@@ -291,13 +157,14 @@ const MultiStep = ({ children }) => {
                 email,
               }}
             />
-            <FormStatusPage />)
-          </Container>
+            <FormStatusPage />
+          </Main>
         )
       }}
     </Formik>
   )
 }
+
 const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -306,6 +173,118 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
   }, [page, setTouched, validateForm])
 
   return React.cloneElement(activePage, props)
+}
+
+const onSubmit = ({ setFormStatus, email }) => async values => {
+  try {
+    //eslint-disable-next-line no-console
+    console.log('Onboarding form submitted', values)
+    setFormStatus(FORM_SENDING)
+
+    const phoneNumber = parsePhoneNumberFromString(
+      values.phoneNumber,
+      'GB',
+    ).formatInternational()
+
+    const {
+      data: { user },
+    } = await axios.post(`${process.env.HOST}/api/create-user`, {
+      ...values,
+      email,
+      phoneNumber,
+    })
+
+    //eslint-disable-next-line no-console
+    console.log('Onboarding successful', user)
+
+    setFormStatus(FORM_SUCCESS)
+  } catch (e) {
+    //eslint-disable-next-line no-console
+    console.error('Error submitting onboarding form', e)
+    setFormStatus(FORM_ERROR)
+  }
+}
+
+const Progress = ({ pageIndex, amountOfPages }) => {
+  const pageNumber = pageIndex + 1
+  const createDot = completed => (_, index) => (
+    <Dot
+      completed={completed}
+      key={`dot-${completed ? 'completed' : 'toComplete'}-${index}`}
+    />
+  )
+
+  const completed = R_.mapIndexed(createDot(true))([...Array(pageNumber)])
+  const toComplete = R_.mapIndexed(createDot())([
+    ...Array(amountOfPages - pageNumber),
+  ])
+
+  return (
+    <DotsContainer>
+      <>
+        {completed}
+        {toComplete}
+      </>
+    </DotsContainer>
+  )
+}
+
+const Back = ({ onClick }) => (
+  <StyledBack onClick={onClick}>
+    <img src={arrowBack} alt="Back arrow" className="mr-2d5" />
+    <span>Back</span>
+  </StyledBack>
+)
+
+const BottomNav = ({
+  incrementPage,
+  setFormStatus,
+  pageIndex,
+  amountOfPages,
+  isValid,
+  values,
+  errors,
+  email,
+}) => {
+  const lastPage = amountOfPages - 1 === pageIndex
+
+  return (
+    <StyledBottomNav>
+      <Progress {...{ pageIndex, amountOfPages }} />
+      {lastPage ? (
+        <Next
+          type="submit"
+          onClick={() => onSubmit({ setFormStatus, email })(values)}
+        />
+      ) : (
+        <Next
+          onClick={isValid || R.isEmpty(errors) ? incrementPage : () => ({})}
+        />
+      )}
+    </StyledBottomNav>
+  )
+}
+
+const FormStatusPage = ({ formStatus }) => {
+  switch (formStatus) {
+    case FORM_SENDING:
+      return <Spinner />
+    case FORM_SUCCESS:
+      return <Success />
+    case FORM_ERROR:
+      return <Error />
+    default:
+      return null
+  }
+}
+
+const TopNav = ({ pageIndex, decrementPage }) => {
+  const firstPage = pageIndex === 0
+  return (
+    <StyledTopNav {...{ firstPage }}>
+      {!firstPage && <Back onClick={decrementPage} />}
+    </StyledTopNav>
+  )
 }
 
 const StyledForm = styled(Form).attrs({
@@ -318,16 +297,43 @@ const Logo = styled.img.attrs({
   alt: 'SnapEat',
 })``
 
-const Onboarding = () => {
-  return (
-    <MultiStep>
-      <PostCode />
-      <NumberOfChildren />
-      <Ages />
-      <Projects />
-      <Phone />
-    </MultiStep>
-  )
-}
+const Dot = styled.div.attrs(({ completed }) => ({
+  className: `mr-2d5 h-2d5 w-2d5 rounded-full bg-navy ${
+    completed ? 'opacity-100' : 'opacity-40'
+  }`,
+}))`
+  &:last-child {
+    margin-right: 0;
+  }
+`
+
+const DotsContainer = styled.div.attrs({
+  className: 'flex mb-6',
+})``
+
+const StyledTopNav = styled.nav.attrs(({ firstPage }) => ({
+  className: `w-full ${firstPage ? 'mb-16' : 'mb-11'}`,
+}))``
+
+const Next = styled.button.attrs({
+  className: 'w-16d5 h-16d5 shadow-button bg-navy rounded-full',
+})`
+  background: center no-repeat url(${arrowNext}) ${cssTheme('colors.navy')};
+`
+
+const StyledBack = styled.button.attrs({
+  className: 'flex items-center justify-between',
+})``
+
+const StyledBottomNav = styled.nav.attrs({
+  className:
+    'bg-white w-full absolute z-10 bottom-0 rounded-tooltip shadow-tooltip pt-5 pb-6 flex flex-col items-center justify-around',
+})``
+
+const Main = styled.main.attrs({
+  className: 'relative',
+})`
+  min-height: 100vh;
+`
 
 export default Onboarding
