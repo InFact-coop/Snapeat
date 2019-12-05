@@ -23,7 +23,7 @@ app.prepare().then(() => {
     server.use(enforce.HTTPS({ trustProtoHeader: true }))
   }
 
-  cron.schedule('0 18 * * *', () => {
+  cron.schedule('30 17 * * *', () => {
     sendReminderMessages()
   })
 

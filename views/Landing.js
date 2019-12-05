@@ -17,10 +17,9 @@ const Landing = () => {
       <div className="px-4">
         <Text className="font-bold">Welcome!</Text>
         <Text>New here?</Text>
-        <br />
         <Text>Don&apos;t worry, just sign up to gain access to Snapeat.</Text>
-        <Text>Returning?</Text>
         <br />
+        <Text>Returning?</Text>
         <Text>Just log in!</Text>
         <a
           href="https://airtable.com/shrA8ckDkLTVqLoab"
