@@ -34,9 +34,8 @@ const Index = () => {
       !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
 
     if (iOS) {
-      const pwa2 = document.getElementById('pwa')
-
-      pwa2.parentNode.removeChild(pwa2)
+      const manifestLink = document.getElementById('manifest-link')
+      manifestLink.parentNode.removeChild(manifestLink)
     }
   }, [])
 
@@ -45,7 +44,7 @@ const Index = () => {
       <Head>
         <title>SnapEat</title>
         <link rel="icon" href="/favicon.ico" />
-        <link id="pwa" href="/manifest.json" rel="manifest" />
+        <link id="manifest-link" href="/manifest.json" rel="manifest" />
         <link href="/iphone-icon.png" rel="apple-touch-icon" sizes="180x180" />
       </Head>
 
