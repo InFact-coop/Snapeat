@@ -1,6 +1,7 @@
 // Views
 export const HOME = 'HOME'
 export const MENU = 'MENU'
+export const SPINNER = 'SPINNER'
 export const ONBOARDING = 'ONBOARDING'
 export const SECURITY_AUTH = 'SECURITY_AUTH'
 export const SIGN_UP = 'SIGN_UP'

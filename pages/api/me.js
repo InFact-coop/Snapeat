@@ -5,17 +5,7 @@ import { prisma } from '../../prisma/generated/ts'
 
 export default async function me(req, res) {
   try {
-    const {
-      data: { data: user },
-    } = await auth0.handleProfile(req, res)
-
-    if (user) {
-      return res.status(200).json({ user })
-    }
-
-    if (!user) {
-      res.status(404).end()
-    }
+    await auth0.handleProfile(req, res)
   } catch (error) {
     //eslint-disable-next-line no-console
     console.error(error)
