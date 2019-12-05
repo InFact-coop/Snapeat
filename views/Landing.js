@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import snapeatLogo from '../public/logos/splash_logo.svg'
-import menuBG from '../public/backgrounds/menu_bg.svg'
+import menuBG from '../public/backgrounds/landing_bg.svg'
 import dividerSVG from '../public/icons/divider.svg'
 
 import { useRouteDispatchUnauth } from '../context/unauthRouteContext'
@@ -15,7 +15,7 @@ const Landing = () => {
       <MenuContainer>
         <SnapeatLogo alt="logo" src={snapeatLogo} />
       </MenuContainer>
-      <div className="p-4">
+      <div className="px-4">
         <Text className="font-bold">Welcome!</Text>
         <Text>
           New here?
@@ -34,10 +34,10 @@ const Landing = () => {
             Log in
           </a>
         </Login>
-        <div className="flex m-4">
-          <img className="" src={dividerSVG} />
-          <p className="m-1 text-center">or</p>
-          <img className="" src={dividerSVG} />
+        <div className="flex justify-between my-4">
+          <img className="w-45" src={dividerSVG} />
+          <p className="w-20 m-1 text-center">or</p>
+          <img className="w-45" src={dividerSVG} />
         </div>
 
         <Signup
@@ -52,46 +52,55 @@ const Landing = () => {
   )
 }
 
+const MenuContainer = styled.div.attrs({
+  className: 'w-screen flex justify-center px-6 pt-4',
+})`
+  background: url(${menuBG}) left top/cover no-repeat;
+`
+
+const SnapeatLogo = styled.img.attrs({
+  className: 'h-12 sm:h-15',
+})``
+
 const Text = styled.p.attrs({
-  className: 'font-xl m-4',
+  className: 'font-lg sm:font-xl m-4',
 })``
 
 const Container = styled.section.attrs({
   className: 'h-full w-full',
 })`
   display: grid;
-  grid-template-rows: 18% 1fr 40%;
+  grid-template-rows: 22% 1fr 260px;
 `
 
-const MenuContainer = styled.div.attrs({
-  className: 'w-screen px-6 pt-5d5',
-})`
-  background: url(${menuBG}) left top/cover no-repeat;
-`
+// const MenuContainer = styled.div.attrs({
+//   className: 'w-screen px-6 pt-5d5',
+// })`
+//   background: url(${menuBG}) left top/cover no-repeat;
+// `
 
-const SnapeatLogo = styled.img.attrs({
-  className: 'w-auto sm:w-25',
-})`
-  margin-left: calc((100vw - 48px - 80px) / 2);
+// const SnapeatLogo = styled.img.attrs({
+//   className: 'w-auto sm:w-25',
+// })`
+//   margin-left: calc((100vw - 48px - 80px) / 2);
 
-  @media ${cssTheme('media.sm')} {
-    smargin-left: calc((100vw - 48px - 100px) / 2);
-  }
-`
+//   @media ${cssTheme('media.sm')} {
+//     smargin-left: calc((100vw - 48px - 100px) / 2);
+//   }
+// `
 
 const Login = styled.button.attrs({
-  className: 'bg-navy rounded-button w-full text-white py-4 mt-6',
+  className: 'bg-navy rounded-button shadow-button w-full text-white py-4',
 })``
 
 const Signup = styled.button.attrs({
   className:
-    'bg-white rounded-button w-full text-navy py-4 border border-solid border-navy mb-8',
+    'bg-white rounded-button shadow-button w-full text-navy py-4 border border-solid border-navy',
 })``
 
 const ButtonContainer = styled.div.attrs({
-  className: 'w-screen px-6 pt-5d5 bg-white',
-})`
-  border-radius: ${cssTheme('borderRadius.tooltip')};
-`
+  className:
+    'w-screen rounded-card shadow-tooltip px-6 py-10 sm:py-12 bg-white',
+})``
 
 export default Landing
