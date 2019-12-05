@@ -15,16 +15,29 @@ const Error = () => {
       <Text className="font-bold text-red">
         Oh no, it looks like something went wrong.
       </Text>
-      <p className="text-center text-lg text-red mb-4">Please try again.</p>
-      <p className="m-auto text-center">
+      <p className="text-center text-lg text-red mb-4">
+        Please let us know what happened by{' '}
+        <a
+          className="underline"
+          href="https://airtable.com/shrA8ckDkLTVqLoab"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          filling in this form
+        </a>{' '}
+        and then try again.
+      </p>
+      {/* <p className="m-auto text-center">
         If the problem persists, don&#39;t hesitate to{' '}
         <a
           className="underline"
-          href="mailto:hello@infactcoop.com?subject=Snapeat Problem Report"
+          href="https://airtable.com/shrA8ckDkLTVqLoab"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           contact us.
         </a>
-      </p>
+      </p> */}
     </section>
   )
 }

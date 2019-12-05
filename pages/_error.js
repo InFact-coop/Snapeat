@@ -6,7 +6,7 @@ import robot from '../public/icons/404-robot.svg'
 
 function Error({ statusCode }) {
   return (
-    <div className="flex flex-col justify-between items-center w-full h-screen px-4 pt-6 pb-12">
+    <div className="flex flex-col justify-between items-center w-full h-screen px-4 pt-6 pb-6 sm:pb-12">
       <a href="/">
         <img src={logo} alt="Snapeat logo" />
       </a>
@@ -23,16 +23,17 @@ function Error({ statusCode }) {
           We noticed you lost your way. Not to worry though!
         </Text>
         <Text className="">
-          Go back to the homepage but if the problem persists, don&apos;t
-          hesitate to{' '}
-          <a
-            className="underline"
-            href="https://airtable.com/shrA8ckDkLTVqLoab"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            contact us
-          </a>
+          Go back to the homepage but first, please{' '}
+          {
+            <a
+              className="underline"
+              href="https://airtable.com/shrA8ckDkLTVqLoab"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              tell us what happened{' '}
+            </a>
+          }
           .
         </Text>
       </div>
@@ -46,7 +47,7 @@ function Error({ statusCode }) {
 }
 
 const Text = styled.p.attrs({
-  className: 'text-xl text-center m-8',
+  className: 'text-xl text-center m-5 sm:m-8',
 })``
 
 Error.getInitialProps = ({ res, err }) => {

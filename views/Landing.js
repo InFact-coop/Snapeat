@@ -27,11 +27,20 @@ const Landing = () => {
           {<br />}
           Just log in!
         </Text>
+
+        <a
+          href="https://airtable.com/shrA8ckDkLTVqLoab"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-sm sm:font-lg m-4 underline text-red"
+        >
+          Something wrong? Tell us here
+        </a>
       </div>
       <ButtonContainer>
         <Login href="api/login">Login</Login>
 
-        <div className="flex justify-between my-4">
+        <div className="flex justify-between my-3 sm:my-4">
           <img className="w-45" src={dividerSVG} alt="divider" />
           <p className="w-20 m-1 text-center">or</p>
           <img className="w-45" src={dividerSVG} alt="divider" />
@@ -67,7 +76,11 @@ const Container = styled.section.attrs({
   className: 'h-full w-full',
 })`
   display: grid;
-  grid-template-rows: 22% 1fr 260px;
+  grid-template-rows: 22% 1fr 200px;
+
+  @media ${cssTheme('media.sm')} {
+    grid-template-rows: 22% 1fr 260px;
+  }
 `
 
 const Login = styled.a.attrs({
@@ -81,8 +94,7 @@ const Signup = styled.button.attrs({
 })``
 
 const ButtonContainer = styled.div.attrs({
-  className:
-    'w-screen rounded-card shadow-tooltip px-6 py-10 sm:py-12 bg-white',
+  className: 'w-screen rounded-card shadow-tooltip px-6 py-5 sm:py-12 bg-white',
 })``
 
 export default Landing
