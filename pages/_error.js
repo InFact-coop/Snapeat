@@ -33,7 +33,7 @@ function Error({ statusCode }) {
           >
             contact us
           </a>
-          .
+          <span>.</span>
         </Text>
       </div>
       <button className="bg-navy shadow-button rounded-button w-full text-white py-4 ">
