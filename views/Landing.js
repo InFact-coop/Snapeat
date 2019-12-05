@@ -19,25 +19,22 @@ const Landing = () => {
         <Text className="font-bold">Welcome!</Text>
         <Text>
           New here?
-          <br />
+          {<br />}
           Don&apos;t worry, just sign up to gain access to Snapeat.
         </Text>
         <Text>
           Returning?
-          <br />
+          {<br />}
           Just log in!
         </Text>
       </div>
       <ButtonContainer>
-        <Login>
-          <a href="/api/login" className="w-full">
-            Log in
-          </a>
-        </Login>
+        <Login href="api/login">Login</Login>
+
         <div className="flex justify-between my-4">
-          <img className="w-45" src={dividerSVG} />
+          <img className="w-45" src={dividerSVG} alt="divider" />
           <p className="w-20 m-1 text-center">or</p>
-          <img className="w-45" src={dividerSVG} />
+          <img className="w-45" src={dividerSVG} alt="divider" />
         </div>
 
         <Signup
@@ -73,24 +70,9 @@ const Container = styled.section.attrs({
   grid-template-rows: 22% 1fr 260px;
 `
 
-// const MenuContainer = styled.div.attrs({
-//   className: 'w-screen px-6 pt-5d5',
-// })`
-//   background: url(${menuBG}) left top/cover no-repeat;
-// `
-
-// const SnapeatLogo = styled.img.attrs({
-//   className: 'w-auto sm:w-25',
-// })`
-//   margin-left: calc((100vw - 48px - 80px) / 2);
-
-//   @media ${cssTheme('media.sm')} {
-//     smargin-left: calc((100vw - 48px - 100px) / 2);
-//   }
-// `
-
-const Login = styled.button.attrs({
-  className: 'bg-navy rounded-button shadow-button w-full text-white py-4',
+const Login = styled.a.attrs({
+  className:
+    'block text-center bg-navy rounded-button shadow-button w-full text-white py-4',
 })``
 
 const Signup = styled.button.attrs({
