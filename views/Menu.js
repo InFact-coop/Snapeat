@@ -10,8 +10,8 @@ import {
   // ONBOARDING,
   // SUCCESS,
   // SECURITY,
-  PRIVACY,
-  TERMS_AND_CONDITIONS,
+  PRIVACY_AUTH,
+  TERMS_AND_CONDITIONS_AUTH,
 } from '../utils/constants'
 
 import logo from '../public/logos/logo3.svg'
@@ -26,7 +26,7 @@ const Menu = () => {
   return (
     <div className="bg-navy text-white font-subheader font-semibold text-center w-screen h-screen ">
       <HeaderContainer>
-        <Logo alt="Snapeat logo" src={logo} />
+        <Logo alt="SnapEat logo" src={logo} />
         <Close
           closeColour="white"
           alt="Close menu"
@@ -44,18 +44,28 @@ const Menu = () => {
         <div
           className="mb-9d5"
           onClick={() =>
-            routeDispatch({ type: CHANGE_VIEW, view: TERMS_AND_CONDITIONS })
+            routeDispatch({
+              type: CHANGE_VIEW,
+              view: TERMS_AND_CONDITIONS_AUTH,
+            })
           }
           onKeyPress={() =>
-            routeDispatch({ type: CHANGE_VIEW, view: TERMS_AND_CONDITIONS })
+            routeDispatch({
+              type: CHANGE_VIEW,
+              view: TERMS_AND_CONDITIONS_AUTH,
+            })
           }
         >
           Terms & Conditions
         </div>
         <div
           className="mb-2"
-          onClick={() => routeDispatch({ type: CHANGE_VIEW, view: PRIVACY })}
-          onKeyPress={() => routeDispatch({ type: CHANGE_VIEW, view: PRIVACY })}
+          onClick={() =>
+            routeDispatch({ type: CHANGE_VIEW, view: PRIVACY_AUTH })
+          }
+          onKeyPress={() =>
+            routeDispatch({ type: CHANGE_VIEW, view: PRIVACY_AUTH })
+          }
         >
           Privacy
         </div>

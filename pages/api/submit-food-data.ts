@@ -2,13 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import * as R from 'ramda'
 
 //eslint-disable-next-line
-import { prisma } from '../../prisma/generated/ts/index'
+import { prisma } from '../../prisma/generated/ts'
 
 //eslint-disable-next-line
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const {
-      project,
       imageURL,
       categories,
       proportionFruit,
@@ -36,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     //update meal categories
 
-    const updateCategories = await Promise.all(
+    await Promise.all(
       R.map((category: string) =>
         prisma.updateMeal({
           data: {
@@ -53,7 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       )(categories),
     )
 
-    const updateTags = await Promise.all(
+    await Promise.all(
       R.map((tag: string) =>
         prisma.updateMeal({
           data: {

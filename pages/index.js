@@ -6,10 +6,13 @@ import { useAuth } from '../context/authContext'
 import { ProjectProvider } from '../context/projectContext'
 
 import { RouteProvider } from '../context/routeContext'
+import { UnauthRouteProvider } from '../context/unauthRouteContext'
 import { ConsentProvider } from '../context/consentContext'
 
 import AuthenticatedApp from '../apps/AuthenticatedApp'
 import UnauthenticatedApp from '../apps/UnauthenticatedApp'
+
+import BugButton from '../components/BugButton'
 
 const Container = styled.section.attrs({
   className: 'bg-lightgray w-screen h-screen',
@@ -33,19 +36,24 @@ const Index = () => {
       <Head>
         <title>App</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="SnapEat" />
         <link href="/manifest.json" rel="manifest" />
       </Head>
 
       <ProjectProvider>
         <Container>
+          <BugButton />
           <ConsentProvider>
             {user ? (
               <RouteProvider>
                 <AuthenticatedApp project={project} />
               </RouteProvider>
             ) : (
-              <UnauthenticatedApp />
+              <UnauthRouteProvider>
+                <UnauthenticatedApp />
+              </UnauthRouteProvider>
             )}
           </ConsentProvider>
         </Container>

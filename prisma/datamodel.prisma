@@ -14,7 +14,7 @@ type User {
 type Child {
   id: ID! @id
   Parent: User! @relation(onDelete: SET_NULL)
-  age: Int!
+  age: String!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }

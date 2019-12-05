@@ -4,9 +4,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../prisma/generated/ts'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const doesPhoneNumberExist = await prisma.$exists.user({
-    phoneNumber: req.query.phonenumber as string,
+  const doesUserExist = await prisma.$exists.user({
+    email: req.query.email as string,
   })
 
-  return res.status(200).json({ doesPhoneNumberExist })
+  return res.status(200).json({ doesUserExist })
 }

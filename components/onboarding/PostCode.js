@@ -38,7 +38,7 @@ const validatePostCode = async value => {
 const tooltipContents = (
   <>
     <p className="mb-5">
-      Snapeat uses the start of your postcode to understand where in Lambeth and
+      SnapEat uses the start of your postcode to understand where in Lambeth and
       Southwark our snappers come from.
     </p>
     <p className="mb-5">
@@ -55,7 +55,7 @@ const tooltipContents = (
 const PostCode = () => (
   <OnboardingStep
     {...{
-      h1: 'Welcome to Snapeat!',
+      h1: 'Welcome to SnapEat!',
       h2: 'Before we start, we need a few more details',
       question: 'What is your postcode?',
       description: '(only the start, e.g. SE1 3 or SW13 1)',

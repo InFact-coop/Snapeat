@@ -11,11 +11,10 @@ import progress3 from '../public/icons/progress_3.svg'
 
 import arrowRight from '../public/icons/arrow_right.svg'
 
-import { useRouteDispatch } from '../context/routeContext'
-import { CHANGE_VIEW, SIGN_UP } from '../utils/constants'
+import { useRouteDispatchUnauth } from '../context/unauthRouteContext'
 
 const Welcome = () => {
-  const routeDispatch = useRouteDispatch()
+  const routeDispatch = useRouteDispatchUnauth()
 
   const [stageIndex, setStageIndex] = useState(0)
   const stage = Stages[Object.keys(Stages)[stageIndex]]
@@ -41,7 +40,7 @@ const Stages = {
     illustration: illustration1,
     title: 'Hi!',
     copy:
-      'Thanks for agreeing to take part in Snapeat. A project to see how children in Lambeth and Southwark eat.',
+      'Thanks for agreeing to take part in SnapEat. A project to see how children in Lambeth and Southwark eat.',
     buttonText: 'Start',
     progress: progress1,
   },
@@ -94,11 +93,11 @@ const CardImage = styled.img.attrs({
 `
 
 const Dots = ({ stage }) => <img src={stage.progress} alt="form progress" />
-const Button = ({ stage, setStageIndex, stageIndex, routeDispatch }) => (
+const Button = ({ stage, setStageIndex, stageIndex }) => (
   <ButtonWithArrow
     onClick={
       stageIndex === 2
-        ? () => routeDispatch({ type: CHANGE_VIEW, view: SIGN_UP })
+        ? () => (location = `${location}api/login`)
         : () => setStageIndex(stageIndex + 1)
     }
   >

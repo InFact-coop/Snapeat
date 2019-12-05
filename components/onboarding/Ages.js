@@ -10,7 +10,7 @@ import OnboardingStep, { SubQuestion } from './OnboardingStep'
 
 const initValidation = length =>
   Yup.object().shape({
-    age: Yup.lazy(() =>
+    ages: Yup.lazy(() =>
       Yup.array()
         .required("Please make sure you have selected your children's ages")
         .min(
@@ -27,7 +27,7 @@ const initValidation = length =>
 const tooltipContents = (
   <>
     <p className="mb-5">
-      At the Snapeat Project we want to learn what children in Lambeth and
+      At the SnapEat Project we want to learn what children in Lambeth and
       Southwark are eating when they are at home.
     </p>
     <p className="mb-5">
@@ -39,29 +39,32 @@ const tooltipContents = (
 
 const AgeComponent = (_, i) => {
   return (
-    <div key={`age.${i}`} className="mb-5 w-full">
+    <div key={`ages.${i}`} className="mb-5 w-full">
       <SubQuestion className="mb-4">Age range — Child {i + 1}</SubQuestion>
 
-      <RadioInput name={`age.${i}`} id={`age.${i}-0-4`} value="0-4">
+      <RadioInput name={`ages.${i}`} id={`ages.${i}-0-4`} value="0-4">
         0 - 4
       </RadioInput>
-      <RadioInput name={`age.${i}`} id={`age.${i}-5-8`} value="5-8">
+      <RadioInput name={`ages.${i}`} id={`ages.${i}-5-8`} value="5-8">
         5 - 8
       </RadioInput>
-      <RadioInput name={`age.${i}`} id={`age.${i}-9-12`} value="9-12">
+      <RadioInput name={`ages.${i}`} id={`ages.${i}-9-12`} value="9-12">
         9 - 12
       </RadioInput>
-      <RadioInput name={`age.${i}`} id={`age.${i}-13-15`} value="13-15">
+      <RadioInput name={`ages.${i}`} id={`ages.${i}-13-15`} value="13-15">
         13 - 15
       </RadioInput>
-      <RadioInput name={`age.${i}`} id={`age.${i}-16-18`} value="16-18">
+      <RadioInput name={`ages.${i}`} id={`ages.${i}-16-18`} value="16-18">
         16 - 18
       </RadioInput>
     </div>
   )
 }
 
-const ageQuestions = R.pipe(createArrayOfLength, R_.mapIndexed(AgeComponent))
+const childrenQuestions = R.pipe(
+  createArrayOfLength,
+  R_.mapIndexed(AgeComponent),
+)
 
 const Ages = ({ values: { numberOfChildren }, setValidationSchema }) => {
   useEffect(() => {
@@ -84,11 +87,11 @@ const Ages = ({ values: { numberOfChildren }, setValidationSchema }) => {
       }}
     >
       <FieldArray
-        name="age"
+        name="ages"
         render={() => (
           <>
-            <Error name="age" className="text-center mb-5" />
-            {ageQuestions(numberOfChildren)}
+            <Error name="ages" className="text-center mb-5" />
+            {childrenQuestions(numberOfChildren)}
           </>
         )}
       />

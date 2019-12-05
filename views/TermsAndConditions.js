@@ -1,7 +1,17 @@
 import React, { useEffect } from 'react'
 
 import { useRouteDispatch, useRouteState } from '../context/routeContext'
-import { HOME, CHANGE_VIEW, SECURITY } from '../utils/constants'
+import {
+  useRouteDispatchUnauth,
+  useRouteStateUnauth,
+} from '../context/unauthRouteContext'
+
+import {
+  HOME,
+  CHANGE_VIEW,
+  SECURITY_AUTH,
+  SECURITY_UNAUTH,
+} from '../utils/constants'
 
 import {
   HeaderWithGSTCLogo,
@@ -10,17 +20,28 @@ import {
   Button,
 } from '../components/SecurityPages'
 
-const TermsAndConditions = () => {
+export const TermsAndConditionsAuth = () => {
   const routeDispatch = useRouteDispatch()
   const { history } = useRouteState()
+  return <Content routeDispatch={routeDispatch} history={history} />
+}
 
+export const TermsAndConditionsUnauth = () => {
+  const routeDispatch = useRouteDispatchUnauth()
+  const { history } = useRouteStateUnauth()
+  return <Content routeDispatch={routeDispatch} history={history} />
+}
+
+const Content = ({ routeDispatch, history }) => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   const returnTo = () => {
-    if (history[history.length - 2] === SECURITY) {
-      return SECURITY
+    if (history[history.length - 2] === SECURITY_UNAUTH) {
+      return SECURITY_UNAUTH
+    } else if (history[history.length - 2] === SECURITY_AUTH) {
+      return SECURITY_AUTH
     } else return HOME
   }
   return (
@@ -73,5 +94,3 @@ const TermsAndConditions = () => {
     </div>
   )
 }
-
-export default TermsAndConditions
