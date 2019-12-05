@@ -182,7 +182,7 @@ const TopNav = ({ pageIndex, decrementPage }) => {
 }
 
 const MultiStep = ({ children }) => {
-  const [page, setPage] = useState(Steps.Phone)
+  const [page, setPage] = useState(Steps.PostCode)
   const [validationSchema, setValidationSchema] = useState(Yup.object())
   const [formStatus, setFormStatus] = useState(FORM_NOT_SENT)
   const { error, project } = useProjectState()
