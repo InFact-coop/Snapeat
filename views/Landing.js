@@ -29,15 +29,11 @@ const Landing = () => {
         </Text>
       </div>
       <ButtonContainer>
-        <Login>
-          <a href="/api/login" className="w-full">
-            Log in
-          </a>
-        </Login>
+        <Login href="api/login">Login</Login>
         <div className="flex m-4">
-          <img className="" src={dividerSVG} />
+          <img className="" src={dividerSVG} alt="divider" />
           <p className="m-1 text-center">or</p>
-          <img className="" src={dividerSVG} />
+          <img className="" src={dividerSVG} alt="divider" />
         </div>
 
         <Signup
@@ -79,8 +75,9 @@ const SnapeatLogo = styled.img.attrs({
   }
 `
 
-const Login = styled.button.attrs({
-  className: 'bg-navy rounded-button w-full text-white py-4 mt-6',
+const Login = styled.a.attrs({
+  className:
+    'block bg-navy rounded-button w-full text-white py-4 mt-6 text-center',
 })``
 
 const Signup = styled.button.attrs({
