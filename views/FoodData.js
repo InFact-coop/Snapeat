@@ -15,6 +15,7 @@ import {
 import { useRouteDispatch } from '../context/routeContext'
 import { useFoodDataState } from '../context/foodDataContext'
 import { useProjectState } from '../context/projectContext'
+import { useAuth } from '../context/authContext'
 
 import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
@@ -61,6 +62,10 @@ const FoodData = () => {
 const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
   const { project } = useProjectState()
+
+  const {
+    user: { name: email },
+  } = useAuth()
 
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
@@ -109,6 +114,8 @@ const MultiStep = ({ children }) => {
         validation,
         onSubmit: onSubmit({
           incrementPage,
+          email,
+          project,
         }),
         enableReinitialize: false,
       }}
@@ -152,6 +159,7 @@ const MultiStep = ({ children }) => {
                   setFieldValue,
                   foodPhoto,
                   project,
+                  email,
                 }}
               />
             </FormContainer>
@@ -162,7 +170,7 @@ const MultiStep = ({ children }) => {
   )
 }
 
-const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
+const onSubmit = ({ setPage, project, email, foodPhoto }) => async values => {
   setPage(Steps.Spinner)
 
   const data = new FormData()
@@ -183,7 +191,7 @@ const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
         project,
         imageURL: url,
         user: {
-          email: 'lucy@infactcoop.com',
+          email,
         },
         ...values,
       })
@@ -253,6 +261,7 @@ const ControlsNext = ({
   setFieldValue,
   project,
   foodPhoto,
+  email,
 }) => {
   const routeDispatch = useRouteDispatch()
 
@@ -300,7 +309,7 @@ const ControlsNext = ({
           fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
       case Steps.Results:
         return () => {
-          return onSubmit({ setPage, project, foodPhoto })(values)
+          return onSubmit({ setPage, project, email, foodPhoto })(values)
         }
       case Steps.Success:
         return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
