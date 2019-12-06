@@ -9,7 +9,6 @@ import axios from 'axios'
 import * as R from 'ramda'
 import R_ from '../utils/R_'
 
-import { useProjectState } from '../context/projectContext'
 import { useAuth } from '../context/authContext'
 
 import * as Steps from '../components/onboarding'
@@ -65,9 +64,8 @@ const MultiStep = ({ children }) => {
   const [page, setPage] = useState(Steps.PostCode)
   const [validationSchema, setValidationSchema] = useState(Yup.object())
   const [formStatus, setFormStatus] = useState(FORM_NOT_SENT)
-  const { error, project } = useProjectState()
   const {
-    user: { name: email },
+    auth0User: { name: email },
   } = useAuth()
 
   const steps = React.Children.toArray(children)
@@ -83,12 +81,6 @@ const MultiStep = ({ children }) => {
     setPage(pages[pageIndex - 1])
   }
 
-  const initValues = () => {
-    if (error) return initialValues
-    if (project) return { ...initialValues, projects: [project] }
-    return initialValues
-  }
-
   const { validation } = activePage && activePage.type
 
   useEffect(() => {
@@ -100,12 +92,12 @@ const MultiStep = ({ children }) => {
   return (
     <Formik
       {...{
-        initialValues: initValues(),
+        initialValues,
         validationSchema,
         isInitialValid: false,
         onSubmit: onSubmit({
-          incrementPage,
           setFormStatus,
+          email,
         }),
         enableReinitialize: true,
       }}
@@ -282,7 +274,7 @@ const TopNav = ({ pageIndex, decrementPage }) => {
   const firstPage = pageIndex === 0
   return (
     <StyledTopNav {...{ firstPage }}>
-      {!firstPage && <Back onClick={decrementPage} />}
+      {!firstPage && <Back type="button" onClick={decrementPage} />}
     </StyledTopNav>
   )
 }

@@ -1,10 +1,7 @@
 import { FoodDataProvider } from './foodDataContext'
-import { ProjectProvider } from './projectContext'
 
 const AppProviders = ({ children }) => (
-  <ProjectProvider>
-    <FoodDataProvider>{children}</FoodDataProvider>
-  </ProjectProvider>
+  <FoodDataProvider>{children}</FoodDataProvider>
 )
 
 export default AppProviders
