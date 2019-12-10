@@ -1,45 +1,35 @@
 import * as Yup from 'yup'
-
+import axios from 'axios'
 import { Input, TextInput } from '../Input'
 import OnboardingStep from './OnboardingStep'
 
 const validation = Yup.object().shape({
-  postCode: Yup.string()
-    .required('Please enter the start of your postcode to continue')
-    .max(6, "Please don't enter more than the start of your postcode"),
+  postCode: Yup.string().required(
+    'Please enter the start of your postcode to continue',
+  ),
 })
 
-const validatePostCode = value => {
-  let error = ''
-  if (value.split(' ').join('').length > 5) {
-    error = "Please don't enter more than the start of your postcode"
-    return error
+const isPostCodeValid = async ({ postCode }) => {
+  const {
+    data: { postCodeArray },
+  } = await axios(
+    `${process.env.HOST}/api/is-postcode-valid?postcode=${postCode}`,
+  )
+
+  if (postCodeArray === null) {
+    return { error: 'Not a valid UK postcode' }
+  } else if (postCode.split(' ').join('').length > 5) {
+    return { error: "Please don't enter more than the start of your postcode" }
   }
+
+  return { error: '' }
 }
-// const isPostCodeValid = async ({ postCode }) => {
-//   if (postCode.length > 5) {
-//     return false
-//   }
 
-//   const {
-//     data: { postCodeIsValid },
-//   } = await axios(
-//     `${process.env.HOST}/api/is-postcode-valid?postcode=${postCode}`,
-//   )
+const validatePostCode = async value => {
+  const { error } = await isPostCodeValid({ postCode: value })
 
-//   return postCodeIsValid
-// }
-
-// const validatePostCode = async value => {
-//   const postCodeExists = await isPostCodeValid({ postCode: value })
-//   let error = ''
-
-//   if (!postCodeExists) {
-//     error = 'Sorry, this is not a valid UK Postcode'
-//     return error
-//   }
-//   return error
-// }
+  return error
+}
 
 const tooltipContents = (
   <>

@@ -11,10 +11,10 @@ export default async (
     const {
       data: { result },
     } = await axios.get(
-      `https://api.postcodes.io/postcodes/${postcode}/validate`,
+      `https://api.postcodes.io/postcodes/${postcode}/autocomplete`,
     )
 
-    return res.status(200).json({ postCodeIsValid: result })
+    return res.status(200).json({ postCodeArray: result })
   } catch (e) {
     console.log(`Error validating postcode ${postcode}`, e) //eslint-disable-line no-console
   }
