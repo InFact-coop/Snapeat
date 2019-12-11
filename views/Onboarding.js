@@ -67,7 +67,6 @@ const MultiStep = ({ children }) => {
   const {
     auth0User: { name: email },
   } = useAuth()
-
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
@@ -186,6 +185,10 @@ const onSubmit = ({ setFormStatus, email }) => async values => {
       phoneNumber,
     })
 
+    axios.post(`${process.env.HOST}/api/upload-user-to-airtable`, {
+      ...values,
+      user,
+    })
     //eslint-disable-next-line no-console
     console.log('Onboarding successful', user)
 

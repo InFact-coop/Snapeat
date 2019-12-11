@@ -338,6 +338,8 @@ export interface ClientConstructor<T> {
 export type MealOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "airtableId_ASC"
+  | "airtableId_DESC"
   | "imageURL_ASC"
   | "imageURL_DESC"
   | "updatedAt_ASC"
@@ -348,6 +350,8 @@ export type MealOrderByInput =
 export type ProjectOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "airtableId_ASC"
+  | "airtableId_DESC"
   | "name_ASC"
   | "name_DESC"
   | "slug_ASC"
@@ -360,6 +364,8 @@ export type ProjectOrderByInput =
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "airtableId_ASC"
+  | "airtableId_DESC"
   | "consentGDPR_ASC"
   | "consentGDPR_DESC"
   | "postCode_ASC"
@@ -376,6 +382,8 @@ export type UserOrderByInput =
 export type ChildOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "airtableId_ASC"
+  | "airtableId_DESC"
   | "age_ASC"
   | "age_DESC"
   | "updatedAt_ASC"
@@ -386,6 +394,8 @@ export type ChildOrderByInput =
 export type CategoryOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "airtableId_ASC"
+  | "airtableId_DESC"
   | "name_ASC"
   | "name_DESC"
   | "updatedAt_ASC"
@@ -396,6 +406,8 @@ export type CategoryOrderByInput =
 export type TagOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "airtableId_ASC"
+  | "airtableId_DESC"
   | "name_ASC"
   | "name_DESC"
   | "updatedAt_ASC"
@@ -406,6 +418,8 @@ export type TagOrderByInput =
 export type ProportionOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "airtableId_ASC"
+  | "airtableId_DESC"
   | "name_ASC"
   | "name_DESC"
   | "updatedAt_ASC"
@@ -422,10 +436,12 @@ export interface TagUpdateWithWhereUniqueWithoutMealsInput {
 
 export type CategoryWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }>;
 
 export interface TagUpdateManyDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }
 
@@ -444,6 +460,20 @@ export interface CategoryWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -506,6 +536,20 @@ export interface ProportionWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -548,6 +592,7 @@ export interface ProportionWhereInput {
 }
 
 export interface UserUpdateWithoutMealsDataInput {
+  airtableId?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
@@ -557,6 +602,7 @@ export interface UserUpdateWithoutMealsDataInput {
 }
 
 export interface MealUpdateManyMutationInput {
+  airtableId?: Maybe<String>;
   imageURL?: Maybe<String>;
 }
 
@@ -584,6 +630,7 @@ export interface ProjectUpdateManyWithoutUsersInput {
 }
 
 export interface ProportionUpdateWithoutFruitMealsDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   vegMeals?: Maybe<MealUpdateManyWithoutProportionVegInput>;
 }
@@ -605,6 +652,7 @@ export interface TagSubscriptionWhereInput {
 }
 
 export interface ProjectUpdateWithoutUsersDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   slug?: Maybe<String>;
 }
@@ -624,6 +672,20 @@ export interface ProjectWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -708,6 +770,20 @@ export interface ProjectScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -772,6 +848,20 @@ export interface MealWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   user?: Maybe<UserWhereInput>;
   imageURL?: Maybe<String>;
   imageURL_not?: Maybe<String>;
@@ -837,11 +927,13 @@ export interface CategorySubscriptionWhereInput {
 }
 
 export interface ProjectUpdateManyDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   slug?: Maybe<String>;
 }
 
 export interface UserUpdateInput {
+  airtableId?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
@@ -874,6 +966,7 @@ export interface ChildUpdateManyWithoutParentInput {
 }
 
 export interface TagUpdateManyMutationInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }
 
@@ -889,6 +982,7 @@ export interface MealUpsertWithWhereUniqueWithoutTagsInput {
 }
 
 export interface ChildUpdateWithoutParentDataInput {
+  airtableId?: Maybe<String>;
   age?: Maybe<String>;
 }
 
@@ -938,6 +1032,20 @@ export interface ChildScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   age?: Maybe<String>;
   age_not?: Maybe<String>;
   age_in?: Maybe<String[] | String>;
@@ -975,6 +1083,7 @@ export interface ChildScalarWhereInput {
 
 export interface MealCreateWithoutTagsInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   user: UserCreateOneWithoutMealsInput;
   imageURL: String;
   categories?: Maybe<CategoryCreateManyWithoutMealsInput>;
@@ -993,10 +1102,12 @@ export interface MealCreateManyWithoutTagsInput {
 }
 
 export interface ChildUpdateManyDataInput {
+  airtableId?: Maybe<String>;
   age?: Maybe<String>;
 }
 
 export interface ProportionUpdateManyMutationInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }
 
@@ -1006,6 +1117,7 @@ export interface UserUpsertWithoutMealsInput {
 }
 
 export interface ProportionUpdateInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   fruitMeals?: Maybe<MealUpdateManyWithoutProportionFruitInput>;
   vegMeals?: Maybe<MealUpdateManyWithoutProportionVegInput>;
@@ -1032,11 +1144,13 @@ export interface TagUpdateManyWithoutMealsInput {
 }
 
 export interface ProjectUpdateManyMutationInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   slug?: Maybe<String>;
 }
 
 export interface ProjectUpdateInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   slug?: Maybe<String>;
   users?: Maybe<UserUpdateManyWithoutProjectsInput>;
@@ -1044,10 +1158,12 @@ export interface ProjectUpdateInput {
 
 export type TagWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }>;
 
 export interface TagUpdateWithoutMealsDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }
 
@@ -1066,6 +1182,20 @@ export interface UserScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   consentGDPR_not?: Maybe<Boolean>;
   postCode?: Maybe<String>;
@@ -1139,6 +1269,7 @@ export interface TagUpsertWithWhereUniqueWithoutMealsInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   email?: Maybe<String>;
   phoneNumber?: Maybe<String>;
 }>;
@@ -1158,6 +1289,20 @@ export interface TagScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -1225,6 +1370,20 @@ export interface TagWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -1283,6 +1442,20 @@ export interface ChildWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   Parent?: Maybe<UserWhereInput>;
   age?: Maybe<String>;
   age_not?: Maybe<String>;
@@ -1328,6 +1501,7 @@ export interface ProjectCreateManyWithoutUsersInput {
 
 export interface UserCreateWithoutProjectsInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   consentGDPR: Boolean;
   postCode: String;
   email: String;
@@ -1381,6 +1555,7 @@ export interface ProportionCreateOneWithoutFruitMealsInput {
 }
 
 export interface MealUpdateWithoutProportionVegDataInput {
+  airtableId?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredWithoutMealsInput>;
   imageURL?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutMealsInput>;
@@ -1436,6 +1611,7 @@ export interface ProportionCreateOneWithoutVegMealsInput {
 }
 
 export interface CategoryUpdateWithoutMealsDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }
 
@@ -1454,6 +1630,7 @@ export interface CategoryUpsertWithWhereUniqueWithoutMealsInput {
 }
 
 export interface CategoryUpdateInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   meals?: Maybe<MealUpdateManyWithoutCategoriesInput>;
 }
@@ -1473,6 +1650,20 @@ export interface CategoryScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -1526,6 +1717,7 @@ export interface UserUpdateOneRequiredWithoutMealsInput {
 }
 
 export interface CategoryUpdateManyDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }
 
@@ -1567,6 +1759,20 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   consentGDPR_not?: Maybe<Boolean>;
   postCode?: Maybe<String>;
@@ -1656,6 +1862,20 @@ export interface MealScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
+  airtableId_not?: Maybe<String>;
+  airtableId_in?: Maybe<String[] | String>;
+  airtableId_not_in?: Maybe<String[] | String>;
+  airtableId_lt?: Maybe<String>;
+  airtableId_lte?: Maybe<String>;
+  airtableId_gt?: Maybe<String>;
+  airtableId_gte?: Maybe<String>;
+  airtableId_contains?: Maybe<String>;
+  airtableId_not_contains?: Maybe<String>;
+  airtableId_starts_with?: Maybe<String>;
+  airtableId_not_starts_with?: Maybe<String>;
+  airtableId_ends_with?: Maybe<String>;
+  airtableId_not_ends_with?: Maybe<String>;
   imageURL?: Maybe<String>;
   imageURL_not?: Maybe<String>;
   imageURL_in?: Maybe<String[] | String>;
@@ -1692,6 +1912,7 @@ export interface MealScalarWhereInput {
 }
 
 export interface UserUpdateManyMutationInput {
+  airtableId?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
@@ -1705,14 +1926,17 @@ export interface MealUpdateManyWithWhereNestedInput {
 
 export type ChildWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
 }>;
 
 export interface MealUpdateManyDataInput {
+  airtableId?: Maybe<String>;
   imageURL?: Maybe<String>;
 }
 
 export type MealWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
 }>;
 
 export interface ProportionUpsertWithoutFruitMealsInput {
@@ -1722,6 +1946,7 @@ export interface ProportionUpsertWithoutFruitMealsInput {
 
 export type ProjectWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   slug?: Maybe<String>;
 }>;
 
@@ -1736,15 +1961,18 @@ export interface ProportionUpdateOneWithoutVegMealsInput {
 
 export type ProportionWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }>;
 
 export interface ProportionUpdateWithoutVegMealsDataInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   fruitMeals?: Maybe<MealUpdateManyWithoutProportionFruitInput>;
 }
 
 export interface UserUpdateManyDataInput {
+  airtableId?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
@@ -1808,6 +2036,7 @@ export interface UserUpdateManyWithoutProjectsInput {
 }
 
 export interface MealUpdateWithoutProportionFruitDataInput {
+  airtableId?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredWithoutMealsInput>;
   imageURL?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutMealsInput>;
@@ -1817,6 +2046,7 @@ export interface MealUpdateWithoutProportionFruitDataInput {
 
 export interface MealCreateWithoutCategoriesInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   user: UserCreateOneWithoutMealsInput;
   imageURL: String;
   tags?: Maybe<TagCreateManyWithoutMealsInput>;
@@ -1832,6 +2062,7 @@ export interface MealUpsertWithWhereUniqueWithoutProportionFruitInput {
 
 export interface ProjectCreateWithoutUsersInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
   slug: String;
 }
@@ -1843,6 +2074,7 @@ export interface ProportionUpsertWithoutVegMealsInput {
 
 export interface TagCreateWithoutMealsInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
 }
 
@@ -1854,6 +2086,7 @@ export interface MealUpsertWithWhereUniqueWithoutCategoriesInput {
 
 export interface MealCreateWithoutProportionVegInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   user: UserCreateOneWithoutMealsInput;
   imageURL: String;
   categories?: Maybe<CategoryCreateManyWithoutMealsInput>;
@@ -1862,11 +2095,13 @@ export interface MealCreateWithoutProportionVegInput {
 }
 
 export interface CategoryUpdateManyMutationInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
 }
 
 export interface ProportionCreateWithoutVegMealsInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
   fruitMeals?: Maybe<MealCreateManyWithoutProportionFruitInput>;
 }
@@ -1902,6 +2137,7 @@ export interface MealUpdateManyWithoutCategoriesInput {
 
 export interface ProjectCreateInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
   slug: String;
   users?: Maybe<UserCreateManyWithoutProjectsInput>;
@@ -1920,6 +2156,7 @@ export interface UserSubscriptionWhereInput {
 
 export interface ChildCreateInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   Parent: UserCreateOneWithoutChildrenInput;
   age: String;
 }
@@ -1941,6 +2178,7 @@ export interface UserCreateOneWithoutChildrenInput {
 }
 
 export interface MealUpdateWithoutTagsDataInput {
+  airtableId?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredWithoutMealsInput>;
   imageURL?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutMealsInput>;
@@ -1950,6 +2188,7 @@ export interface MealUpdateWithoutTagsDataInput {
 
 export interface UserCreateWithoutChildrenInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   consentGDPR: Boolean;
   postCode: String;
   email: String;
@@ -1960,6 +2199,7 @@ export interface UserCreateWithoutChildrenInput {
 
 export interface TagCreateInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
   meals?: Maybe<MealCreateManyWithoutTagsInput>;
 }
@@ -1976,6 +2216,7 @@ export interface UserUpdateManyWithWhereNestedInput {
 
 export interface MealCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   imageURL: String;
   categories?: Maybe<CategoryCreateManyWithoutMealsInput>;
   tags?: Maybe<TagCreateManyWithoutMealsInput>;
@@ -1985,17 +2226,20 @@ export interface MealCreateWithoutUserInput {
 
 export interface CategoryCreateInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
   meals?: Maybe<MealCreateManyWithoutCategoriesInput>;
 }
 
 export interface ChildUpdateInput {
+  airtableId?: Maybe<String>;
   Parent?: Maybe<UserUpdateOneRequiredWithoutChildrenInput>;
   age?: Maybe<String>;
 }
 
 export interface ChildCreateWithoutParentInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   age: String;
 }
 
@@ -2008,10 +2252,12 @@ export interface UserUpdateOneRequiredWithoutChildrenInput {
 
 export interface CategoryCreateWithoutMealsInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
 }
 
 export interface UserUpdateWithoutChildrenDataInput {
+  airtableId?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
@@ -2021,6 +2267,7 @@ export interface UserUpdateWithoutChildrenDataInput {
 }
 
 export interface MealUpdateWithoutCategoriesDataInput {
+  airtableId?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredWithoutMealsInput>;
   imageURL?: Maybe<String>;
   tags?: Maybe<TagUpdateManyWithoutMealsInput>;
@@ -2050,6 +2297,7 @@ export interface MealUpdateManyWithoutUserInput {
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   consentGDPR: Boolean;
   postCode: String;
   email: String;
@@ -2066,12 +2314,14 @@ export interface MealUpdateWithWhereUniqueWithoutUserInput {
 
 export interface ProportionCreateInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
   fruitMeals?: Maybe<MealCreateManyWithoutProportionFruitInput>;
   vegMeals?: Maybe<MealCreateManyWithoutProportionVegInput>;
 }
 
 export interface MealUpdateWithoutUserDataInput {
+  airtableId?: Maybe<String>;
   imageURL?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutMealsInput>;
   tags?: Maybe<TagUpdateManyWithoutMealsInput>;
@@ -2081,6 +2331,7 @@ export interface MealUpdateWithoutUserDataInput {
 
 export interface UserCreateWithoutMealsInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   consentGDPR: Boolean;
   postCode: String;
   email: String;
@@ -2097,6 +2348,7 @@ export interface MealUpsertWithWhereUniqueWithoutUserInput {
 
 export interface MealCreateWithoutProportionFruitInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   user: UserCreateOneWithoutMealsInput;
   imageURL: String;
   categories?: Maybe<CategoryCreateManyWithoutMealsInput>;
@@ -2105,6 +2357,7 @@ export interface MealCreateWithoutProportionFruitInput {
 }
 
 export interface MealUpdateInput {
+  airtableId?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredWithoutMealsInput>;
   imageURL?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutMealsInput>;
@@ -2115,6 +2368,7 @@ export interface MealUpdateInput {
 
 export interface MealCreateInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   user: UserCreateOneWithoutMealsInput;
   imageURL: String;
   categories?: Maybe<CategoryCreateManyWithoutMealsInput>;
@@ -2124,6 +2378,7 @@ export interface MealCreateInput {
 }
 
 export interface ChildUpdateManyMutationInput {
+  airtableId?: Maybe<String>;
   age?: Maybe<String>;
 }
 
@@ -2145,11 +2400,13 @@ export interface ProjectSubscriptionWhereInput {
 
 export interface ProportionCreateWithoutFruitMealsInput {
   id?: Maybe<ID_Input>;
+  airtableId?: Maybe<String>;
   name: String;
   vegMeals?: Maybe<MealCreateManyWithoutProportionVegInput>;
 }
 
 export interface UserUpdateWithoutProjectsDataInput {
+  airtableId?: Maybe<String>;
   consentGDPR?: Maybe<Boolean>;
   postCode?: Maybe<String>;
   email?: Maybe<String>;
@@ -2159,6 +2416,7 @@ export interface UserUpdateWithoutProjectsDataInput {
 }
 
 export interface TagUpdateInput {
+  airtableId?: Maybe<String>;
   name?: Maybe<String>;
   meals?: Maybe<MealUpdateManyWithoutTagsInput>;
 }
@@ -2169,6 +2427,7 @@ export interface NodeNode {
 
 export interface UserPreviousValues {
   id: ID_Output;
+  airtableId?: String;
   consentGDPR: Boolean;
   postCode: String;
   email: String;
@@ -2181,6 +2440,7 @@ export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   consentGDPR: () => Promise<Boolean>;
   postCode: () => Promise<String>;
   email: () => Promise<String>;
@@ -2193,6 +2453,7 @@ export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   consentGDPR: () => Promise<AsyncIterator<Boolean>>;
   postCode: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
@@ -2402,6 +2663,7 @@ export interface AggregateTagSubscription
 
 export interface Proportion {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -2409,6 +2671,7 @@ export interface Proportion {
 
 export interface ProportionPromise extends Promise<Proportion>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   fruitMeals: <T = FragmentableArray<Meal>>(args?: {
     where?: MealWhereInput;
@@ -2436,6 +2699,7 @@ export interface ProportionSubscription
   extends Promise<AsyncIterator<Proportion>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   fruitMeals: <T = Promise<AsyncIterator<MealSubscription>>>(args?: {
     where?: MealWhereInput;
@@ -2463,6 +2727,7 @@ export interface ProportionNullablePromise
   extends Promise<Proportion | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   fruitMeals: <T = FragmentableArray<Meal>>(args?: {
     where?: MealWhereInput;
@@ -2509,6 +2774,7 @@ export interface TagConnectionSubscription
 
 export interface User {
   id: ID_Output;
+  airtableId?: String;
   consentGDPR: Boolean;
   postCode: String;
   email: String;
@@ -2519,6 +2785,7 @@ export interface User {
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   consentGDPR: () => Promise<Boolean>;
   postCode: () => Promise<String>;
   email: () => Promise<String>;
@@ -2558,6 +2825,7 @@ export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   consentGDPR: () => Promise<AsyncIterator<Boolean>>;
   postCode: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
@@ -2597,6 +2865,7 @@ export interface UserNullablePromise
   extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   consentGDPR: () => Promise<Boolean>;
   postCode: () => Promise<String>;
   email: () => Promise<String>;
@@ -2678,6 +2947,7 @@ export interface CategorySubscriptionPayloadSubscription
 
 export interface Category {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -2685,6 +2955,7 @@ export interface Category {
 
 export interface CategoryPromise extends Promise<Category>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   meals: <T = FragmentableArray<Meal>>(args?: {
     where?: MealWhereInput;
@@ -2703,6 +2974,7 @@ export interface CategorySubscription
   extends Promise<AsyncIterator<Category>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   meals: <T = Promise<AsyncIterator<MealSubscription>>>(args?: {
     where?: MealWhereInput;
@@ -2721,6 +2993,7 @@ export interface CategoryNullablePromise
   extends Promise<Category | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   meals: <T = FragmentableArray<Meal>>(args?: {
     where?: MealWhereInput;
@@ -2737,6 +3010,7 @@ export interface CategoryNullablePromise
 
 export interface CategoryPreviousValues {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -2746,6 +3020,7 @@ export interface CategoryPreviousValuesPromise
   extends Promise<CategoryPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -2755,6 +3030,7 @@ export interface CategoryPreviousValuesSubscription
   extends Promise<AsyncIterator<CategoryPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -2779,6 +3055,7 @@ export interface ProjectEdgeSubscription
 
 export interface Tag {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -2786,6 +3063,7 @@ export interface Tag {
 
 export interface TagPromise extends Promise<Tag>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   meals: <T = FragmentableArray<Meal>>(args?: {
     where?: MealWhereInput;
@@ -2804,6 +3082,7 @@ export interface TagSubscription
   extends Promise<AsyncIterator<Tag>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   meals: <T = Promise<AsyncIterator<MealSubscription>>>(args?: {
     where?: MealWhereInput;
@@ -2820,6 +3099,7 @@ export interface TagSubscription
 
 export interface TagNullablePromise extends Promise<Tag | null>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   meals: <T = FragmentableArray<Meal>>(args?: {
     where?: MealWhereInput;
@@ -2898,6 +3178,7 @@ export interface MealConnectionSubscription
 
 export interface ChildPreviousValues {
   id: ID_Output;
+  airtableId?: String;
   age: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -2907,6 +3188,7 @@ export interface ChildPreviousValuesPromise
   extends Promise<ChildPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   age: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -2916,6 +3198,7 @@ export interface ChildPreviousValuesSubscription
   extends Promise<AsyncIterator<ChildPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   age: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -2940,6 +3223,7 @@ export interface ChildEdgeSubscription
 
 export interface Child {
   id: ID_Output;
+  airtableId?: String;
   age: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -2947,6 +3231,7 @@ export interface Child {
 
 export interface ChildPromise extends Promise<Child>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   Parent: <T = UserPromise>() => T;
   age: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -2957,6 +3242,7 @@ export interface ChildSubscription
   extends Promise<AsyncIterator<Child>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   Parent: <T = UserSubscription>() => T;
   age: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -2967,6 +3253,7 @@ export interface ChildNullablePromise
   extends Promise<Child | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   Parent: <T = UserPromise>() => T;
   age: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -3033,6 +3320,7 @@ export interface TagEdgeSubscription
 
 export interface MealPreviousValues {
   id: ID_Output;
+  airtableId?: String;
   imageURL: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -3042,6 +3330,7 @@ export interface MealPreviousValuesPromise
   extends Promise<MealPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   imageURL: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -3051,6 +3340,7 @@ export interface MealPreviousValuesSubscription
   extends Promise<AsyncIterator<MealPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   imageURL: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -3079,6 +3369,7 @@ export interface ProportionConnectionSubscription
 
 export interface TagPreviousValues {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -3088,6 +3379,7 @@ export interface TagPreviousValuesPromise
   extends Promise<TagPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -3097,6 +3389,7 @@ export interface TagPreviousValuesSubscription
   extends Promise<AsyncIterator<TagPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -3187,6 +3480,7 @@ export interface UserConnectionSubscription
 
 export interface ProportionPreviousValues {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -3196,6 +3490,7 @@ export interface ProportionPreviousValuesPromise
   extends Promise<ProportionPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -3205,6 +3500,7 @@ export interface ProportionPreviousValuesSubscription
   extends Promise<AsyncIterator<ProportionPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -3237,6 +3533,7 @@ export interface ProportionSubscriptionPayloadSubscription
 
 export interface Project {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   slug: String;
   updatedAt: DateTimeOutput;
@@ -3245,6 +3542,7 @@ export interface Project {
 
 export interface ProjectPromise extends Promise<Project>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   slug: () => Promise<String>;
   users: <T = FragmentableArray<User>>(args?: {
@@ -3264,6 +3562,7 @@ export interface ProjectSubscription
   extends Promise<AsyncIterator<Project>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   slug: () => Promise<AsyncIterator<String>>;
   users: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
@@ -3283,6 +3582,7 @@ export interface ProjectNullablePromise
   extends Promise<Project | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   slug: () => Promise<String>;
   users: <T = FragmentableArray<User>>(args?: {
@@ -3300,6 +3600,7 @@ export interface ProjectNullablePromise
 
 export interface ProjectPreviousValues {
   id: ID_Output;
+  airtableId?: String;
   name: String;
   slug: String;
   updatedAt: DateTimeOutput;
@@ -3310,6 +3611,7 @@ export interface ProjectPreviousValuesPromise
   extends Promise<ProjectPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   name: () => Promise<String>;
   slug: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -3320,6 +3622,7 @@ export interface ProjectPreviousValuesSubscription
   extends Promise<AsyncIterator<ProjectPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   slug: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -3344,6 +3647,7 @@ export interface AggregateProportionSubscription
 
 export interface Meal {
   id: ID_Output;
+  airtableId?: String;
   imageURL: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -3351,6 +3655,7 @@ export interface Meal {
 
 export interface MealPromise extends Promise<Meal>, Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   user: <T = UserPromise>() => T;
   imageURL: () => Promise<String>;
   categories: <T = FragmentableArray<Category>>(args?: {
@@ -3381,6 +3686,7 @@ export interface MealSubscription
   extends Promise<AsyncIterator<Meal>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  airtableId: () => Promise<AsyncIterator<String>>;
   user: <T = UserSubscription>() => T;
   imageURL: () => Promise<AsyncIterator<String>>;
   categories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
@@ -3411,6 +3717,7 @@ export interface MealNullablePromise
   extends Promise<Meal | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  airtableId: () => Promise<String>;
   user: <T = UserPromise>() => T;
   imageURL: () => Promise<String>;
   categories: <T = FragmentableArray<Category>>(args?: {
