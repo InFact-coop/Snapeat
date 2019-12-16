@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { useRouteDispatch } from '../context/routeContext'
-import { CHANGE_VIEW, HOME } from '../utils/constants'
+import { useRouteDispatch } from '../../context/routeContext'
+import { CHANGE_VIEW, HOME } from '../../utils/constants'
 
-import logo from '../public/logos/logo1.svg'
-import successBG from '../public/backgrounds/success_bg.svg'
+import logo from '../../public/logos/logo1.svg'
+import successBG from '../../public/backgrounds/success_bg.svg'
 
 const Success = () => {
   const routeDispatch = useRouteDispatch()

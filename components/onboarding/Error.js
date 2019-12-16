@@ -15,6 +15,7 @@ const Error = () => {
       <Text className="font-bold text-red">
         Oh no, it looks like something went wrong.
       </Text>
+      <p className="text-center text-lg text-red mb-4">Please try again.</p>
       <p className="text-center text-lg text-red mb-4">
         Please let us know what happened by{' '}
         <a

@@ -118,16 +118,14 @@ const RadioTile = ({ name, icon, iconSelected, label, id }) => {
 }
 
 const CardBackground = styled.section.attrs({
-  className: 'z-10 w-screen bg-white shadow-tooltip pb-4 absolute',
+  className: 'z-10 w-screen bg-white shadow-tooltip pb-4',
 })`
-  top: 300px;
-  padding-bottom: 110px;
   border-top-left-radius: 4em;
   border-top-right-radius: 4em;
 `
 
 const Title = styled.h1.attrs({
-  className: 'font-xxl text-center mb-5 mt-5',
+  className: 'font-xxl text-center py-5',
 })``
 
 const FruitVegTile = styled.div`

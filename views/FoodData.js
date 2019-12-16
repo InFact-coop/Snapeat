@@ -14,7 +14,7 @@ import {
 
 import { useRouteDispatch } from '../context/routeContext'
 import { useFoodDataState } from '../context/foodDataContext'
-import { useProjectState } from '../context/projectContext'
+import { useAuth } from '../context/authContext'
 
 import * as Steps from '../components/foodData'
 import Categories from '../components/foodData/Categories'
@@ -60,7 +60,8 @@ const FoodData = () => {
 
 const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
-  const { project } = useProjectState()
+
+  const { snapeatUser } = useAuth()
 
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
@@ -89,6 +90,19 @@ const MultiStep = ({ children }) => {
 
   const { validation } = activePage && activePage.type
 
+  const formLayout = () => {
+    switch (page) {
+      case Steps.Success:
+        return false
+      case Steps.Spinner:
+        return false
+      case Steps.Error:
+        return false
+      default:
+        return true
+    }
+  }
+
   return (
     <Formik
       {...{
@@ -96,6 +110,7 @@ const MultiStep = ({ children }) => {
         validation,
         onSubmit: onSubmit({
           incrementPage,
+          snapeatUser,
         }),
         enableReinitialize: false,
       }}
@@ -106,40 +121,42 @@ const MultiStep = ({ children }) => {
             <ControlsBack
               {...{ decrementPage, page, lastPage, updatePage, values }}
             />
-            {!(page === (Steps.Success || Steps.Spinner || Steps.Error)) && (
+            {formLayout() && (
               <ImageContainer className="relative" src={foodPhoto.fileURL} />
             )}
-            <StyledForm>
-              <RenderStep
+            <FormContainer formLayout={formLayout} page={page}>
+              <StyledForm>
+                <RenderStep
+                  {...{
+                    validateForm,
+                    page,
+                    setTouched,
+                    activePage,
+                    props: {
+                      setPage,
+                      updatePage,
+                      values,
+                      incrementPage,
+                      decrementPage,
+                      setFieldValue,
+                      errors,
+                    },
+                  }}
+                />
+              </StyledForm>
+              <ControlsNext
                 {...{
-                  validateForm,
+                  incrementPage,
                   page,
-                  setTouched,
-                  activePage,
-                  props: {
-                    setPage,
-                    updatePage,
-                    values,
-                    incrementPage,
-                    decrementPage,
-                    setFieldValue,
-                    errors,
-                  },
+                  lastPage,
+                  values,
+                  setPage,
+                  setFieldValue,
+                  foodPhoto,
+                  snapeatUser,
                 }}
               />
-            </StyledForm>
-            <ControlsNext
-              {...{
-                incrementPage,
-                page,
-                lastPage,
-                values,
-                setPage,
-                setFieldValue,
-                foodPhoto,
-                project,
-              }}
-            />
+            </FormContainer>
           </Container>
         )
       }}
@@ -147,7 +164,11 @@ const MultiStep = ({ children }) => {
   )
 }
 
-const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
+const onSubmit = ({
+  setPage,
+  snapeatUser: { email },
+  foodPhoto,
+}) => async values => {
   setPage(Steps.Spinner)
 
   const data = new FormData()
@@ -165,10 +186,9 @@ const onSubmit = ({ setPage, project, foodPhoto }) => async values => {
     // upload meal to DB
     axios
       .post(`${process.env.HOST}/api/submit-food-data`, {
-        project,
         imageURL: url,
         user: {
-          email: 'lucy@infactcoop.com',
+          email,
         },
         ...values,
       })
@@ -236,8 +256,8 @@ const ControlsNext = ({
   setPage,
   values,
   setFieldValue,
-  project,
   foodPhoto,
+  snapeatUser,
 }) => {
   const routeDispatch = useRouteDispatch()
 
@@ -284,7 +304,9 @@ const ControlsNext = ({
         return () =>
           fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
       case Steps.Results:
-        return () => onSubmit({ setPage, project, foodPhoto })(values)
+        return () => {
+          return onSubmit({ setPage, snapeatUser, foodPhoto })(values)
+        }
       case Steps.Success:
         return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
       case Steps.Error:
@@ -341,7 +363,7 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
 }
 
 const StyledForm = styled(Form).attrs({
-  className: 'bg-lightgray px-4 flex flex-col items-center',
+  className: 'bg-lightgray flex flex-col items-center',
 })``
 
 const ImageContainer = styled.div.attrs({
@@ -364,9 +386,8 @@ const Back = styled.button.attrs({
 })``
 
 const StyledControlsNext = styled.nav.attrs({
-  className: 'flex justify-center pt-4 fixed w-full bg-white',
+  className: 'flex justify-center pt-4 w-full bg-white',
 })`
-  bottom: 0;
   z-index: 30000;
 `
 
@@ -385,6 +406,16 @@ const Next = styled.button.attrs({
 
 const Container = styled.main`
   background-color: ${cssTheme('colors.white')};
+`
+const FormContainer = styled.div.attrs({
+  className: 'absolute',
+})`
+  top: ${({ page, formLayout }) => {
+    return formLayout(page) ? `300px;` : `0px;`
+  }};
+  min-height: ${({ page, formLayout }) => {
+    return formLayout(page) ? `auto;` : `100%;`
+  }};
 `
 
 export default FoodData

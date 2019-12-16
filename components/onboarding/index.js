@@ -1,5 +1,6 @@
 export const PostCode = 'PostCode'
-export const Children = 'Children'
+export const NumberOfChildren = 'NumberOfChildren'
 export const Ages = 'Ages'
 export const Projects = 'Projects'
+export const Phone = 'Phone'
 export const Confirmation = 'Confirmation'

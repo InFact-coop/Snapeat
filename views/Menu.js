@@ -59,7 +59,7 @@ const Menu = () => {
           Terms & Conditions
         </div>
         <div
-          className="mb-2"
+          className="mb-9d5"
           onClick={() =>
             routeDispatch({ type: CHANGE_VIEW, view: PRIVACY_AUTH })
           }
@@ -69,6 +69,10 @@ const Menu = () => {
         >
           Privacy
         </div>
+
+        <a className="mb-2" href="https://airtable.com/shrA8ckDkLTVqLoab">
+          Report problem
+        </a>
         {/* useful for dev routing */}
         {/* <div
           className="mb-2"
