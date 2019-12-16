@@ -26,24 +26,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       mealId,
     } = req.body
 
-    const prismaCategories = await prisma.categories()
-    const prismaTags = await prisma.tags()
-    const prismaProportions = await prisma.proportions()
+    const dbCategories = await prisma.categories()
+    const dbTags = await prisma.tags()
+    const dbProportions = await prisma.proportions()
+    interface AirtableDbLink {
+      name: string
+      airtableId: string
+    }
 
-    const getAirtableIds = (airtableArray, prismaArray) =>
+    const getAirtableIds = (airtableArray: AirtableDbLink[], prismaArray) =>
       R.pipe(
-        x => R.filter(({ name }) => R.contains(name)(airtableArray))(x as any),
-        x =>
-          R.map(
-            ({ airtableId }: { name: string; airtableId: string }) =>
-              airtableId,
-          )(x as any),
+        x => R.filter(({ name }) => R.contains(name)(airtableArray))(x),
+        x => R.map(({ airtableId }) => airtableId)(x as AirtableDbLink[]),
       )(prismaArray)
 
-    const Categories = getAirtableIds(categories, prismaCategories)
-    const Tags = getAirtableIds(tags, prismaTags)
-    const ProportionFruit = getAirtableIds([proportionFruit], prismaProportions)
-    const ProportionVeg = getAirtableIds([proportionVeg], prismaProportions)
+    const Categories = getAirtableIds(categories, dbCategories)
+    const Tags = getAirtableIds(tags, dbTags)
+    const ProportionFruit = getAirtableIds([proportionFruit], dbProportions)
+    const ProportionVeg = getAirtableIds([proportionVeg], dbProportions)
 
     const [{ id: airtableMeal }] = await base('Meals').create([
       {
