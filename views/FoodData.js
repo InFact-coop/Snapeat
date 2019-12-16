@@ -160,12 +160,12 @@ const MultiStep = ({ children }) => {
                 {...{
                   incrementPage,
                   page,
-                  lastPage,
                   values,
                   setPage,
                   setFieldValue,
                   foodPhoto,
                   snapeatUser,
+                  reachedResults,
                 }}
               />
             </FormContainer>
@@ -271,61 +271,61 @@ const ControlsBack = ({
 const ControlsNext = ({
   incrementPage,
   page,
-  lastPage,
   setPage,
   values,
   setFieldValue,
   foodPhoto,
   snapeatUser,
+  reachedResults,
 }) => {
   const routeDispatch = useRouteDispatch()
+  const fruitSelected = values.categories.includes(FRUIT)
+  const fruitProportionEmpty = values.proportionFruit === ''
+  const vegetablesSelected = values.categories.includes(VEGETABLES)
+  const vegetableProportionEmpty = values.proportionVeg === ''
 
-  const nextOnClick = () => {
-    const fruitSelected = values.categories.includes(FRUIT)
-    const fruitProportionEmpty = values.proportionFruit === ''
-    const vegetablesSelected = values.categories.includes(VEGETABLES)
-    const vegetableProportionEmpty = values.proportionVeg === ''
-
-    // resets proportion values if fruit/veg have been unselected
-    if (!fruitSelected && !fruitProportionEmpty) {
-      setFieldValue('proportionFruit', '')
-    }
-    if (!vegetablesSelected && !vegetableProportionEmpty) {
-      setFieldValue('proportionVeg', '')
-    }
-
-    // handles returning to results page if editing answers from there
-    if (lastPage === 'Results') {
-      return () => {
-        if (fruitProportionEmpty && fruitSelected) {
-          setPage(Steps.FruitProportion)
-        } else if (vegetableProportionEmpty && vegetablesSelected) {
-          setPage(Steps.VegetableProportion)
-        } else {
-          setPage(Steps.Results)
-        }
-      }
-    }
-
-    // regular functions for next button
+  const getNextPage = () => {
     switch (page) {
       case Steps.Categories:
         return () => {
+          if (reachedResults) {
+            if (vegetablesSelected && vegetableProportionEmpty) {
+              return setPage(Steps.VegetableProportion)
+            }
+
+            if (fruitSelected && fruitProportionEmpty) {
+              return setPage(Steps.FruitProportion)
+            }
+            return setPage(Steps.Results)
+          }
+
           if (vegetablesSelected) {
             return setPage(Steps.VegetableProportion)
           }
+
           if (fruitSelected) {
             return setPage(Steps.FruitProportion)
           }
+
           return setPage(Steps.Tags)
         }
       case Steps.VegetableProportion:
-        return () =>
-          fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
-      case Steps.Results:
         return () => {
-          return onSubmit({ setPage, snapeatUser, foodPhoto })(values)
+          if (reachedResults) {
+            if (fruitSelected && fruitProportionEmpty) {
+              return setPage(Steps.FruitProportion)
+            }
+            return setPage(Steps.Results)
+          }
+          return fruitSelected
+            ? setPage(Steps.FruitProportion)
+            : setPage(Steps.Tags)
         }
+      case Steps.FruitProportion:
+        return () =>
+          reachedResults ? setPage(Steps.Results) : setPage(Steps.Tags)
+      case Steps.Results:
+        return () => onSubmit({ setPage, snapeatUser, foodPhoto })(values)
       case Steps.Success:
         return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
       case Steps.Error:
@@ -335,18 +335,32 @@ const ControlsNext = ({
     }
   }
 
+  const nextOnClick = () => {
+    // resets proportion values if fruit/veg have been unselected
+    if (!fruitSelected && !fruitProportionEmpty) {
+      setFieldValue('proportionFruit', '')
+    }
+
+    if (!vegetablesSelected && !vegetableProportionEmpty) {
+      setFieldValue('proportionVeg', '')
+    }
+
+    // regular functions for next button
+    return getNextPage(vegetablesSelected, fruitSelected)
+  }
+
   switch (page) {
     case Steps.Success: {
       return (
         <StyledControlsDone>
-          <Next onClick={nextOnClick()}>Done</Next>
+          <Next onClick={() => nextOnClick()()}>Done</Next>
         </StyledControlsDone>
       )
     }
     case Steps.Error: {
       return (
         <StyledControlsDone>
-          <Next onClick={nextOnClick()}>Try again</Next>
+          <Next onClick={() => nextOnClick()()}>Try again</Next>
         </StyledControlsDone>
       )
     }
@@ -357,11 +371,11 @@ const ControlsNext = ({
       return (
         <StyledControlsNext>
           {page === Steps.Results ? (
-            <Next type="submit" onClick={nextOnClick()}>
+            <Next type="submit" onClick={() => nextOnClick()()}>
               <img src={nextIcon} alt="Next" />
             </Next>
           ) : (
-            <Next onClick={nextOnClick()}>
+            <Next onClick={() => nextOnClick()()}>
               <img src={nextIcon} alt="Next" />
             </Next>
           )}
