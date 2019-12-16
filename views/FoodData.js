@@ -284,54 +284,43 @@ const ControlsNext = ({
   const vegetablesSelected = values.categories.includes(VEGETABLES)
   const vegetableProportionEmpty = values.proportionVeg === ''
 
+  const getNextFromCategories = () => {
+    if (vegetablesSelected && vegetableProportionEmpty) {
+      return setPage(Steps.VegetableProportion)
+    }
+    if (fruitSelected && fruitProportionEmpty) {
+      return setPage(Steps.FruitProportion)
+    }
+    if (reachedResults) {
+      return setPage(Steps.Results)
+    }
+    return setPage(Steps.Tags)
+  }
+
   const getNextPage = () => {
     switch (page) {
       case Steps.Categories:
-        return () => {
-          if (reachedResults) {
-            if (vegetablesSelected && vegetableProportionEmpty) {
-              return setPage(Steps.VegetableProportion)
-            }
+        return getNextFromCategories()
 
-            if (fruitSelected && fruitProportionEmpty) {
-              return setPage(Steps.FruitProportion)
-            }
-            return setPage(Steps.Results)
-          }
-
-          if (vegetablesSelected) {
-            return setPage(Steps.VegetableProportion)
-          }
-
-          if (fruitSelected) {
-            return setPage(Steps.FruitProportion)
-          }
-
-          return setPage(Steps.Tags)
-        }
       case Steps.VegetableProportion:
-        return () => {
-          if (reachedResults) {
-            if (fruitSelected && fruitProportionEmpty) {
-              return setPage(Steps.FruitProportion)
-            }
-            return setPage(Steps.Results)
-          }
-          return fruitSelected
-            ? setPage(Steps.FruitProportion)
-            : setPage(Steps.Tags)
+        if (fruitSelected && fruitProportionEmpty) {
+          return setPage(Steps.FruitProportion)
         }
+        if (reachedResults) {
+          return setPage(Steps.Results)
+        }
+        return setPage(Steps.Tags)
+
       case Steps.FruitProportion:
-        return () =>
-          reachedResults ? setPage(Steps.Results) : setPage(Steps.Tags)
+        return reachedResults ? setPage(Steps.Results) : setPage(Steps.Tags)
       case Steps.Results:
-        return () => onSubmit({ setPage, snapeatUser, foodPhoto })(values)
+        return onSubmit({ setPage, snapeatUser, foodPhoto })(values)
       case Steps.Success:
-        return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
+        return routeDispatch({ type: CHANGE_VIEW, view: HOME })
       case Steps.Error:
-        return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
+        return routeDispatch({ type: CHANGE_VIEW, view: HOME })
       default:
-        return incrementPage
+        return incrementPage()
     }
   }
 
@@ -353,14 +342,14 @@ const ControlsNext = ({
     case Steps.Success: {
       return (
         <StyledControlsDone>
-          <Next onClick={() => nextOnClick()()}>Done</Next>
+          <Next onClick={nextOnClick}>Done</Next>
         </StyledControlsDone>
       )
     }
     case Steps.Error: {
       return (
         <StyledControlsDone>
-          <Next onClick={() => nextOnClick()()}>Try again</Next>
+          <Next onClick={nextOnClick}>Try again</Next>
         </StyledControlsDone>
       )
     }
@@ -371,11 +360,11 @@ const ControlsNext = ({
       return (
         <StyledControlsNext>
           {page === Steps.Results ? (
-            <Next type="submit" onClick={() => nextOnClick()()}>
+            <Next type="submit" onClick={nextOnClick}>
               <img src={nextIcon} alt="Next" />
             </Next>
           ) : (
-            <Next onClick={() => nextOnClick()()}>
+            <Next onClick={nextOnClick}>
               <img src={nextIcon} alt="Next" />
             </Next>
           )}
