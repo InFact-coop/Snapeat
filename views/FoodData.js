@@ -69,12 +69,17 @@ const MultiStep = ({ children }) => {
 
   const [page, setPage] = useState(firstPage)
   const [lastPage, setLastPage] = useState(page)
+  const [reachedResults, setReachedResults] = useState(false)
 
   // tracks last page visited to help navigating between pages from results page
   const updatePage = destination => {
     setLastPage(page)
-    return setPage(destination)
+    setPage(destination)
   }
+
+  useEffect(() => {
+    return page === Steps.Results ? setReachedResults(true) : undefined
+  }, [page])
 
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
 
@@ -119,7 +124,14 @@ const MultiStep = ({ children }) => {
         return (
           <Container>
             <ControlsBack
-              {...{ decrementPage, page, lastPage, updatePage, values }}
+              {...{
+                reachedResults,
+                decrementPage,
+                page,
+                lastPage,
+                updatePage,
+                values,
+              }}
             />
             {formLayout() && (
               <ImageContainer className="relative" src={foodPhoto.fileURL} />
@@ -205,7 +217,13 @@ const onSubmit = ({
   }
 }
 
-const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
+const ControlsBack = ({
+  reachedResults,
+  decrementPage,
+  page,
+  updatePage,
+  values,
+}) => {
   const routeDispatch = useRouteDispatch()
 
   const backOnClick = () => {
@@ -236,7 +254,8 @@ const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
   }
 
   return (
-    !(page === (Steps.Success || Steps.Spinner || Steps.Error)) && (
+    !(page === (Steps.Success || Steps.Spinner || Steps.Error)) &&
+    !reachedResults && (
       <StyledControlsBack>
         <Back onClick={backOnClick()}>
           <img src={backIcon} alt="Back" />
