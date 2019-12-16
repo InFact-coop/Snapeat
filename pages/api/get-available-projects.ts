@@ -7,6 +7,8 @@ import { PROJECT_NOT_FOUND } from '../../utils/constants'
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // eslint-disable-next-line
+    console.log('prisma', prisma)
+    // eslint-disable-next-line
     debugger
     const projects = await prisma.projects()
     // eslint-disable-next-line
