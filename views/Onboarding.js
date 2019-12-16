@@ -185,7 +185,7 @@ const onSubmit = ({ setFormStatus, email }) => async values => {
       phoneNumber,
     })
 
-    axios.post(`${process.env.HOST}/api/upload-user-to-airtable`, {
+    await axios.post(`${process.env.HOST}/api/upload-user-to-airtable`, {
       ...values,
       user,
     })
