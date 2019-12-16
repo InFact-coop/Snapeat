@@ -78,7 +78,9 @@ const MultiStep = ({ children }) => {
   }
 
   useEffect(() => {
-    return page === Steps.Results ? setReachedResults(true) : undefined
+    if (page === Steps.Results) {
+      setReachedResults(true)
+    }
   }, [page])
 
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
