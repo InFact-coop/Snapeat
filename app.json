@@ -1,22 +1,8 @@
 {
-  "name": "snapeat",
-  "description": "",
-  "scripts": {},
-  "env": {
-    "HOST": {
-      "required": true
-    }
-  },
-  "formation": {
-    "web": {
-      "quantity": 1
-    }
-  },
-  "addons": [],
+  "name": "Snapeat",
   "buildpacks": [
     {
       "url": "heroku/nodejs"
     }
-  ],
-  "stack": "heroku-18"
+  ]
 }
