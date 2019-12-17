@@ -49,10 +49,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: user.id },
     })
 
-    return res.status(200)
+    return res.status(200).json({})
   } catch (e) {
     //eslint-disable-next-line no-console
     console.log('There was an error in upload-user-to-airtable:', e)
-    
+    return res.status(400).json({})
   }
 }

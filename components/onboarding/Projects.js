@@ -45,10 +45,6 @@ const Projects = ({ values, setFieldValue }) => {
         )(projects)
       } catch (e) {
         // eslint-disable-next-line
-        debugger
-        // eslint-disable-next-line
-        console.log('e', e)
-        // eslint-disable-next-line
         console.log('Inside useEffect catch')
       }
     }

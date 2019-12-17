@@ -172,7 +172,6 @@ const onSubmit = ({
   try {
     //eslint-disable-next-line no-console
     console.log('Food data values', values)
-
     // upload photo to cloudinary
     const {
       data: { url },
