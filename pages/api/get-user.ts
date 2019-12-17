@@ -10,6 +10,7 @@ fragment UserWithProjects on User {
   id
   consentGDPR
   email
+  airtableId
   projects {
     slug
   }

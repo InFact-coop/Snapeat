@@ -37,6 +37,7 @@ type BatchPayload {
 
 type Category {
   id: ID!
+  airtableId: String
   name: String!
   meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   updatedAt: DateTime!
@@ -51,6 +52,7 @@ type CategoryConnection {
 
 input CategoryCreateInput {
   id: ID
+  airtableId: String
   name: String!
   meals: MealCreateManyWithoutCategoriesInput
 }
@@ -62,6 +64,7 @@ input CategoryCreateManyWithoutMealsInput {
 
 input CategoryCreateWithoutMealsInput {
   id: ID
+  airtableId: String
   name: String!
 }
 
@@ -73,6 +76,8 @@ type CategoryEdge {
 enum CategoryOrderByInput {
   id_ASC
   id_DESC
+  airtableId_ASC
+  airtableId_DESC
   name_ASC
   name_DESC
   updatedAt_ASC
@@ -83,6 +88,7 @@ enum CategoryOrderByInput {
 
 type CategoryPreviousValues {
   id: ID!
+  airtableId: String
   name: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -103,6 +109,20 @@ input CategoryScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -157,15 +177,18 @@ input CategorySubscriptionWhereInput {
 }
 
 input CategoryUpdateInput {
+  airtableId: String
   name: String
   meals: MealUpdateManyWithoutCategoriesInput
 }
 
 input CategoryUpdateManyDataInput {
+  airtableId: String
   name: String
 }
 
 input CategoryUpdateManyMutationInput {
+  airtableId: String
   name: String
 }
 
@@ -187,6 +210,7 @@ input CategoryUpdateManyWithWhereNestedInput {
 }
 
 input CategoryUpdateWithoutMealsDataInput {
+  airtableId: String
   name: String
 }
 
@@ -216,6 +240,20 @@ input CategoryWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -256,11 +294,13 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: ID
+  airtableId: String
   name: String
 }
 
 type Child {
   id: ID!
+  airtableId: String
   Parent: User!
   age: String!
   updatedAt: DateTime!
@@ -275,6 +315,7 @@ type ChildConnection {
 
 input ChildCreateInput {
   id: ID
+  airtableId: String
   Parent: UserCreateOneWithoutChildrenInput!
   age: String!
 }
@@ -286,6 +327,7 @@ input ChildCreateManyWithoutParentInput {
 
 input ChildCreateWithoutParentInput {
   id: ID
+  airtableId: String
   age: String!
 }
 
@@ -297,6 +339,8 @@ type ChildEdge {
 enum ChildOrderByInput {
   id_ASC
   id_DESC
+  airtableId_ASC
+  airtableId_DESC
   age_ASC
   age_DESC
   updatedAt_ASC
@@ -307,6 +351,7 @@ enum ChildOrderByInput {
 
 type ChildPreviousValues {
   id: ID!
+  airtableId: String
   age: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -327,6 +372,20 @@ input ChildScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   age: String
   age_not: String
   age_in: [String!]
@@ -381,15 +440,18 @@ input ChildSubscriptionWhereInput {
 }
 
 input ChildUpdateInput {
+  airtableId: String
   Parent: UserUpdateOneRequiredWithoutChildrenInput
   age: String
 }
 
 input ChildUpdateManyDataInput {
+  airtableId: String
   age: String
 }
 
 input ChildUpdateManyMutationInput {
+  airtableId: String
   age: String
 }
 
@@ -411,6 +473,7 @@ input ChildUpdateManyWithWhereNestedInput {
 }
 
 input ChildUpdateWithoutParentDataInput {
+  airtableId: String
   age: String
 }
 
@@ -440,6 +503,20 @@ input ChildWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   Parent: UserWhereInput
   age: String
   age_not: String
@@ -478,6 +555,7 @@ input ChildWhereInput {
 
 input ChildWhereUniqueInput {
   id: ID
+  airtableId: String
 }
 
 scalar DateTime
@@ -486,6 +564,7 @@ scalar Long
 
 type Meal {
   id: ID!
+  airtableId: String
   user: User!
   imageURL: String!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
@@ -504,6 +583,7 @@ type MealConnection {
 
 input MealCreateInput {
   id: ID
+  airtableId: String
   user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
@@ -539,6 +619,7 @@ input MealCreateManyWithoutUserInput {
 
 input MealCreateWithoutCategoriesInput {
   id: ID
+  airtableId: String
   user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   tags: TagCreateManyWithoutMealsInput
@@ -548,6 +629,7 @@ input MealCreateWithoutCategoriesInput {
 
 input MealCreateWithoutProportionFruitInput {
   id: ID
+  airtableId: String
   user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
@@ -557,6 +639,7 @@ input MealCreateWithoutProportionFruitInput {
 
 input MealCreateWithoutProportionVegInput {
   id: ID
+  airtableId: String
   user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
@@ -566,6 +649,7 @@ input MealCreateWithoutProportionVegInput {
 
 input MealCreateWithoutTagsInput {
   id: ID
+  airtableId: String
   user: UserCreateOneWithoutMealsInput!
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
@@ -575,6 +659,7 @@ input MealCreateWithoutTagsInput {
 
 input MealCreateWithoutUserInput {
   id: ID
+  airtableId: String
   imageURL: String!
   categories: CategoryCreateManyWithoutMealsInput
   tags: TagCreateManyWithoutMealsInput
@@ -590,6 +675,8 @@ type MealEdge {
 enum MealOrderByInput {
   id_ASC
   id_DESC
+  airtableId_ASC
+  airtableId_DESC
   imageURL_ASC
   imageURL_DESC
   updatedAt_ASC
@@ -600,6 +687,7 @@ enum MealOrderByInput {
 
 type MealPreviousValues {
   id: ID!
+  airtableId: String
   imageURL: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -620,6 +708,20 @@ input MealScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   imageURL: String
   imageURL_not: String
   imageURL_in: [String!]
@@ -674,6 +776,7 @@ input MealSubscriptionWhereInput {
 }
 
 input MealUpdateInput {
+  airtableId: String
   user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
@@ -683,10 +786,12 @@ input MealUpdateInput {
 }
 
 input MealUpdateManyDataInput {
+  airtableId: String
   imageURL: String
 }
 
 input MealUpdateManyMutationInput {
+  airtableId: String
   imageURL: String
 }
 
@@ -756,6 +861,7 @@ input MealUpdateManyWithWhereNestedInput {
 }
 
 input MealUpdateWithoutCategoriesDataInput {
+  airtableId: String
   user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   tags: TagUpdateManyWithoutMealsInput
@@ -764,6 +870,7 @@ input MealUpdateWithoutCategoriesDataInput {
 }
 
 input MealUpdateWithoutProportionFruitDataInput {
+  airtableId: String
   user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
@@ -772,6 +879,7 @@ input MealUpdateWithoutProportionFruitDataInput {
 }
 
 input MealUpdateWithoutProportionVegDataInput {
+  airtableId: String
   user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
@@ -780,6 +888,7 @@ input MealUpdateWithoutProportionVegDataInput {
 }
 
 input MealUpdateWithoutTagsDataInput {
+  airtableId: String
   user: UserUpdateOneRequiredWithoutMealsInput
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
@@ -788,6 +897,7 @@ input MealUpdateWithoutTagsDataInput {
 }
 
 input MealUpdateWithoutUserDataInput {
+  airtableId: String
   imageURL: String
   categories: CategoryUpdateManyWithoutMealsInput
   tags: TagUpdateManyWithoutMealsInput
@@ -865,6 +975,20 @@ input MealWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   user: UserWhereInput
   imageURL: String
   imageURL_not: String
@@ -911,6 +1035,7 @@ input MealWhereInput {
 
 input MealWhereUniqueInput {
   id: ID
+  airtableId: String
 }
 
 type Mutation {
@@ -977,6 +1102,7 @@ type PageInfo {
 
 type Project {
   id: ID!
+  airtableId: String
   name: String!
   slug: String!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
@@ -992,6 +1118,7 @@ type ProjectConnection {
 
 input ProjectCreateInput {
   id: ID
+  airtableId: String
   name: String!
   slug: String!
   users: UserCreateManyWithoutProjectsInput
@@ -1004,6 +1131,7 @@ input ProjectCreateManyWithoutUsersInput {
 
 input ProjectCreateWithoutUsersInput {
   id: ID
+  airtableId: String
   name: String!
   slug: String!
 }
@@ -1016,6 +1144,8 @@ type ProjectEdge {
 enum ProjectOrderByInput {
   id_ASC
   id_DESC
+  airtableId_ASC
+  airtableId_DESC
   name_ASC
   name_DESC
   slug_ASC
@@ -1028,6 +1158,7 @@ enum ProjectOrderByInput {
 
 type ProjectPreviousValues {
   id: ID!
+  airtableId: String
   name: String!
   slug: String!
   updatedAt: DateTime!
@@ -1049,6 +1180,20 @@ input ProjectScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1117,17 +1262,20 @@ input ProjectSubscriptionWhereInput {
 }
 
 input ProjectUpdateInput {
+  airtableId: String
   name: String
   slug: String
   users: UserUpdateManyWithoutProjectsInput
 }
 
 input ProjectUpdateManyDataInput {
+  airtableId: String
   name: String
   slug: String
 }
 
 input ProjectUpdateManyMutationInput {
+  airtableId: String
   name: String
   slug: String
 }
@@ -1150,6 +1298,7 @@ input ProjectUpdateManyWithWhereNestedInput {
 }
 
 input ProjectUpdateWithoutUsersDataInput {
+  airtableId: String
   name: String
   slug: String
 }
@@ -1180,6 +1329,20 @@ input ProjectWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1234,11 +1397,13 @@ input ProjectWhereInput {
 
 input ProjectWhereUniqueInput {
   id: ID
+  airtableId: String
   slug: String
 }
 
 type Proportion {
   id: ID!
+  airtableId: String
   name: String!
   fruitMeals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   vegMeals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
@@ -1254,6 +1419,7 @@ type ProportionConnection {
 
 input ProportionCreateInput {
   id: ID
+  airtableId: String
   name: String!
   fruitMeals: MealCreateManyWithoutProportionFruitInput
   vegMeals: MealCreateManyWithoutProportionVegInput
@@ -1271,12 +1437,14 @@ input ProportionCreateOneWithoutVegMealsInput {
 
 input ProportionCreateWithoutFruitMealsInput {
   id: ID
+  airtableId: String
   name: String!
   vegMeals: MealCreateManyWithoutProportionVegInput
 }
 
 input ProportionCreateWithoutVegMealsInput {
   id: ID
+  airtableId: String
   name: String!
   fruitMeals: MealCreateManyWithoutProportionFruitInput
 }
@@ -1289,6 +1457,8 @@ type ProportionEdge {
 enum ProportionOrderByInput {
   id_ASC
   id_DESC
+  airtableId_ASC
+  airtableId_DESC
   name_ASC
   name_DESC
   updatedAt_ASC
@@ -1299,6 +1469,7 @@ enum ProportionOrderByInput {
 
 type ProportionPreviousValues {
   id: ID!
+  airtableId: String
   name: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -1323,12 +1494,14 @@ input ProportionSubscriptionWhereInput {
 }
 
 input ProportionUpdateInput {
+  airtableId: String
   name: String
   fruitMeals: MealUpdateManyWithoutProportionFruitInput
   vegMeals: MealUpdateManyWithoutProportionVegInput
 }
 
 input ProportionUpdateManyMutationInput {
+  airtableId: String
   name: String
 }
 
@@ -1351,11 +1524,13 @@ input ProportionUpdateOneWithoutVegMealsInput {
 }
 
 input ProportionUpdateWithoutFruitMealsDataInput {
+  airtableId: String
   name: String
   vegMeals: MealUpdateManyWithoutProportionVegInput
 }
 
 input ProportionUpdateWithoutVegMealsDataInput {
+  airtableId: String
   name: String
   fruitMeals: MealUpdateManyWithoutProportionFruitInput
 }
@@ -1385,6 +1560,20 @@ input ProportionWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1428,6 +1617,7 @@ input ProportionWhereInput {
 
 input ProportionWhereUniqueInput {
   id: ID
+  airtableId: String
   name: String
 }
 
@@ -1468,6 +1658,7 @@ type Subscription {
 
 type Tag {
   id: ID!
+  airtableId: String
   name: String!
   meals(where: MealWhereInput, orderBy: MealOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meal!]
   updatedAt: DateTime!
@@ -1482,6 +1673,7 @@ type TagConnection {
 
 input TagCreateInput {
   id: ID
+  airtableId: String
   name: String!
   meals: MealCreateManyWithoutTagsInput
 }
@@ -1493,6 +1685,7 @@ input TagCreateManyWithoutMealsInput {
 
 input TagCreateWithoutMealsInput {
   id: ID
+  airtableId: String
   name: String!
 }
 
@@ -1504,6 +1697,8 @@ type TagEdge {
 enum TagOrderByInput {
   id_ASC
   id_DESC
+  airtableId_ASC
+  airtableId_DESC
   name_ASC
   name_DESC
   updatedAt_ASC
@@ -1514,6 +1709,7 @@ enum TagOrderByInput {
 
 type TagPreviousValues {
   id: ID!
+  airtableId: String
   name: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -1534,6 +1730,20 @@ input TagScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1588,15 +1798,18 @@ input TagSubscriptionWhereInput {
 }
 
 input TagUpdateInput {
+  airtableId: String
   name: String
   meals: MealUpdateManyWithoutTagsInput
 }
 
 input TagUpdateManyDataInput {
+  airtableId: String
   name: String
 }
 
 input TagUpdateManyMutationInput {
+  airtableId: String
   name: String
 }
 
@@ -1618,6 +1831,7 @@ input TagUpdateManyWithWhereNestedInput {
 }
 
 input TagUpdateWithoutMealsDataInput {
+  airtableId: String
   name: String
 }
 
@@ -1647,6 +1861,20 @@ input TagWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1687,11 +1915,13 @@ input TagWhereInput {
 
 input TagWhereUniqueInput {
   id: ID
+  airtableId: String
   name: String
 }
 
 type User {
   id: ID!
+  airtableId: String
   consentGDPR: Boolean!
   postCode: String!
   email: String!
@@ -1711,6 +1941,7 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
+  airtableId: String
   consentGDPR: Boolean!
   postCode: String!
   email: String!
@@ -1737,6 +1968,7 @@ input UserCreateOneWithoutMealsInput {
 
 input UserCreateWithoutChildrenInput {
   id: ID
+  airtableId: String
   consentGDPR: Boolean!
   postCode: String!
   email: String!
@@ -1747,6 +1979,7 @@ input UserCreateWithoutChildrenInput {
 
 input UserCreateWithoutMealsInput {
   id: ID
+  airtableId: String
   consentGDPR: Boolean!
   postCode: String!
   email: String!
@@ -1757,6 +1990,7 @@ input UserCreateWithoutMealsInput {
 
 input UserCreateWithoutProjectsInput {
   id: ID
+  airtableId: String
   consentGDPR: Boolean!
   postCode: String!
   email: String!
@@ -1773,6 +2007,8 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  airtableId_ASC
+  airtableId_DESC
   consentGDPR_ASC
   consentGDPR_DESC
   postCode_ASC
@@ -1789,6 +2025,7 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  airtableId: String
   consentGDPR: Boolean!
   postCode: String!
   email: String!
@@ -1812,6 +2049,20 @@ input UserScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   consentGDPR: Boolean
   consentGDPR_not: Boolean
   postCode: String
@@ -1896,6 +2147,7 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
+  airtableId: String
   consentGDPR: Boolean
   postCode: String
   email: String
@@ -1906,6 +2158,7 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyDataInput {
+  airtableId: String
   consentGDPR: Boolean
   postCode: String
   email: String
@@ -1913,6 +2166,7 @@ input UserUpdateManyDataInput {
 }
 
 input UserUpdateManyMutationInput {
+  airtableId: String
   consentGDPR: Boolean
   postCode: String
   email: String
@@ -1951,6 +2205,7 @@ input UserUpdateOneRequiredWithoutMealsInput {
 }
 
 input UserUpdateWithoutChildrenDataInput {
+  airtableId: String
   consentGDPR: Boolean
   postCode: String
   email: String
@@ -1960,6 +2215,7 @@ input UserUpdateWithoutChildrenDataInput {
 }
 
 input UserUpdateWithoutMealsDataInput {
+  airtableId: String
   consentGDPR: Boolean
   postCode: String
   email: String
@@ -1969,6 +2225,7 @@ input UserUpdateWithoutMealsDataInput {
 }
 
 input UserUpdateWithoutProjectsDataInput {
+  airtableId: String
   consentGDPR: Boolean
   postCode: String
   email: String
@@ -2013,6 +2270,20 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  airtableId: String
+  airtableId_not: String
+  airtableId_in: [String!]
+  airtableId_not_in: [String!]
+  airtableId_lt: String
+  airtableId_lte: String
+  airtableId_gt: String
+  airtableId_gte: String
+  airtableId_contains: String
+  airtableId_not_contains: String
+  airtableId_starts_with: String
+  airtableId_not_starts_with: String
+  airtableId_ends_with: String
+  airtableId_not_ends_with: String
   consentGDPR: Boolean
   consentGDPR_not: Boolean
   postCode: String
@@ -2089,6 +2360,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  airtableId: String
   email: String
   phoneNumber: String
 }

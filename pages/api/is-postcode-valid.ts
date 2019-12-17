@@ -8,14 +8,16 @@ export default async (
   const postcode = req.query.postcode as string
 
   try {
-    const {
-      data: { result },
-    } = await axios.get(
-      `https://api.postcodes.io/postcodes/${postcode}/autocomplete`,
-    )
-
-    return res.status(200).json({ postCodeArray: result })
+    if (postcode) {
+      const {
+        data: { result },
+      } = await axios.get(
+        `https://api.postcodes.io/postcodes/${postcode}/autocomplete`,
+      )
+      return res.status(200).json({ postCodeArray: result })
+    }
+    return res.status(200).json({ postCodeArray: null })
   } catch (e) {
-    console.log(`Error validating postcode ${postcode}`, e) //eslint-disable-line no-console
+    console.log('Error validating postcode') //eslint-disable-line no-console
   }
 }

@@ -15,5 +15,11 @@
     "jsx": "preserve"
   },
   "exclude": ["node_modules", "./prisma/"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "server/scrapeToAirtable.js",
+    "server/scrapeToAirtable.js"
+  ]
 }

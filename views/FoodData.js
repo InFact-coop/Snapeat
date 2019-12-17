@@ -62,7 +62,6 @@ const MultiStep = ({ children }) => {
   const { foodPhoto } = useFoodDataState()
 
   const { snapeatUser } = useAuth()
-
   const steps = React.Children.toArray(children)
   const pages = steps.map(step => step.type.componentName)
   const firstPage = R.head(pages)
@@ -115,10 +114,6 @@ const MultiStep = ({ children }) => {
       {...{
         initialValues,
         validation,
-        onSubmit: onSubmit({
-          incrementPage,
-          snapeatUser,
-        }),
         enableReinitialize: false,
       }}
     >
@@ -180,7 +175,7 @@ const MultiStep = ({ children }) => {
 
 const onSubmit = ({
   setPage,
-  snapeatUser: { email },
+  snapeatUser: { email, airtableId: userAirtableId },
   foodPhoto,
 }) => async values => {
   setPage(Steps.Spinner)
@@ -191,23 +186,30 @@ const onSubmit = ({
   try {
     //eslint-disable-next-line no-console
     console.log('Food data values', values)
-
     // upload photo to cloudinary
     const {
       data: { url },
     } = await axios.post(`${process.env.HOST}/api/upload-photo`, data)
 
     // upload meal to DB
-    axios
-      .post(`${process.env.HOST}/api/submit-food-data`, {
-        imageURL: url,
-        user: {
-          email,
-        },
-        ...values,
-      })
-      .then(() => setPage(Steps.Success))
-      .catch(() => setPage(Steps.Error))
+    const {
+      data: { meal },
+    } = await axios.post(`${process.env.HOST}/api/submit-food-data`, {
+      imageURL: url,
+      user: {
+        email,
+      },
+      ...values,
+    })
+
+    setPage(Steps.Success)
+
+    axios.post(`${process.env.HOST}/api/upload-meal-to-airtable`, {
+      ...values,
+      imageURL: url,
+      userAirtableId,
+      mealId: meal.id,
+    })
 
     return
   } catch (e) {
