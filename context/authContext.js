@@ -97,7 +97,12 @@ const AuthProvider = props => {
 
   if (auth0Loading || snapeatLoading) return <Spinner />
 
-  return <AuthContext.Provider value={{ auth0User, snapeatUser }} {...props} />
+  return (
+    <AuthContext.Provider
+      value={{ auth0User, snapeatUser, setSnapeatUser }}
+      {...props}
+    />
+  )
 }
 
 const useAuth = () => {
