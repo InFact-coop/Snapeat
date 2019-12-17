@@ -71,12 +71,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log('airtableMeal', airtableMeal)
 
-    prisma.updateMeal({
+    await prisma.updateMeal({
       data: { airtableId: airtableMeal },
       where: { id: mealId },
     })
+    return res.status(200).json({})
   } catch (e) {
     //eslint-disable-next-line no-console
     console.log('There was an error in upload-meal-to-airtable:', e)
+    return res.status(400).json({})
   }
 }
