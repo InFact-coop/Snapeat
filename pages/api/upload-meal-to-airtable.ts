@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { NextApiRequest, NextApiResponse } from 'next'
 import Airtable from 'airtable'
 import moment from 'moment'
@@ -46,11 +45,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const ProportionFruit = getAirtableIds([proportionFruit], dbProportions)
     const ProportionVeg = getAirtableIds([proportionVeg], dbProportions)
 
-    console.log('Categories', Categories)
-    console.log('Tags', Tags)
-    console.log('ProportionFruit', ProportionFruit)
-    console.log('ProportionVeg', ProportionVeg)
-
     const [{ id: airtableMeal }] = await base('Meals').create([
       {
         fields: {
@@ -68,8 +62,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
       },
     ])
-
-    console.log('airtableMeal', airtableMeal)
 
     await prisma.updateMeal({
       data: { airtableId: airtableMeal },

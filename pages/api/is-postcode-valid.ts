@@ -18,6 +18,6 @@ export default async (
     }
     return res.status(200).json({ postCodeArray: null })
   } catch (e) {
-    console.log(`Error validating postcode ${postcode}`) //eslint-disable-line no-console
+    console.log('Error validating postcode') //eslint-disable-line no-console
   }
 }
