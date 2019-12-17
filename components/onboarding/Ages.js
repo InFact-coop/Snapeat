@@ -1,28 +1,24 @@
 import { useEffect } from 'react'
 import * as Yup from 'yup'
-import { FieldArray } from 'formik'
+import { FieldArray, Field } from 'formik'
 import * as R from 'ramda'
 import R_ from '../../utils/R_'
 import createArrayOfLength from '../../utils/createArrayOfLength'
 
-import { RadioInput, Error } from '../Input'
+import { NEXT_NOT_ATTEMPTED } from '../../utils/constants'
+
+import { RadioInput } from '../Input'
 import OnboardingStep, { SubQuestion } from './OnboardingStep'
 
-const initValidation = length =>
-  Yup.object().shape({
-    ages: Yup.lazy(() =>
-      Yup.array()
-        .required("Please make sure you have selected your children's ages")
-        .min(
-          length,
-          'Please check you have selected ages for all of your children',
-        )
-        .max(
-          length,
-          'Please check you have selected ages for all of your children',
-        ),
+const validation = Yup.object().shape({
+  ages: Yup.array().of(
+    Yup.string().test(
+      'childs-age-selected',
+      "Please make sure you have selected your child's age",
+      value => !!value,
     ),
-  })
+  ),
+})
 
 const tooltipContents = (
   <>
@@ -35,6 +31,17 @@ const tooltipContents = (
       sure we are hearing and learning from a range of different households.
     </p>
   </>
+)
+
+const AgesError = ({ name }) => (
+  <Field
+    name={name}
+    render={({ meta: { value, error }, form: { status } }) =>
+      value || status === NEXT_NOT_ATTEMPTED ? null : (
+        <div className="error text-red">{error}</div>
+      )
+    }
+  />
 )
 
 const AgeComponent = (_, i) => {
@@ -57,6 +64,7 @@ const AgeComponent = (_, i) => {
       <RadioInput name={`ages.${i}`} id={`ages.${i}-16-18`} value="16-18">
         16 - 18
       </RadioInput>
+      <AgesError name={`ages.${i}`} />
     </div>
   )
 }
@@ -66,13 +74,9 @@ const childrenQuestions = R.pipe(
   R_.mapIndexed(AgeComponent),
 )
 
-const Ages = ({ values: { numberOfChildren }, setValidationSchema }) => {
+const Ages = ({ values: { numberOfChildren }, setFieldValue }) => {
   useEffect(() => {
-    const validation = initValidation(numberOfChildren)
-    if (!Ages.validationInitialised) {
-      Ages.validationInitialised = true
-      setValidationSchema(validation)
-    }
+    setFieldValue('ages', createArrayOfLength(numberOfChildren))
   }, [])
 
   return (
@@ -88,18 +92,13 @@ const Ages = ({ values: { numberOfChildren }, setValidationSchema }) => {
     >
       <FieldArray
         name="ages"
-        render={() => (
-          <>
-            <Error name="ages" className="text-center mb-5" />
-            {childrenQuestions(numberOfChildren)}
-          </>
-        )}
+        render={() => childrenQuestions(numberOfChildren)}
       />
     </OnboardingStep>
   )
 }
 
 Ages.componentName = 'Ages'
-Ages.validationInitialised = false
+Ages.validation = validation
 
 export default Ages

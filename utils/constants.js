@@ -122,3 +122,7 @@ export const ALL = 'all'
 
 // food proportion array
 export const PROPORTION_ARRAY = [QUARTER, HALF, MOSTLY, ALL]
+
+// Form Status Messages
+export const NEXT_NOT_ATTEMPTED = 'NEXT_NOT_ATTEMPTED'
+export const NEXT_ATTEMPTED = 'NEXT_ATTEMPTED'
