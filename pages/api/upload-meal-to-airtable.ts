@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { NextApiRequest, NextApiResponse } from 'next'
 import Airtable from 'airtable'
 import moment from 'moment'
@@ -46,11 +45,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const ProportionFruit = getAirtableIds([proportionFruit], dbProportions)
     const ProportionVeg = getAirtableIds([proportionVeg], dbProportions)
 
-    console.log('Categories', Categories)
-    console.log('Tags', Tags)
-    console.log('ProportionFruit', ProportionFruit)
-    console.log('ProportionVeg', ProportionVeg)
-
     const [{ id: airtableMeal }] = await base('Meals').create([
       {
         fields: {
@@ -69,14 +63,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     ])
 
-    console.log('airtableMeal', airtableMeal)
-
-    prisma.updateMeal({
+    await prisma.updateMeal({
       data: { airtableId: airtableMeal },
       where: { id: mealId },
     })
+    return res.status(200).json({})
   } catch (e) {
     //eslint-disable-next-line no-console
     console.log('There was an error in upload-meal-to-airtable:', e)
+    return res.status(400).json({})
   }
 }

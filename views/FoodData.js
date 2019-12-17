@@ -68,12 +68,19 @@ const MultiStep = ({ children }) => {
 
   const [page, setPage] = useState(firstPage)
   const [lastPage, setLastPage] = useState(page)
+  const [reachedResults, setReachedResults] = useState(false)
 
   // tracks last page visited to help navigating between pages from results page
   const updatePage = destination => {
     setLastPage(page)
-    return setPage(destination)
+    setPage(destination)
   }
+
+  useEffect(() => {
+    if (page === Steps.Results) {
+      setReachedResults(true)
+    }
+  }, [page])
 
   const activePage = R.find(R.pathEq(['type', 'componentName'], page))(steps)
 
@@ -114,7 +121,14 @@ const MultiStep = ({ children }) => {
         return (
           <Container>
             <ControlsBack
-              {...{ decrementPage, page, lastPage, updatePage, values }}
+              {...{
+                reachedResults,
+                decrementPage,
+                page,
+                lastPage,
+                updatePage,
+                values,
+              }}
             />
             {formLayout() && (
               <ImageContainer className="relative" src={foodPhoto.fileURL} />
@@ -143,12 +157,12 @@ const MultiStep = ({ children }) => {
                 {...{
                   incrementPage,
                   page,
-                  lastPage,
                   values,
                   setPage,
                   setFieldValue,
                   foodPhoto,
                   snapeatUser,
+                  reachedResults,
                 }}
               />
             </FormContainer>
@@ -207,7 +221,13 @@ const onSubmit = ({
   }
 }
 
-const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
+const ControlsBack = ({
+  reachedResults,
+  decrementPage,
+  page,
+  updatePage,
+  values,
+}) => {
   const routeDispatch = useRouteDispatch()
 
   const backOnClick = () => {
@@ -238,7 +258,8 @@ const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
   }
 
   return (
-    !(page === (Steps.Success || Steps.Spinner || Steps.Error)) && (
+    !(page === (Steps.Success || Steps.Spinner || Steps.Error)) &&
+    !reachedResults && (
       <StyledControlsBack>
         <Back onClick={backOnClick()}>
           <img src={backIcon} alt="Back" />
@@ -254,82 +275,85 @@ const ControlsBack = ({ decrementPage, page, updatePage, values }) => {
 const ControlsNext = ({
   incrementPage,
   page,
-  lastPage,
   setPage,
   values,
   setFieldValue,
   foodPhoto,
   snapeatUser,
+  reachedResults,
 }) => {
   const routeDispatch = useRouteDispatch()
+  const fruitSelected = values.categories.includes(FRUIT)
+  const fruitProportionEmpty = values.proportionFruit === ''
+  const vegetablesSelected = values.categories.includes(VEGETABLES)
+  const vegetableProportionEmpty = values.proportionVeg === ''
+
+  const getNextFromCategories = () => {
+    if (vegetablesSelected && vegetableProportionEmpty) {
+      return setPage(Steps.VegetableProportion)
+    }
+    if (fruitSelected && fruitProportionEmpty) {
+      return setPage(Steps.FruitProportion)
+    }
+    if (reachedResults) {
+      return setPage(Steps.Results)
+    }
+    return setPage(Steps.Tags)
+  }
+
+  const getNextPage = () => {
+    switch (page) {
+      case Steps.Categories:
+        return getNextFromCategories()
+
+      case Steps.VegetableProportion:
+        if (fruitSelected && fruitProportionEmpty) {
+          return setPage(Steps.FruitProportion)
+        }
+        if (reachedResults) {
+          return setPage(Steps.Results)
+        }
+        return setPage(Steps.Tags)
+
+      case Steps.FruitProportion:
+        return reachedResults ? setPage(Steps.Results) : setPage(Steps.Tags)
+      case Steps.Results:
+        return onSubmit({ setPage, snapeatUser, foodPhoto })(values)
+      case Steps.Success:
+        return routeDispatch({ type: CHANGE_VIEW, view: HOME })
+      case Steps.Error:
+        return routeDispatch({ type: CHANGE_VIEW, view: HOME })
+      default:
+        return incrementPage()
+    }
+  }
 
   const nextOnClick = () => {
-    const fruitSelected = values.categories.includes(FRUIT)
-    const fruitProportionEmpty = values.proportionFruit === ''
-    const vegetablesSelected = values.categories.includes(VEGETABLES)
-    const vegetableProportionEmpty = values.proportionVeg === ''
-
     // resets proportion values if fruit/veg have been unselected
     if (!fruitSelected && !fruitProportionEmpty) {
       setFieldValue('proportionFruit', '')
     }
+
     if (!vegetablesSelected && !vegetableProportionEmpty) {
       setFieldValue('proportionVeg', '')
     }
 
-    // handles returning to results page if editing answers from there
-    if (lastPage === 'Results') {
-      return () => {
-        if (fruitProportionEmpty && fruitSelected) {
-          setPage(Steps.FruitProportion)
-        } else if (vegetableProportionEmpty && vegetablesSelected) {
-          setPage(Steps.VegetableProportion)
-        } else {
-          setPage(Steps.Results)
-        }
-      }
-    }
-
     // regular functions for next button
-    switch (page) {
-      case Steps.Categories:
-        return () => {
-          if (vegetablesSelected) {
-            return setPage(Steps.VegetableProportion)
-          }
-          if (fruitSelected) {
-            return setPage(Steps.FruitProportion)
-          }
-          return setPage(Steps.Tags)
-        }
-      case Steps.VegetableProportion:
-        return () =>
-          fruitSelected ? setPage(Steps.FruitProportion) : setPage(Steps.Tags)
-      case Steps.Results:
-        return () => {
-          return onSubmit({ setPage, snapeatUser, foodPhoto })(values)
-        }
-      case Steps.Success:
-        return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
-      case Steps.Error:
-        return () => routeDispatch({ type: CHANGE_VIEW, view: HOME })
-      default:
-        return incrementPage
-    }
+    return getNextPage(vegetablesSelected, fruitSelected)
   }
 
   switch (page) {
     case Steps.Success: {
       return (
         <StyledControlsDone>
-          <Next onClick={nextOnClick()}>Done</Next>
+          <Next onClick={nextOnClick}>Done</Next>
         </StyledControlsDone>
       )
     }
     case Steps.Error: {
       return (
         <StyledControlsDone>
-          <Next onClick={nextOnClick()}>Try again</Next>
+          <Next onClick={nextOnClick}>Try again</Next>
         </StyledControlsDone>
       )
     }
@@ -340,11 +364,11 @@ const ControlsNext = ({
       return (
         <StyledControlsNext>
           {page === Steps.Results ? (
-            <Next type="submit" onClick={nextOnClick()}>
+            <Next type="submit" onClick={nextOnClick}>
               <img src={nextIcon} alt="Next" />
             </Next>
           ) : (
-            <Next onClick={nextOnClick()}>
+            <Next onClick={nextOnClick}>
               <img src={nextIcon} alt="Next" />
             </Next>
           )}

@@ -44,12 +44,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }))(ages),
     )
 
-    await prisma.updateUser({
+    const updatedUser = await prisma.updateUser({
       data: { airtableId: airtableParent },
       where: { id: user.id },
     })
 
-    return res.status(200).json({})
+    return res.status(200).json({ updatedUser })
   } catch (e) {
     //eslint-disable-next-line no-console
     console.log('There was an error in upload-user-to-airtable:', e)

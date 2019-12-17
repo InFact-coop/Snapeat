@@ -65,6 +65,7 @@ const MultiStep = ({ children }) => {
   const [validationSchema, setValidationSchema] = useState(Yup.object())
   const [formStatus, setFormStatus] = useState(FORM_NOT_SENT)
   const {
+    setSnapeatUser,
     auth0User: { name: email },
   } = useAuth()
   const steps = React.Children.toArray(children)
@@ -96,6 +97,7 @@ const MultiStep = ({ children }) => {
         isInitialValid: false,
         onSubmit: onSubmit({
           setFormStatus,
+          setSnapeatUser,
           email,
         }),
         enableReinitialize: true,
@@ -146,6 +148,7 @@ const MultiStep = ({ children }) => {
                 values,
                 setFormStatus,
                 email,
+                setSnapeatUser,
               }}
             />
             <FormStatusPage />
@@ -166,7 +169,7 @@ const RenderStep = ({ activePage, validateForm, page, setTouched, props }) => {
   return React.cloneElement(activePage, props)
 }
 
-const onSubmit = ({ setFormStatus, email }) => async values => {
+const onSubmit = ({ setFormStatus, email, setSnapeatUser }) => async values => {
   try {
     //eslint-disable-next-line no-console
     console.log('Onboarding form submitted', values)
@@ -185,10 +188,14 @@ const onSubmit = ({ setFormStatus, email }) => async values => {
       phoneNumber,
     })
 
-    await axios.post(`${process.env.HOST}/api/upload-user-to-airtable`, {
+    const {
+      data: { updatedUser },
+    } = await axios.post(`${process.env.HOST}/api/upload-user-to-airtable`, {
       ...values,
       user,
     })
+
+    setSnapeatUser(updatedUser)
     //eslint-disable-next-line no-console
     console.log('Onboarding successful', user)
 
@@ -240,6 +247,7 @@ const BottomNav = ({
   values,
   errors,
   email,
+  setSnapeatUser,
 }) => {
   const lastPage = amountOfPages - 1 === pageIndex
 
@@ -249,7 +257,9 @@ const BottomNav = ({
       {lastPage ? (
         <Next
           type="submit"
-          onClick={() => onSubmit({ setFormStatus, email })(values)}
+          onClick={() =>
+            onSubmit({ setFormStatus, email, setSnapeatUser })(values)
+          }
         />
       ) : (
         <Next
