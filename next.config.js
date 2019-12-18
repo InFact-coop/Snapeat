@@ -8,6 +8,10 @@ const withFonts = require('next-fonts')
 
 const FRONTEND_ENV_KEYS = ['NODE_ENV', 'HOST']
 
+if (process.env.HEROKU_APP_NAME) {
+  process.env.HOST = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+}
+
 const envPlugin = FRONTEND_ENV_KEYS.reduce(
   (result, key) => ({
     ...result,

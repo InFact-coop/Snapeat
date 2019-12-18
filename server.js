@@ -10,6 +10,10 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+if (process.env.HEROKU_APP_NAME) {
+  process.env.HOST = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+}
+
 app.prepare().then(() => {
   const server = express()
 
