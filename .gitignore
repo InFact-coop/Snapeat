@@ -66,4 +66,3 @@ typings/
 .next
 
 __playground__/
-prisma/generated
