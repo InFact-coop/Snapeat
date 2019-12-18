@@ -1,9 +1,10 @@
-//comment out isolated Modules line in tsconfig to run this file
+/* eslint-disable */
+// Uncomment last line to run this file: `env-cmd -f .config/dev.env node scripts/uploadToAirtable`
 
 const Airtable = require('airtable')
 const R = require('ramda')
 const moment = require('moment')
-const { prisma } = require('./prisma/generated/js')
+const { prisma } = require('../prisma/generated/js')
 
 Airtable.configure({
   endpointUrl: 'https://api.airtable.com',
@@ -120,7 +121,7 @@ fragment ChildAge on Child {
       })
       .$fragment(mealFragment)
 
-    //get userAirtableId
+    // get userAirtableId
 
     const airtableIdFragment = `
 fragment AirtableId on User {
@@ -159,17 +160,12 @@ fragment AirtableId on User {
       const dbTags = await prisma.tags()
       const dbProportions = await prisma.proportions()
 
-      interface AirtableDbLink {
-        name: string
-        airtableId: string
-      }
-
       //map airtable ids for categories etc
 
-      const getAirtableIds = (airtableArray: AirtableDbLink[], prismaArray) =>
+      const getAirtableIds = (airtableArray, prismaArray) =>
         R.pipe(
           x => R.filter(({ name }) => R.contains(name)(airtableArray))(x),
-          x => R.map(({ airtableId }) => airtableId)(x as AirtableDbLink[]),
+          x => R.map(({ airtableId }) => airtableId)(x),
         )(prismaArray)
 
       const Categories = getAirtableIds(mealCategories, dbCategories)
@@ -208,4 +204,4 @@ fragment AirtableId on User {
   await R.map(addUserMeals)(users)
 }
 
-createAirtableUsersWithMeals()
+// createAirtableUsersWithMeals()
