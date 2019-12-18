@@ -30,6 +30,8 @@ import {
   FORM_SENDING,
   FORM_ERROR,
   FORM_SUCCESS,
+  NEXT_NOT_ATTEMPTED,
+  NEXT_ATTEMPTED,
 } from '../utils/constants'
 
 // const initialValues = {
@@ -47,6 +49,8 @@ const initialValues = {
   project: '',
   phoneNumber: '',
 }
+
+const initialStatus = NEXT_NOT_ATTEMPTED
 
 const Onboarding = () => {
   return (
@@ -93,13 +97,9 @@ const MultiStep = ({ children }) => {
     <Formik
       {...{
         initialValues,
+        initialStatus,
         validationSchema,
         isInitialValid: false,
-        onSubmit: onSubmit({
-          setFormStatus,
-          setSnapeatUser,
-          email,
-        }),
         enableReinitialize: true,
       }}
     >
@@ -110,6 +110,9 @@ const MultiStep = ({ children }) => {
         setFieldValue,
         errors,
         isValid,
+        submitForm,
+        setStatus,
+        status,
       }) => {
         if (formStatus !== FORM_NOT_SENT) {
           return <FormStatusPage formStatus={formStatus} />
@@ -132,7 +135,8 @@ const MultiStep = ({ children }) => {
                     incrementPage,
                     setFieldValue,
                     errors,
-                    setValidationSchema,
+                    status,
+                    // setValidationSchema,
                   },
                 }}
               />
@@ -149,6 +153,8 @@ const MultiStep = ({ children }) => {
                 setFormStatus,
                 email,
                 setSnapeatUser,
+                submitForm,
+                setStatus,
               }}
             />
             <FormStatusPage />
@@ -248,6 +254,8 @@ const BottomNav = ({
   errors,
   email,
   setSnapeatUser,
+  submitForm,
+  setStatus,
 }) => {
   const lastPage = amountOfPages - 1 === pageIndex
 
@@ -263,7 +271,17 @@ const BottomNav = ({
         />
       ) : (
         <Next
-          onClick={isValid || R.isEmpty(errors) ? incrementPage : () => ({})}
+          onClick={
+            isValid || R.isEmpty(errors)
+              ? () => {
+                  incrementPage()
+                  setStatus(NEXT_NOT_ATTEMPTED)
+                }
+              : () => {
+                  setStatus(NEXT_ATTEMPTED)
+                  submitForm()
+                }
+          }
         />
       )}
     </StyledBottomNav>
@@ -328,6 +346,7 @@ const Next = styled.button.attrs({
 
 const StyledBack = styled.button.attrs({
   className: 'flex items-center justify-between',
+  type: 'button',
 })``
 
 const StyledBottomNav = styled.nav.attrs({
