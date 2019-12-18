@@ -6,12 +6,15 @@
     "==next==": "------------------------------------------------------------------------------------------",
     "dev:nodemon": " nodemon --exec \"env-cmd -f ./.config/dev.env node --inspect server.js\"  -w ./server.js -w ./next.config.js -w ./.config/dev.env",
     "build": "NODE_ENV=production next build",
+    "heroku-postbuild": "yarn schema && NODE_ENV=production next build",
     "start": "NODE_ENV=production node server.js",
     "==lint&format==": "-----------------------------------------------------------------------------------",
     "lint": "jest --config test/jest.lint.js",
-    "format": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
-    "validate": "npm run lint && npm run prettier -- --list-different",
+    "format": "yarn prettier --write",
+    "check-format": "yarn prettier --list-different --ignore-path .gitignore",
+    "check-types": "tsc -p tsconfig.json",
+    "validate": "npm-run-all --parallel check-types check-format lint",
     "==docker&prisma==": "---------------------------------------------------------------------------------",
     "up": "docker-compose up -d",
     "down": "docker-compose down --remove-orphans",
@@ -44,7 +47,8 @@
       "ext": [
         ".js",
         ".ts"
-      ]
+      ],
+      "ignorePath": ".gitignore"
     }
   },
   "dependencies": {
@@ -91,7 +95,6 @@
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "autoprefixer": "^9.7.1",
-    "concurrently": "^5.0.0",
     "env-cmd": "^10.0.1",
     "eslint": "^6.6.0",
     "eslint-config-kentcdodds": "^14.6.1",
@@ -102,6 +105,7 @@
     "jest-runner-eslint": "^0.7.5",
     "lint-staged": "^9.4.3",
     "nodemon": "^1.19.4",
+    "npm-run-all": "^4.1.5",
     "postcss-import": "^12.0.1",
     "prettier": "^1.19.1",
     "shell-quote": "^1.7.2",
