@@ -1,10 +1,10 @@
 const { join } = require('path')
 const express = require('express')
 const next = require('next')
-const cron = require('node-cron')
+// const cron = require('node-cron')
 const enforce = require('express-sslify')
 
-const sendReminderMessages = require('./server/sendReminderMessages.js')
+// const sendReminderMessages = require('./server/sendReminderMessages.js')
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -27,9 +27,9 @@ app.prepare().then(() => {
     server.use(enforce.HTTPS({ trustProtoHeader: true }))
   }
 
-  cron.schedule('30 17 * * *', () => {
-    sendReminderMessages()
-  })
+  // cron.schedule('30 17 * * *', () => {
+  //   sendReminderMessages()
+  // })
 
   server.get('*', (req, res) => {
     return handle(req, res)
