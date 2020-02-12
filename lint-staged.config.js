@@ -7,10 +7,9 @@ module.exports = {
       .map(filename => `"${isWin ? filename : escape([filename])}"`)
       .join(' ')
     return [
+      `tsc -p tsconfig.json`,
       `prettier --write ${escapedFileNames}`,
-      `jest --config test/jest.lint.js --passWithNoTests ${filenames
-        .map(f => `"${f}"`)
-        .join(' ')}`,
+      `jest --config test/jest.lint.js --passWithNoTests ${escapedFileNames}`,
       `git add ${escapedFileNames}`,
     ]
   },
