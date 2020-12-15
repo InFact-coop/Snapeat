@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="20px" viewBox="0 0 10 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>back_blue</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="back_blue" transform="translate(-28.000000, -23.000000)" fill="#170A59" fill-rule="nonzero">
+            <g transform="translate(28.000000, 23.000000)" id="Path">
+                <path d="M8.5775,18.9225 L0.244166667,10.5891667 C-0.0816666667,10.2633333 -0.0816666667,9.73666667 0.244166667,9.41083333 L8.5775,1.0775 C8.90288777,0.752112235 9.43044557,0.752112235 9.75583333,1.0775 C10.0812211,1.40288777 10.0812211,1.93044557 9.75583333,2.25583333 L2.01166667,10 L9.75583333,17.7441667 C10.0812211,18.0695544 10.0812211,18.5971122 9.75583333,18.9225 C9.43044557,19.2478878 8.90288777,19.2478878 8.5775,18.9225 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>

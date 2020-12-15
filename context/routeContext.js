@@ -1,10 +1,10 @@
-import React from "react"
-import { HOME, CHANGE_VIEW, GO_BACK } from "./constants"
-import * as R from "ramda"
+import React from 'react'
+import * as R from 'ramda'
+import { SPINNER, CHANGE_VIEW, GO_BACK } from '../utils/constants'
 
 const initialState = {
-  currentView: HOME,
-  history: [HOME],
+  currentView: SPINNER,
+  history: [SPINNER],
 }
 
 const RouteStateContext = React.createContext()
@@ -24,6 +24,9 @@ const routeReducer = (state, { view, type }) => {
         currentView: lastView,
         history: [...state.history, lastView],
       }
+
+    default:
+      throw Error('Route reducer action not recognised')
   }
 }
 

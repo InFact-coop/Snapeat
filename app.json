@@ -1,0 +1,10 @@
+{
+  "name": "snapeat",
+  "description": "",
+  "scripts": {},
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

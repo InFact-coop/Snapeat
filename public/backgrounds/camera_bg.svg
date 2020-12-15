@@ -1,0 +1,30 @@
+
+<svg width="360px" height="110px" viewBox="0 0 360 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M137.103135,36.001631 C138.644092,58.3494634 157.260794,76 180,76 C202.742826,76 221.361835,58.3438431 222.8976,35.9909574 C222.965493,35.0027775 225,33 226,33 C250,33 286,33 334,33 C348.359403,33 360,44.6405965 360,59 L360,125 L0,125 L0,59 C0,44.6405965 11.6405965,33 26,33 C74,33 110,33 134,33 C135,33 137.034755,35.0099594 137.103135,36.001631 Z" id="path-1"></path>
+        <filter x="-5.8%" y="-29.3%" width="111.7%" height="145.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="-6" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0449082168 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter2"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter2" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.03 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="take-a-picture---home" transform="translate(0.000000, -530.000000)" fill-rule="nonzero">
+            <g id="section" transform="translate(0.000000, 515.000000)">
+                <g id="Path">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
